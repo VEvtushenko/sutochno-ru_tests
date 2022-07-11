@@ -17,7 +17,7 @@ public interface ProjectConfig extends Config {
     @DefaultValue("1920x1080")
     String browserSize();
     String remoteDriverUrl();
-    @DefaultValue("https://ru-ccs.com")
+    @DefaultValue("https://sutochno.ru")
     String webUrl();
     String videoStorage();
     String browserMobileView();
