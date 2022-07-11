@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'io.qameta.allure' version '2.8.1'
     id "io.freefair.lombok" version "6.5.0.2"
 }
@@ -16,7 +16,8 @@ def allureVersion = '2.18.1',
     jacksonVersion = "2.13.3",
     assertjVersion = "3.23.1",
     hamcrestVersion = "1.3",
-    slf4jVersion = "1.7.36"
+    slf4jVersion = "1.7.36",
+    fakerVersion = "1.0.2"
 
 allure {
     version = allureVersion
@@ -30,17 +31,17 @@ allure {
 
 dependencies {
     testImplementation(
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
             "com.codeborne:selenide:$selenideVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.qameta.allure:allure-selenide:$allureVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
-            "org.junit.jupiter:junit-jupiter:$junitVersion",
-            "io.rest-assured:rest-assured:$restAssuredVersion",
-            "com.codeborne:selenide:$selenideVersion",
             "org.aeonbits.owner:owner:$ownerVersion",
+            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
             "org.hamcrest:hamcrest-all:$hamcrestVersion",
             "org.assertj:assertj-core:$assertjVersion",
-            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-        )
+            "com.github.javafaker:javafaker:$fakerVersion"
+    )
 
     testRuntimeOnly(
             "org.slf4j:slf4j-simple:$slf4jVersion",
@@ -73,5 +74,17 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
+    }
+}
+
+task promoTests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'promoTests'
+    }
+}
+
+task mainTests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'mainTests'
     }
 }
