@@ -21,4 +21,7 @@ public interface ProjectConfig extends Config {
     String webUrl();
     String videoStorage();
     String browserMobileView();
+    String userPhone();
+    String userPassword();
+    String userName();
 }

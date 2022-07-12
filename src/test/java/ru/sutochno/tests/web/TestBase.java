@@ -14,6 +14,7 @@ import ru.sutochno.helpers.AllureAttachments;
 import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
 import ru.sutochno.pages.MainPage;
+import ru.sutochno.pages.Promo;
 
 import java.util.stream.Stream;
 
@@ -23,6 +24,7 @@ import java.util.stream.Stream;
 public class TestBase {
 
     MainPage mainPage = new MainPage();
+    Promo promoPage = new Promo();
 
     @BeforeAll
     static void setUp() {
