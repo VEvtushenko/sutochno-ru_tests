@@ -1,5 +1,6 @@
 package ru.sutochno.tests.web;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.junit5.AllureJunit5;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
+import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
 import ru.sutochno.helpers.AllureAttachments;
 import ru.sutochno.helpers.DriverSettings;
@@ -25,11 +27,13 @@ public class TestBase {
 
     MainPage mainPage = new MainPage();
     Promo promoPage = new Promo();
+    Requests requests = new Requests();
 
     @BeforeAll
     static void setUp() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DriverSettings.configure();
+        Configuration.holdBrowserOpen = true;
     }
 
     @AfterAll

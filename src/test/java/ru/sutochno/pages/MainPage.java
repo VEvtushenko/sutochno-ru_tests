@@ -16,6 +16,14 @@ public class MainPage {
         return this;
     }
 
+    @Step("Открываем главную страницу и проверяем вторизацию")
+    public MainPage openPageWithAuth(String userName) {
+        open("/");
+        $(".about__title").shouldHave(text("Суточно.ру — сервис бронирования жилья для поездок"));
+        $(".header-right").$(".account").shouldHave(text(userName));
+        return this;
+    }
+
     @Step("Открываем главную страницу для разных браузеров и проверяем приветственную фразу")
     public MainPage openPageInAnotherBrowsers(String text) {
         open("/");
