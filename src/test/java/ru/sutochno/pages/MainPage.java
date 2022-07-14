@@ -1,12 +1,15 @@
 package ru.sutochno.pages;
 
+import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
+import org.openqa.selenium.Cookie;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.step;
 
 public class MainPage {
     @Step("Открываем главную страницу и проверяем приветственную фразу")
@@ -16,7 +19,7 @@ public class MainPage {
         return this;
     }
 
-    @Step("Открываем главную страницу и проверяем вторизацию")
+    @Step("Открываем главную страницу и проверяем авторизацию")
     public MainPage openPageWithAuth(String userName) {
         open("/");
         $(".about__title").shouldHave(text("Суточно.ру — сервис бронирования жилья для поездок"));
@@ -55,5 +58,25 @@ public class MainPage {
         return this;
     }
 
+    @Step("Авторизация по API")
+    public MainPage authorization(Cookie authCookie, String userName) {
+        step("Открываем сайт", () -> open("/front/searchapp/favicon.svg"));
+        step("Передаём cookie для авторизации", () -> WebDriverRunner.getWebDriver().manage().addCookie(authCookie));
+        openPageWithAuth(userName);
+        return this;
+    }
 
+    @Step("Открываем личный кабинет пользователя и проверяем это")
+    public UserPage openUserPage() {
+        $("[aria-label='Личный кабинет']").click();
+        $(".user-params-list").shouldHave(text("ID пользователя: 6809367"));
+        return new UserPage();
+    }
+
+    @Step("Открываем список объявлений и проверяем это")
+    public UsersAdvertisements openUsersAdvertisements() {
+        $("[aria-label='Сдавайся']").click();
+        $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"));
+        return new UsersAdvertisements();
+    }
 }

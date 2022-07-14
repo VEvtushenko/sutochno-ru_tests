@@ -1,6 +1,5 @@
 package ru.sutochno.tests.web;
 
-import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.*;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
@@ -8,10 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.sutochno.config.Project;
-import ru.sutochno.pages.UserPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
+import static ru.sutochno.data.Data.authCookie;
+import static ru.sutochno.data.Data.mainPage;
 
 @Owner("Vladimir Evtushenko")
 @DisplayName("Тест сайта ")
@@ -50,32 +50,20 @@ public class SutochnoWebTests extends TestBase {
 
     @Test
     @AllureId("2")
-    @DisplayName("Создание объявления от зарегистрированного пользователя")
+    @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
     @Owner("admin")
     void makeAdvertisementUiTest() {
-        UserPage userPage = new UserPage();
-        step("Авторизоваться (по API)", () -> {
-            open("/front/searchapp/favicon.svg");
-            WebDriverRunner.getWebDriver().manage().addCookie(
-                    requests.getAuth(
-                            Project.config.userPhone(),
-                            Project.config.userPassword()));
-            mainPage.openPageWithAuth(Project.config.userName()); // todo Облагородить, возможно перенести в пэйджобджект
-        });
-
-        userPage.open();
-        step("Кликнуть на Разместите свое жилье");
-        step("Кликнуть на Квартиры, апартаменты");
-        step("Выбрать тип Апартамент");
-        step("Выбрать страну Беларусь");
-        step("Выбрать регион Брестская область");
-        step("Выбрать город Брест");
-        step("Нажать Продолжить");
-        step("Нажать на юзернейм", () -> {
-            step("Проверить, что счётчик в разделе Мои объекты равен 1");
-        });
-        step("Нажать на Перейти в раздел в разделе Мои объекты");
-        step("Нажать Продолжить");
+        mainPage.authorization(authCookie, Project.config.userName())
+                .openUsersAdvertisements()
+                .createNewAdvertisement()
+                .chooseFlat()
+                .chooseTitle("Апартамент")
+                .chooseCountry("Беларусь")
+                .chooseRegion("Брестская область")
+                .chooseCity("Брест")
+                .toNextPage()
+//                .chooseStreetType("бульвар")
+                .chooseStreetName("Ленина");
         step("Ввести адрес", () -> {
             step("Выбрать тип улицы");
             step("Ввести название улицы");

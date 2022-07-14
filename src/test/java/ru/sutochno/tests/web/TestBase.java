@@ -25,10 +25,6 @@ import java.util.stream.Stream;
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
 
-    MainPage mainPage = new MainPage();
-    Promo promoPage = new Promo();
-    Requests requests = new Requests();
-
     @BeforeAll
     static void setUp() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
