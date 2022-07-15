@@ -1,7 +1,5 @@
 package ru.sutochno.pages;
 
-import com.codeborne.selenide.Condition;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
@@ -14,12 +12,3 @@ public class UsersAdvertisements {
         return new AddNewRentedSpace();
     }
 }
-
-
-//    нужно туда переключиться
-//// by index
-//switchTo().window(1);
-//// by name or title or handle
-//        switchTo().window("Title of the window");
-//// for switching to default window
-//        switchTo().defaultContent();

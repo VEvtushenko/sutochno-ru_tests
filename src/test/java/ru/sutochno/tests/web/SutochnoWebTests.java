@@ -7,8 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.sutochno.config.Project;
+import ru.sutochno.pages.AddNewRentedSpace;
+import ru.sutochno.pages.AddRentedSpaceInfo;
+import ru.sutochno.pages.NewPage;
+import ru.sutochno.pages.UsersAdvertisements;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
 import static ru.sutochno.data.Data.authCookie;
 import static ru.sutochno.data.Data.mainPage;
@@ -53,39 +58,55 @@ public class SutochnoWebTests extends TestBase {
     @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
     @Owner("admin")
     void makeAdvertisementUiTest() {
-        mainPage.authorization(authCookie, Project.config.userName())
+
+        mainPage
+                .authorization(authCookie, Project.config.userName())
                 .openUsersAdvertisements()
-                .createNewAdvertisement()
+                .createNewAdvertisement();
+
+        AddNewRentedSpace addNewRentedSpace = new AddNewRentedSpace();
+
+        step("Создаём новое объявление", () -> addNewRentedSpace
                 .chooseFlat()
                 .chooseTitle("Апартамент")
                 .chooseCountry("Беларусь")
                 .chooseRegion("Брестская область")
                 .chooseCity("Брест")
-                .toNextPage()
-//                .chooseStreetType("бульвар")
-                .chooseStreetName("Ленина");
-        step("Ввести адрес", () -> {
-            step("Выбрать тип улицы");
-            step("Ввести название улицы");
-            step("Ввести номер дома");
-            step("Ввести номер корпуса");
-            step("Нажать Продолжить");
+                .toNextPage());
+
+        AddRentedSpaceInfo addRentedSpaceInfo = new AddRentedSpaceInfo();
+
+        step("Ввести адрес", () -> { addRentedSpaceInfo
+//todo          .chooseStreetType("бульвар")
+                .chooseStreetName("Ленина")
+                .houseNumber("12")
+                .houseExNumber("В")
+                .toNextStep();
+            sleep(2500);
         });
-        step("Нажать Продолжить (подтвердить карту)");
-        step("Ввести параметры жилья", () -> {
-            step("Ввести максимум гостей");
-            step("Ввести количество  комнат");
-            step("Ввести количество спален");
-            step("Ввести тип и количество кроватей");
-            step("Добавить кровать");
-            step("Ввести количество ванных комнат и туалетов и их параметры");
-            step("Ввести площадь квартиры");
-            step("Ввести этаж квартиры");
-            step("Ввести этажность дома");
-            step("Ввести тип кухни");
-            step("Ввести тип ремонта");
-            step("Нажать Продолжить");
-        });
+        step("Подтвердить карту", () -> addRentedSpaceInfo.
+                toNextStep()
+        );
+        step("Ввести параметры жилья", () -> addRentedSpaceInfo
+                .maxGuests(2)
+                .numberOfRooms(3)
+                .numberOfBedrooms(1)
+                .maxGuests(3)
+                .numberOfRooms(3)
+                .numberOfBedrooms(2)
+                .numberOfBeds(2, 1)
+                .addNewBed(1, 1)
+                .addNewBed(1, 1)
+                .numberOfBathrooms(1, 0, 1)
+                .conveniencesInBathroom("фен")
+                .squareOfFlat(90)
+                .floorOfFlat(3, true)
+                .numberOfFloors(5, true)
+                .typeOfKitchen(2)
+                .typeOfRepairment(2)
+                .toNextStep()
+        );
+
         step("Ввести удобства");
         step("Ввести вид из окон");
         step("Выбрать кухонное оборудвание", () -> {
