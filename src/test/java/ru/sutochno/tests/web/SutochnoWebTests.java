@@ -70,21 +70,23 @@ public class SutochnoWebTests extends TestBase {
                 .chooseCountry("Беларусь")
                 .chooseRegion("Брестская область")
                 .chooseCity("Брест")
-                .toNextPage());
+                .toNextPage()
+        );
 
         AddRentedSpaceInfo addRentedSpaceInfo = new AddRentedSpaceInfo();
 
-        step("Ввести адрес", () -> { addRentedSpaceInfo
-//todo          .chooseStreetType("бульвар")
+        step("Ввести адрес", () ->  addRentedSpaceInfo
+                .chooseStreetType(0)
                 .chooseStreetName("Ленина")
                 .houseNumber("12")
                 .houseExNumber("В")
-                .toNextStep();
-            sleep(2500);
-        });
+                .toNextStep()
+        );
+
         step("Подтвердить карту", () -> addRentedSpaceInfo.
                 toNextStep()
         );
+
         step("Ввести параметры жилья", () -> addRentedSpaceInfo
                 .maxGuests(2)
                 .numberOfRooms(3)
@@ -95,7 +97,9 @@ public class SutochnoWebTests extends TestBase {
                 .numberOfBeds(2, 1)
                 .addNewBed(1, 1)
                 .addNewBed(1, 1)
-                .numberOfBathrooms(1, 0, 1)
+                .bathroomsWithToilet(1)
+                .bathroomsWithoutToilet(0)
+                .toilets(1)
                 .conveniencesInBathroom("фен")
                 .squareOfFlat(90)
                 .floorOfFlat(3, true)
@@ -115,18 +119,17 @@ public class SutochnoWebTests extends TestBase {
                 .equipments("детей", 5, "детский горшок")
                 .toNextStep()
         );
-        step("Нажать Продолжить");
-        step("Загрузить фото", () -> {
-            step("Нажать Выберите на устройстве");
-            step("Загрузить фото");
-            step("Повторить трижды");
-            step("Нажать Продолжить");
-        });
-        step("Ввести имя объекта", () -> {
-            step("Ввести описание объекта", () -> {
-                step("Нажать Продолжить");
-            });
-        });
+
+        addRentedSpaceInfo
+                .uploadFoto("src/test/resources/images/1.jpeg")
+                .uploadFoto("src/test/resources/images/2.jpeg")
+                .uploadFoto("src/test/resources/images/3.jpg")
+                .toNextStep()
+                .inputAdvertisementName("В Бресте на бульваре")
+                .addUniqName("Квартира в Бресте")
+                .inputAdvertisementDesc("Брест, квартира, бульвар Ленина")
+                .toNextStep();
+
         step("Ввести правила размещения", () -> {
             step("Нажать Продолжить");
         });
