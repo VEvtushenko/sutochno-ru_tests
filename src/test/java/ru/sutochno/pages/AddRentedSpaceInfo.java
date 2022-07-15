@@ -1,15 +1,24 @@
 package ru.sutochno.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 
+import static com.codeborne.selenide.Condition.hidden;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
+import static io.qameta.allure.Allure.step;
 
 public class AddRentedSpaceInfo {
 
     private SelenideElement chooseItemTherdScreen(String itemName, int numberOfRow) {
         return $("[data='" + itemName + "']").$(".row").sibling(numberOfRow);
+    }
+
+    private SelenideElement chooseItemForthScreen(int numberOfItem) {
+        return $("[data='Facilities']").$(".object-creating-form")
+                .sibling(numberOfItem).$(".row").sibling(0);
     }
 
     private SelenideElement chooseItemBathroom(int numberOfRow) {
@@ -156,5 +165,122 @@ public class AddRentedSpaceInfo {
 
 //    Screen 4
 
+
+
+    @Step("Ввести удобства")
+    public AddRentedSpaceInfo homeFacilities(String facility) {
+        chooseItemTherdScreen("Facilities", 0).$(byText(facility)).click();
+        return this;
+    }
+
+    @Step("Ввести вид из окон")
+    public AddRentedSpaceInfo chooseView(String view) {
+        chooseItemForthScreen(0).$(byText(view)).click();
+        return this;
+    }
+
+    public AddRentedSpaceInfo equipments(String stepName, int numberOfItem, String equipments) {
+        step("Оснащение для " + stepName, () -> {
+                step("Нажать развернуть список", () -> {
+                    chooseItemForthScreen(numberOfItem).$(".toggle-block__btn").click();
+                    chooseItemForthScreen(numberOfItem).$(byText(equipments)).shouldBe(visible);
+                });
+                step("Выбрать оснащение", () ->
+                    chooseItemForthScreen(numberOfItem).$("[class='row list']")
+                            .$(byText(equipments)).click()
+                );
+                step("Нажать свернуть список", () -> {
+                    chooseItemForthScreen(numberOfItem).$(".toggle-block__btn").click();
+                    chooseItemForthScreen(numberOfItem).$(byText(equipments)).shouldBe(hidden);
+                });
+        });
+        return this;
+    }
+
+
+//    @Step("Выбрать кухонное оборудование")
+//    public AddRentedSpaceInfo kitchenFacilities(String kitchenFacilities) {
+//        step("Нажать развернуть список", () -> {
+//            chooseItemForthScreen(1).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(1).$(byText(kitchenFacilities)).shouldBe(visible);
+//        });
+//        step("Выбрать оборудование", () ->
+//                chooseItemForthScreen(1).$("[class='row list']")
+//                        .$(byText(kitchenFacilities)).click()
+//        );
+//        step("Нажать свернуть список", () -> {
+//            chooseItemForthScreen(1).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(1).$(byText(kitchenFacilities)).shouldBe(hidden);
+//        });
+//        return this;
+//    }
+//
+//    @Step("Выбрать оснащение")
+//    public AddRentedSpaceInfo homeEquipment(String homeEquipment) {
+//        step("Нажать развернуть список", () -> {
+//            chooseItemForthScreen(2).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(2).$(byText(homeEquipment)).shouldBe(visible);
+//        });
+//        step("Выбрать оснащение", () ->
+//                chooseItemForthScreen(2).$("[class='row list']")
+//                        .$(byText(homeEquipment)).click()
+//        );
+//        step("Нажать свернуть список", () -> {
+//            chooseItemForthScreen(2).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(2).$(byText(homeEquipment)).shouldBe(hidden);
+//        });
+//        return this;
+//    }
+//
+//    @Step("Выбрать возможности для отдыха в помещении")
+//    public AddRentedSpaceInfo indoorRest(String indoorRest) {
+//        step("Нажать развернуть список", () -> {
+//            chooseItemForthScreen(3).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(3).$(byText(indoorRest)).shouldBe(visible);
+//        });
+//        step("Выбрать оснащение", () ->
+//                chooseItemForthScreen(3).$("[class='row list']")
+//                        .$(byText(indoorRest)).click()
+//        );
+//        step("Нажать свернуть список", () -> {
+//            chooseItemForthScreen(3).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(3).$(byText(indoorRest)).shouldBe(hidden);
+//        });
+//        return this;
+//    }
+//
+//    @Step("Выбрать оснащение двора")
+//    public AddRentedSpaceInfo yardEquipment(String yardEquipment) {
+//        step("Нажать развернуть список", () -> {
+//            chooseItemForthScreen(4).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(4).$(byText(yardEquipment)).shouldBe(visible);
+//        });
+//        step("Выбрать оснащение", () ->
+//                chooseItemForthScreen(4).$("[class='row list']")
+//                        .$(byText(yardEquipment)).click()
+//        );
+//        step("Нажать свернуть список", () -> {
+//            chooseItemForthScreen(4).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(4).$(byText(yardEquipment)).shouldBe(hidden);
+//        });
+//        return this;
+//    }
+//
+//    @Step("Для детей")
+//    public AddRentedSpaceInfo forChildren(String forChildren) {
+//        step("Нажать развернуть список", () -> {
+//            chooseItemForthScreen(5).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(5).$(byText(forChildren)).shouldBe(visible);
+//        });
+//        step("Выбрать оснащение", () ->
+//                chooseItemForthScreen(5).$("[class='row list']")
+//                        .$(byText(forChildren)).click()
+//        );
+//        step("Нажать свернуть список", () -> {
+//            chooseItemForthScreen(5).$(".toggle-block__btn").click();
+//            chooseItemForthScreen(5).$(byText(forChildren)).shouldBe(hidden);
+//        });
+//        return this;
+//    }
 
 }

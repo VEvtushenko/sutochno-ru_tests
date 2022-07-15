@@ -9,8 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewRentedSpace;
 import ru.sutochno.pages.AddRentedSpaceInfo;
-import ru.sutochno.pages.NewPage;
-import ru.sutochno.pages.UsersAdvertisements;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
@@ -107,28 +105,16 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
         );
 
-        step("Ввести удобства");
-        step("Ввести вид из окон");
-        step("Выбрать кухонное оборудвание", () -> {
-            step("Нажать Развернуть список");
-            step("Выбрать оборудование");
-        });
-        step("Выбрать оснащение", () -> {
-            step("Нажать Развернуть список");
-            step("Выбрать оснащение");
-        });
-        step("Выбрать для отдыха в помещении", () -> {
-            step("Нажать Развернуть список");
-            step("Выбрать для отдыха в помещении");
-        });
-        step("Выбрать оснащение двора", () -> {
-            step("Нажать Развернуть список");
-            step("Выбрать оснащение двора");
-        });
-        step("Выбрать для детей", () -> {
-            step("Нажать Развернуть список");
-            step("Выбрать для детей");
-        });
+        step("Ввести удобства и оснащение", () -> addRentedSpaceInfo
+                .homeFacilities("телевизор")
+                .chooseView("на горы")
+                .equipments("кухни", 1, "кофеварка")
+                .equipments("дома", 2, "вентилятор")
+                .equipments("отдыха дома", 3, "книги")
+                .equipments("двора", 4, "гараж")
+                .equipments("детей", 5, "детский горшок")
+                .toNextStep()
+        );
         step("Нажать Продолжить");
         step("Загрузить фото", () -> {
             step("Нажать Выберите на устройстве");
