@@ -1,29 +1,50 @@
 package ru.sutochno.api.requests;
 
-import io.restassured.http.ContentType;
-import org.openqa.selenium.Cookie;
+
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasToString;
-import static ru.sutochno.api.specifications.Specs.requestSpecUser;
-import static ru.sutochno.api.specifications.Specs.responseSpecUser;
+import static org.hamcrest.Matchers.is;
+import static ru.sutochno.api.specifications.Specs.*;
+import static ru.sutochno.data.Data.authCookie;
+import static ru.sutochno.helpers.ApiListener.withCustomTemplates;
 
 public class Requests {
-    String token = "Hy6U3z61fflbgT2yJ/VdlQ2719";
-    public Cookie getAuth(String userPhone, String userPassword) {
-        Cookie authCookie = new Cookie("_me_",
-                given()
-                        .spec(requestSpecUser)
-                        .header("token", token)
-                        .formParam("value", userPhone)
-                        .formParam("password", userPassword)
-                .when()
-                        .post("/auth")
-                .then()
-                        .spec(responseSpecUser)
-                        .body("data.messages.already", hasToString("Вы уже зарегистрированы в системе"))
-                        .extract().response()
-                        .getCookie("_me_"));
-            return authCookie;
+
+
+    public String  getAuth(String userPhone, String userPassword) {
+        return given()
+                .spec(requestSpecUser)
+                .formParam("value", userPhone)
+                .formParam("password", userPassword)
+        .when()
+                .post("/auth")
+        .then()
+                .spec(responseSpec)
+                .body("data.messages.already", hasToString("Вы уже зарегистрированы в системе"))
+                .extract().response()
+                .getCookie("_me_");
     }
+
+
+
+    public void moveToArchive1(String advertisementId, String authCookie) {
+        given()
+                .log().body()
+                .filter(withCustomTemplates())
+                .header("token", "Hy6U3z61fflbgT2yJ/VdlQ2719")
+//                .basePath("/api/json/objects")
+//                .baseUri("https://sutochno.ru")
+                .formParam("objectId", advertisementId)
+                .cookie("_me_", authCookie)
+        .when()
+                .log().body()
+                .post("https://sutochno.ru/api/json/objects/updateObjectStop")
+        .then()
+//                .spec(responseSpec)
+                .body(    "success", is(true))
+                .body(    "data.status", hasToString(advertisementId));
+    }
+
 }

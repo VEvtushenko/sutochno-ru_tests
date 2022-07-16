@@ -6,11 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.openqa.selenium.Cookie;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewRentedSpace;
 import ru.sutochno.pages.AddRentedSpaceInfo;
 
-import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
 import static ru.sutochno.data.Data.authCookie;
@@ -58,7 +58,7 @@ public class SutochnoWebTests extends TestBase {
     void makeAdvertisementUiTest() {
 
         mainPage
-                .authorization(authCookie, Project.config.userName())
+                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
                 .openUsersAdvertisements()
                 .createNewAdvertisement();
 
@@ -70,8 +70,7 @@ public class SutochnoWebTests extends TestBase {
                 .chooseCountry("Беларусь")
                 .chooseRegion("Брестская область")
                 .chooseCity("Брест")
-                .toNextPage()
-        );
+                .toNextPage());
 
         AddRentedSpaceInfo addRentedSpaceInfo = new AddRentedSpaceInfo();
 
@@ -80,12 +79,11 @@ public class SutochnoWebTests extends TestBase {
                 .chooseStreetName("Ленина")
                 .houseNumber("12")
                 .houseExNumber("В")
-                .toNextStep()
-        );
+                .toNextStep());
 
-        step("Подтвердить карту", () -> addRentedSpaceInfo.
-                toNextStep()
-        );
+        step("Подтвердить карту", () -> {
+            sleep(1500);
+            addRentedSpaceInfo.toNextStep();});
 
         step("Ввести параметры жилья", () -> addRentedSpaceInfo
                 .maxGuests(2)
@@ -106,8 +104,7 @@ public class SutochnoWebTests extends TestBase {
                 .numberOfFloors(5, true)
                 .typeOfKitchen(2)
                 .typeOfRepairment(2)
-                .toNextStep()
-        );
+                .toNextStep());
 
         step("Ввести удобства и оснащение", () -> addRentedSpaceInfo
                 .homeFacilities("телевизор")
@@ -117,8 +114,7 @@ public class SutochnoWebTests extends TestBase {
                 .equipments("отдыха дома", 3, "книги")
                 .equipments("двора", 4, "гараж")
                 .equipments("детей", 5, "детский горшок")
-                .toNextStep()
-        );
+                .toNextStep());
 
         addRentedSpaceInfo
                 .uploadFoto("src/test/resources/images/1.jpeg")
@@ -128,43 +124,54 @@ public class SutochnoWebTests extends TestBase {
                 .inputAdvertisementName("В Бресте на бульваре")
                 .addUniqName("Квартира в Бресте")
                 .inputAdvertisementDesc("Брест, квартира, бульвар Ленина")
-                .toNextStep();
+                .toNextStep()
+                .hostingRules(true, 1, true, false, true)
+                .toNextStep()
+                .checkInTime("12:00")
+                .checkOutTime("16:00")
+                .toNextStep()
+                .howGuestBook(true)
+                .toNextStep()
+                .bookingGap(2)
+                .bookingDuration(1)
+                .toNextStep()
+                .сalendarInfoAgreement()
+                .toNextStep()
+                .currencyPay(1)
+                .minimalPeriodOfResidence(2)
+                .costPerDay("3000", "2")
+                .exGuestPrice("1000")
+                .toNextStep()
+//                .сhooseDiscountParam("при проживании от 2 дней", 300, "USD")
+//                .addDiscount("10", "15", "relative")
+                .rmDiscount()
+                .toNextStep()
+                .additionalServices(0)
+                .cleaningCost("10")
+                .depositAmount("10000")
+                .isTransfer()
+                .transferTerm("Transfer term")
+                .toNextStep()
+                .checkMainData("3000")
+                .toNextStep()
+                .finalPage();
 
-        step("Ввести правила размещения", () -> {
-            step("Нажать Продолжить");
-        });
-        step("Ввести время заезда и отъезда", () -> {
-            step("Ввести время заезда");
-            step("Ввести время отъезда");
-            step("Нажать Продолжитть");
-        });
-        step("Ввести тип бронирования", () -> {
-            step("Нажать Продолжить");
-        });
-        step("Ввести сроки бронирования", () -> {
-            step("Нажать Продолжить");
-        });
-        step("Дать согласие вести календарь занятости", () -> {
-            step("Нажать Продолжить");
-        });
-        step("Ввести цены бронирования", () -> {
-            step("Нажать Продолжить");
-        });
-        step("Ввести скидки", () -> {
-            step("Нажать Продолжить");
-        });
-        step("Ввести плату за уборку", () -> {
-            step("Ввести страховой депозит");
-            step("Ввести трансфер");
-            step("Нажать Продолжить");
-        });
-        step("Проверить данные", () -> {
-            step("Нажать Продолжить");
-        });
-        step("Проверить сообщение К сожалению такой страницы нет");
-        step("Перейти в свой профиль");
-        step("Перейти в свои объявления");
+        mainPage
+                .openUsersAdvertisements()
+                .moveToArchive();
+
+
         step("Проверить наличие объявления");
-        step("Отправить объявление в архив");
+    }
+
+    @Test
+    @AllureId("5")
+    @DisplayName("Проверка переноса объявления в архив, UI")
+    @Owner("admin")
+    void moveAdvertisementToArchive() {
+        mainPage
+                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
+                .openUsersAdvertisements()
+                .moveToArchive();
     }
 }
