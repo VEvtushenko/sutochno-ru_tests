@@ -440,6 +440,7 @@ public class AddAdvertisementInfo {
     @Step("Проверяем введённые данные")
     @Description("Этот шаг является багом - согасно общей логике здесь должен быть редирект на объявление")
     public AddAdvertisementInfo finalPage() {
+        sleep(1000);
         $$(".desktop").findBy(text("К сожалению, такой страницы нет.")).shouldBe(visible);
         return this;
     }

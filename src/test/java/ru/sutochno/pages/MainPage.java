@@ -79,4 +79,5 @@ public class MainPage {
         $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"));
         return new UsersAdvertisements();
     }
+
 }

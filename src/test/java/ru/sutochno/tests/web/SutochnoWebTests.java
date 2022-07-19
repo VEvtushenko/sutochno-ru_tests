@@ -47,7 +47,6 @@ public class SutochnoWebTests extends TestBase {
 
     @Test
     void searchTest() {
-
     }
 
     @Test
@@ -55,9 +54,8 @@ public class SutochnoWebTests extends TestBase {
     @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
     @Owner("admin")
     void makeAdvertisementUiTest() {
-
         mainPage
-                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
+                .authorization(new Cookie("_me_", data.authCookie), Project.config.userName())
                 .openUsersAdvertisements()
                 .createNewAdvertisement();
 
@@ -73,10 +71,10 @@ public class SutochnoWebTests extends TestBase {
 
         AddAdvertisementInfo addAdvertisementInfo = new AddAdvertisementInfo();
         step("Ввести адрес", () ->  addAdvertisementInfo
-                .chooseStreetType(streetType[1])
-                .chooseStreetName(streetName)
-                .houseNumber(houseNumber)
-                .houseExNumber(houseExNumber)
+                .chooseStreetType(data.streetType[1])
+                .chooseStreetName(data.streetName)
+                .houseNumber(data.houseNumber)
+                .houseExNumber(data.houseExNumber)
                 .toNextStep());
 
         step("Подтвердить карту", () -> {
@@ -84,48 +82,48 @@ public class SutochnoWebTests extends TestBase {
             addAdvertisementInfo.toNextStep();});
 
         step("Ввести параметры жилья", () -> addAdvertisementInfo
-                .maxGuests(maxGuests)
-                .numberOfRooms(numberOfRooms)
-                .numberOfBedrooms(numberOfBedrooms)
+                .maxGuests(data.maxGuests)
+                .numberOfRooms(data.numberOfRooms)
+                .numberOfBedrooms(data.numberOfBedrooms)
                 .numberOfBeds(2, 1)
                 .addNewBed(1, 1)
                 .addNewBed(1, 1)
-                .bathroomsWithToilet(bathroomsWithToilet)
-                .bathroomsWithoutToilet(bathroomsWithoutToilet)
-                .toilets(toilets)
-                .conveniencesInBathroom(conveniencesInBathroom[0])
-                .squareOfFlat(squareOfFlat)
-                .floorOfFlat(floorOfFlat, isAttic)
-                .numberOfFloors(numberOfFloors, isElevator)
+                .bathroomsWithToilet(data.bathroomsWithToilet)
+                .bathroomsWithoutToilet(data.bathroomsWithoutToilet)
+                .toilets(data.toilets)
+                .conveniencesInBathroom(data.conveniencesInBathroom[1])
+                .squareOfFlat(data.squareOfFlat)
+                .floorOfFlat(data.floorOfFlat, data.isAttic)
+                .numberOfFloors(data.numberOfFloors, data.isElevator)
                 .typeOfKitchen(2)
                 .typeOfRepairment(2)
                 .toNextStep());
 
         step("Ввести удобства и оснащение", () -> addAdvertisementInfo
-                .homeFacilities("телевизор")
-                .chooseView("на горы")
-                .equipments("кухни", 1, "кофеварка")
-                .equipments("дома", 2, "вентилятор")
-                .equipments("отдыха дома", 3, "книги")
-                .equipments("двора", 4, "гараж")
-                .equipments("детей", 5, "детский горшок")
+                .homeFacilities(data.homeFacilities[4])
+                .chooseView(data.chooseView[1])
+                .equipments("кухни", 1, data.kitchenEquipments[2])
+                .equipments("дома", 2, data.houseEquipments[0])
+                .equipments("отдыха дома", 3, data.restEquipments[2])
+                .equipments("двора", 4, data.yardEquipments[3])
+                .equipments("детей", 5, data.childrenEquipments[0])
                 .toNextStep());
 
         addAdvertisementInfo
-                .uploadFoto(photo1)
-                .uploadFoto(photo2)
-                .uploadFoto(photo3)
+                .uploadFoto(data.photo1)
+                .uploadFoto(data.photo2)
+                .uploadFoto(data.photo3)
                 .toNextStep()
-                .inputAdvertisementName(inputAdvertisementName)
-                .addUniqName(addUniqName)
-                .inputAdvertisementDesc(inputAdvertisementDesc)
+                .inputAdvertisementName(data.inputAdvertisementName)
+                .addUniqName(data.addUniqName)
+                .inputAdvertisementDesc(data.inputAdvertisementDesc)
                 .toNextStep()
-                .hostingRules(withChildren, 1, withPets, smoking, party)
+                .hostingRules(data.withChildren, 1, data.withPets, data.smoking, data.party)
                 .toNextStep()
-                .checkInTime(checkInTime[0])
-                .checkOutTime(checkOutTime[0])
+                .checkInTime(data.checkInTime[0])
+                .checkOutTime(data.checkOutTime[0])
                 .toNextStep()
-                .howGuestBook(quickBooking)
+                .howGuestBook(data.quickBooking)
                 .toNextStep()
                 .bookingGap(2)
                 .bookingDuration(1)
@@ -134,28 +132,27 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .currencyPay(1)
                 .minimalPeriodOfResidence(2)
-                .costPerDay(costPerDay.toString(), amountOfGuestsForCost.toString())
-                .exGuestPrice(exGuestPrice.toString())
+                .costPerDay(data.costPerDay.toString(), data.amountOfGuestsForCost.toString())
+                .exGuestPrice(data.exGuestPrice.toString())
                 .toNextStep()
 //                .сhooseDiscountParam("при проживании от 2 дней", 300, "USD")
 //                .addDiscount("10", "15", "relative")
                 .rmDiscount()
                 .toNextStep()
                 .additionalServices(0)
-                .cleaningCost(cleaningCost.toString())
-                .depositAmount(depositAmount.toString())
+                .cleaningCost(data.cleaningCost.toString())
+                .depositAmount(data.depositAmount.toString())
                 .isTransfer()
                 .transferTerm("Transfer term")
                 .toNextStep()
-                .checkMainData(checkMainData.toString())
+                .checkMainData(data.checkMainData.toString())
                 .toNextStep()
                 .finalPage();
 
-//        mainPage
-//                .openUsersAdvertisements();
-
         mainPage
-                .openUsersAdvertisements();
+                .openUsersAdvertisements()
+                .openLastAdvertisements();
+
 //                .moveToArchive();
         step("Проверить наличие объявления");
     }
@@ -165,6 +162,8 @@ public class SutochnoWebTests extends TestBase {
     @DisplayName("Проверка переноса объявления в архив, UI")
     @Owner("admin")
     void moveAdvertisementToArchive() {
+        String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
+
         mainPage
                 .authorization(new Cookie("_me_", authCookie), Project.config.userName())
                 .openUsersAdvertisements()

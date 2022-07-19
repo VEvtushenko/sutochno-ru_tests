@@ -15,6 +15,13 @@ public class UsersAdvertisements {
         return new AddNewAdvertisement();
     }
 
+    @Step("Открываем последнее созданное объявление")
+    public UsersAdvertisements openLastAdvertisements() {
+        $("div.object-element:last-child").$(".table-object__left").click();
+        switchTo().window(2);
+        return new UsersAdvertisements();
+    }
+
     @Step("Убираем объявление в архив")
     public UsersAdvertisements moveToArchive() {
         step("Открываем свойства объявления", () ->

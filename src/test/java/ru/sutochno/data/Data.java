@@ -5,19 +5,32 @@ import ru.sutochno.config.Project;
 import ru.sutochno.pages.MainPage;
 import ru.sutochno.pages.Promo;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Files;
+
 
 
 public class Data {
 
-    private String[] getTextStrings(String fileName) throws FileNotFoundException {
-        List<String> text = new ArrayList();
-        FileReader reader = new FileReader(fileName);
-
-        //        return text;
+    private static String[] getTextStrings(String fileName)  {
+        try {
+            List<String> text = new ArrayList((Files.readAllLines(Paths.get(fileName))));
+            String[] stringsArray = new String[text.size()];
+            for (int i = 0; i < text.size(); i++) {
+                stringsArray[i] = text.get(i);
+            }
+            return stringsArray;
+        } catch (IOException e) {
+        e.printStackTrace();
+            return null;
+        }
     }
 
     public static MainPage mainPage = new MainPage();
@@ -25,73 +38,61 @@ public class Data {
     public static Requests requests = new Requests();
 
     public static String promoUrl = "https://promo.sutochno.ru";
-    public static String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
+    public  String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
 
 //    todo api address
 //    todo адресные переменные
-    public static String[] streetType = new String[] {"бульвар", "переулок", "улица", "проспект", "шоссе", "другое"};
-    public static String streetName = "Ленина";
-    public static String houseNumber = "12";
-    public static String houseExNumber = "А";
-    public static Integer maxGuests = 5;
-    public static Integer numberOfRooms = 4;
-    public static Integer numberOfBedrooms = 2;
+    public String[] streetType = new String[] {"бульвар", "переулок", "улица", "проспект", "шоссе", "другое"};
+    public String streetName = "Ленина";
+    public String houseNumber = "12";
+    public String houseExNumber = "А";
+    public Integer maxGuests = 5;
+    public Integer numberOfRooms = 4;
+    public Integer numberOfBedrooms = 2;
 // todo metod   public static Integer numberOfBeds = 2;
-    public static String[] typeOfBeds;
-    public static Integer bathroomsWithToilet = 1;
-    public static Integer bathroomsWithoutToilet = 0;
-    public static Integer toilets = 1;
-    public static String[] conveniencesInBathroom =  new String[] {""};
-    public static Integer squareOfFlat = 120;
-    public static Integer floorOfFlat = 5;
-    public static boolean isAttic = true;
-    public static Integer numberOfFloors = 12;
-    public static boolean isElevator = true;
-    public static String[] typeOfKitchen;
-    public static String[] typeOfRepairment;
-    public static String[] homeFacilities;
-    public static String[] chooseView;
-    public static String[] kitchenEquipments;
-    public static String[] houseEquipments;
-    public static String[] restEquipments;
-    public static String[] yardEquipments;
-    public static String[] childrenEquipments;
-    public static String photo1 = "src/test/resources/images/1.jpeg";
-    public static String photo2 = "src/test/resources/images/2.jpeg";
-    public static String photo3 = "src/test/resources/images/3.jpeg";
-    public static String inputAdvertisementName = "В Бресте на бульваре";
-    public static String addUniqName = "Квартира в Бресте";
-    public static String inputAdvertisementDesc = "Брест, квартира, бульвар Ленина";
-    public static String[] childrenAge;
-    public static boolean withChildren = true;
-    public static boolean withPets = true;
-    public static boolean smoking = false;
-    public static boolean party = true;
-    public static String[] checkInTime = new String[] {"12:00"};
-    public static String[] checkOutTime = new String[] {"16:00"};
-    public static boolean quickBooking = true;
-    public static String[] bookingGap;
-    public static String[] bookingDuration;
-    public static String[] currencyPay;
-    public static String[] minimalPeriodOfResidence;
-    public static Integer costPerDay = 3000;
-    public static Integer amountOfGuestsForCost = 1;
-    public static Integer exGuestPrice = 2000;
-    public static String[] additionalServices;
-    public static Integer cleaningCost = 10;
-    public static Integer depositAmount = 30000;
-    public static String transferTerm = "Transfer term";
-    public static Integer checkMainData = 3000;
-
-
-
-
-
-
-
-
-
-
-
-
+    public String[] typeOfBeds;
+    public Integer bathroomsWithToilet = 1;
+    public Integer bathroomsWithoutToilet = 0;
+    public Integer toilets = 1;
+    public String[] conveniencesInBathroom = getTextStrings("src/test/resources/data/convenciesInBathrooms.txt");
+    public String[] homeFacilities = getTextStrings("src/test/resources/data/homeFcilities.txt");
+    public String[] typeOfKitchen= getTextStrings("");
+    public String[] typeOfRepairment = getTextStrings("");
+    public String[] chooseView = getTextStrings("src/test/resources/data/views.txt");
+    public String[] kitchenEquipments = getTextStrings("src/test/resources/data/kitchenEquipments.txt");
+    public String[] houseEquipments = getTextStrings("src/test/resources/data/houseEquipments.txt");
+    public String[] restEquipments = getTextStrings("src/test/resources/data/restEquipments.txt");
+    public String[] yardEquipments = getTextStrings("src/test/resources/data/yardEquipments.txt");
+    public String[] childrenEquipments = getTextStrings("src/test/resources/data/childrenEquipments.txt");
+    public String[] bookingGap = getTextStrings("");
+    public String[] bookingDuration = getTextStrings("");
+    public String[] currencyPay = getTextStrings("");
+    public String[] minimalPeriodOfResidence = getTextStrings("");
+    public String[] childrenAge = getTextStrings("");
+    public String[] checkInTime = new String[] {"12:00"};
+    public String[] checkOutTime = new String[] {"16:00"};
+    public String[] additionalServices = getTextStrings("");
+    public Integer squareOfFlat = 120;
+    public Integer floorOfFlat = 5;
+    public boolean isAttic = true;
+    public Integer numberOfFloors = 12;
+    public boolean isElevator = true;
+    public String photo1 = "src/test/resources/images/1.jpeg";
+    public String photo2 = "src/test/resources/images/2.jpeg";
+    public String photo3 = "src/test/resources/images/3.jpg";
+    public String inputAdvertisementName = "В Бресте на бульваре";
+    public String addUniqName = "Квартира в Бресте";
+    public String inputAdvertisementDesc = "Брест, квартира, бульвар Ленина";
+    public boolean withChildren = true;
+    public boolean withPets = true;
+    public boolean smoking = false;
+    public boolean party = true;
+    public boolean quickBooking = true;
+    public Integer costPerDay = 3000;
+    public Integer amountOfGuestsForCost = 1;
+    public Integer exGuestPrice = 2000;
+    public Integer cleaningCost = 10;
+    public Integer depositAmount = 30000;
+    public String transferTerm = "Transfer term";
+    public Integer checkMainData = 3000;
 }

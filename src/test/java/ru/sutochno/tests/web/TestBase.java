@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
 import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
+import ru.sutochno.data.Data;
 import ru.sutochno.helpers.AllureAttachments;
 import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
 @Tag("mainTests")
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
+    Data data = new Data();
 
     @BeforeAll
     static void setUp() {
