@@ -27,4 +27,12 @@ public class Specs {
             .expectContentType(ContentType.JSON)
             .expectStatusCode(200)
             .build();
+
+    public static RequestSpecification requestSpecObjects =
+            with()
+                    .log().body()
+                    .filter(withCustomTemplates())
+                    .header("token", "Hy6U3z61fflbgT2yJ/VdlQ2719")
+                    .basePath("/api/json/objects")
+                    .baseUri("https://sutochno.ru");
 }

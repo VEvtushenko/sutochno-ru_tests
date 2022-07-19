@@ -1,14 +1,15 @@
 package ru.sutochno.api.requests;
 
 
-import org.junit.jupiter.api.Test;
+import io.restassured.http.ContentType;
+import ru.sutochno.api.models.AdvertisementChangeResponse;
+import ru.sutochno.api.models.GeneralInfoRequest;
+import ru.sutochno.api.models.NewAdvertisement;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;
 import static ru.sutochno.api.specifications.Specs.*;
-import static ru.sutochno.data.Data.authCookie;
-import static ru.sutochno.helpers.ApiListener.withCustomTemplates;
 
 public class Requests {
 
@@ -27,24 +28,49 @@ public class Requests {
                 .getCookie("_me_");
     }
 
-
-
-    public void moveToArchive1(String advertisementId, String authCookie) {
+    public void moveToArchive(String advertisementId, String authCookie) {
         given()
-                .log().body()
-                .filter(withCustomTemplates())
-                .header("token", "Hy6U3z61fflbgT2yJ/VdlQ2719")
-//                .basePath("/api/json/objects")
-//                .baseUri("https://sutochno.ru")
-                .formParam("objectId", advertisementId)
+                .spec(requestSpecObjects)
                 .cookie("_me_", authCookie)
+                .formParam("objectId", advertisementId)
         .when()
                 .log().body()
-                .post("https://sutochno.ru/api/json/objects/updateObjectStop")
+                .post("/updateObjectStop")
         .then()
-//                .spec(responseSpec)
+                .spec(responseSpec)
                 .body(    "success", is(true))
                 .body(    "data.status", hasToString(advertisementId));
     }
+
+    public NewAdvertisement  addAdvertisement(String authCookie) {
+        NewAdvertisement newAdvertisement;
+        return newAdvertisement =
+            given()
+                    .spec(requestSpecObjects)
+                    .cookie("_me_", authCookie)
+                    .formParam("data[type_id]", 1)
+                    .formParam("data[location][city_id]", 332819)
+            .when()
+                    .post("/addObject")
+            .then()
+                    .spec(responseSpec)
+                    .extract().as(NewAdvertisement.class);
+    }
+
+    public AdvertisementChangeResponse changeObjectGeneralInfo(String authCookie, GeneralInfoRequest requestBody)  {
+        AdvertisementChangeResponse advertisementChangeResponse;
+        return advertisementChangeResponse =
+                given()
+                        .spec(requestSpecObjects)
+                        .cookie("_me_", authCookie)
+                        .body(requestBody)
+                        .contentType(ContentType.JSON)
+                .when()
+                        .post("/setProperties")
+                .then()
+                        .spec(responseSpec)
+                        .extract().as(AdvertisementChangeResponse.class);
+    }
+
 
 }

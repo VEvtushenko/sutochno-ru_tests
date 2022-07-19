@@ -8,13 +8,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Cookie;
 import ru.sutochno.config.Project;
-import ru.sutochno.pages.AddNewRentedSpace;
-import ru.sutochno.pages.AddRentedSpaceInfo;
+import ru.sutochno.pages.AddNewAdvertisement;
+import ru.sutochno.pages.AddAdvertisementInfo;
 
 import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
-import static ru.sutochno.data.Data.authCookie;
-import static ru.sutochno.data.Data.mainPage;
+import static ru.sutochno.data.Data.*;
 
 @Owner("Vladimir Evtushenko")
 @DisplayName("Тест сайта ")
@@ -62,9 +61,9 @@ public class SutochnoWebTests extends TestBase {
                 .openUsersAdvertisements()
                 .createNewAdvertisement();
 
-        AddNewRentedSpace addNewRentedSpace = new AddNewRentedSpace();
+        AddNewAdvertisement addNewAdvertisement = new AddNewAdvertisement();
 
-        step("Создаём новое объявление", () -> addNewRentedSpace
+        step("Создаём новое объявление", () -> addNewAdvertisement
                 .chooseFlat()
                 .chooseTitle("Апартамент")
                 .chooseCountry("Беларусь")
@@ -72,41 +71,37 @@ public class SutochnoWebTests extends TestBase {
                 .chooseCity("Брест")
                 .toNextPage());
 
-        AddRentedSpaceInfo addRentedSpaceInfo = new AddRentedSpaceInfo();
-
-        step("Ввести адрес", () ->  addRentedSpaceInfo
-                .chooseStreetType(0)
-                .chooseStreetName("Ленина")
-                .houseNumber("12")
-                .houseExNumber("В")
+        AddAdvertisementInfo addAdvertisementInfo = new AddAdvertisementInfo();
+        step("Ввести адрес", () ->  addAdvertisementInfo
+                .chooseStreetType(streetType[1])
+                .chooseStreetName(streetName)
+                .houseNumber(houseNumber)
+                .houseExNumber(houseExNumber)
                 .toNextStep());
 
         step("Подтвердить карту", () -> {
             sleep(1500);
-            addRentedSpaceInfo.toNextStep();});
+            addAdvertisementInfo.toNextStep();});
 
-        step("Ввести параметры жилья", () -> addRentedSpaceInfo
-                .maxGuests(2)
-                .numberOfRooms(3)
-                .numberOfBedrooms(1)
-                .maxGuests(3)
-                .numberOfRooms(3)
-                .numberOfBedrooms(2)
+        step("Ввести параметры жилья", () -> addAdvertisementInfo
+                .maxGuests(maxGuests)
+                .numberOfRooms(numberOfRooms)
+                .numberOfBedrooms(numberOfBedrooms)
                 .numberOfBeds(2, 1)
                 .addNewBed(1, 1)
                 .addNewBed(1, 1)
-                .bathroomsWithToilet(1)
-                .bathroomsWithoutToilet(0)
-                .toilets(1)
-                .conveniencesInBathroom("фен")
-                .squareOfFlat(90)
-                .floorOfFlat(3, true)
-                .numberOfFloors(5, true)
+                .bathroomsWithToilet(bathroomsWithToilet)
+                .bathroomsWithoutToilet(bathroomsWithoutToilet)
+                .toilets(toilets)
+                .conveniencesInBathroom(conveniencesInBathroom[0])
+                .squareOfFlat(squareOfFlat)
+                .floorOfFlat(floorOfFlat, isAttic)
+                .numberOfFloors(numberOfFloors, isElevator)
                 .typeOfKitchen(2)
                 .typeOfRepairment(2)
                 .toNextStep());
 
-        step("Ввести удобства и оснащение", () -> addRentedSpaceInfo
+        step("Ввести удобства и оснащение", () -> addAdvertisementInfo
                 .homeFacilities("телевизор")
                 .chooseView("на горы")
                 .equipments("кухни", 1, "кофеварка")
@@ -116,21 +111,21 @@ public class SutochnoWebTests extends TestBase {
                 .equipments("детей", 5, "детский горшок")
                 .toNextStep());
 
-        addRentedSpaceInfo
-                .uploadFoto("src/test/resources/images/1.jpeg")
-                .uploadFoto("src/test/resources/images/2.jpeg")
-                .uploadFoto("src/test/resources/images/3.jpg")
+        addAdvertisementInfo
+                .uploadFoto(photo1)
+                .uploadFoto(photo2)
+                .uploadFoto(photo3)
                 .toNextStep()
-                .inputAdvertisementName("В Бресте на бульваре")
-                .addUniqName("Квартира в Бресте")
-                .inputAdvertisementDesc("Брест, квартира, бульвар Ленина")
+                .inputAdvertisementName(inputAdvertisementName)
+                .addUniqName(addUniqName)
+                .inputAdvertisementDesc(inputAdvertisementDesc)
                 .toNextStep()
-                .hostingRules(true, 1, true, false, true)
+                .hostingRules(withChildren, 1, withPets, smoking, party)
                 .toNextStep()
-                .checkInTime("12:00")
-                .checkOutTime("16:00")
+                .checkInTime(checkInTime[0])
+                .checkOutTime(checkOutTime[0])
                 .toNextStep()
-                .howGuestBook(true)
+                .howGuestBook(quickBooking)
                 .toNextStep()
                 .bookingGap(2)
                 .bookingDuration(1)
@@ -139,28 +134,29 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .currencyPay(1)
                 .minimalPeriodOfResidence(2)
-                .costPerDay("3000", "2")
-                .exGuestPrice("1000")
+                .costPerDay(costPerDay.toString(), amountOfGuestsForCost.toString())
+                .exGuestPrice(exGuestPrice.toString())
                 .toNextStep()
 //                .сhooseDiscountParam("при проживании от 2 дней", 300, "USD")
 //                .addDiscount("10", "15", "relative")
                 .rmDiscount()
                 .toNextStep()
                 .additionalServices(0)
-                .cleaningCost("10")
-                .depositAmount("10000")
+                .cleaningCost(cleaningCost.toString())
+                .depositAmount(depositAmount.toString())
                 .isTransfer()
                 .transferTerm("Transfer term")
                 .toNextStep()
-                .checkMainData("3000")
+                .checkMainData(checkMainData.toString())
                 .toNextStep()
                 .finalPage();
 
+//        mainPage
+//                .openUsersAdvertisements();
+
         mainPage
-                .openUsersAdvertisements()
-                .moveToArchive();
-
-
+                .openUsersAdvertisements();
+//                .moveToArchive();
         step("Проверить наличие объявления");
     }
 

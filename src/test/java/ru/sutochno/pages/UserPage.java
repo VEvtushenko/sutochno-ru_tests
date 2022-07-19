@@ -9,9 +9,9 @@ import static com.codeborne.selenide.Selenide.$;
 public class UserPage {
 
     @Step("Создаём новое объявление")
-    public AddNewRentedSpace createNewAdvertisement() {
+    public AddNewAdvertisement createNewAdvertisement() {
         $(byLinkText("Разместите свое жилье")).click();
-        return new AddNewRentedSpace();
+        return new AddNewAdvertisement();
     }
 
 

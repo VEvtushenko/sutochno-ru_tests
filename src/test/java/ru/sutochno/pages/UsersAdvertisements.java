@@ -8,11 +8,11 @@ import static com.codeborne.selenide.Selenide.switchTo;
 import static io.qameta.allure.Allure.step;
 
 public class UsersAdvertisements {
-    public AddNewRentedSpace createNewAdvertisement() {
+    public AddNewAdvertisement createNewAdvertisement() {
         $(".object-head__button-create").click();
         switchTo().window("Российский сервис бронирования жилья: более 100 тысяч квартир посуточно, комнаты, гостевые дома — Суточно.ру");
         $("[class='object-create__heading object-create__text-center']").shouldHave(text("Сдайте свое жильё"));
-        return new AddNewRentedSpace();
+        return new AddNewAdvertisement();
     }
 
     @Step("Убираем объявление в архив")
