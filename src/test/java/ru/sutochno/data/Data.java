@@ -2,14 +2,8 @@ package ru.sutochno.data;
 
 import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
-import ru.sutochno.pages.MainPage;
-import ru.sutochno.pages.Promo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +27,18 @@ public class Data {
         }
     }
 
-    public static MainPage mainPage = new MainPage();
-    public static Promo promoPage = new Promo();
-    public static Requests requests = new Requests();
+    private Requests requests = new Requests();
 
     public static String promoUrl = "https://promo.sutochno.ru";
     public  String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
 
 //    todo api address
 //    todo адресные переменные
-    public String[] streetType = new String[] {"бульвар", "переулок", "улица", "проспект", "шоссе", "другое"};
+    public String[] typeOfSpace = new String[] {"Апартамент"};
+    public String[] country = new String[] {"Беларусь"};
+    public String[] region = new String[] {"Брестская область"};
+    public String[] city = new String[] {"Брест"}; // todo [][] by region
+    public String[] streetType = getTextStrings("src/test/resources/data/streetName.txt");
     public String streetName = "Ленина";
     public String houseNumber = "12";
     public String houseExNumber = "А";

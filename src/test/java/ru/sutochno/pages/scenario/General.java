@@ -8,11 +8,11 @@ import ru.sutochno.pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
-import static ru.sutochno.data.Data.mainPage;
 
 public class General {
     @Step("Авторизация по API")
     public MainPage autorization(Cookie authCookie) {
+        MainPage mainPage = new MainPage();
         step("Открываем сайт", () ->
                 open("/front/searchapp/favicon.svg"));
         step("Передаём cookie для авторизации", () ->

@@ -13,7 +13,6 @@ import ru.sutochno.pages.AddAdvertisementInfo;
 
 import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
-import static ru.sutochno.data.Data.*;
 
 @Owner("Vladimir Evtushenko")
 @DisplayName("Тест сайта ")
@@ -63,10 +62,10 @@ public class SutochnoWebTests extends TestBase {
 
         step("Создаём новое объявление", () -> addNewAdvertisement
                 .chooseFlat()
-                .chooseTitle("Апартамент")
-                .chooseCountry("Беларусь")
-                .chooseRegion("Брестская область")
-                .chooseCity("Брест")
+                .chooseTitle(data.typeOfSpace[0])
+                .chooseCountry(data.country[0])
+                .chooseRegion(data.region[0])
+                .chooseCity(data.city[0])
                 .toNextPage());
 
         AddAdvertisementInfo addAdvertisementInfo = new AddAdvertisementInfo();
@@ -162,10 +161,9 @@ public class SutochnoWebTests extends TestBase {
     @DisplayName("Проверка переноса объявления в архив, UI")
     @Owner("admin")
     void moveAdvertisementToArchive() {
-        String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
 
         mainPage
-                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
+                .authorization(new Cookie("_me_", data.authCookie), Project.config.userName())
                 .openUsersAdvertisements()
                 .moveToArchive();
     }

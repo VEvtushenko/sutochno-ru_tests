@@ -2,13 +2,14 @@ package ru.sutochno.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import ru.sutochno.tests.web.TestBase;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static ru.sutochno.data.Data.promoUrl;
 
-public class Promo {
+public class Promo extends TestBase {
     public Promo openPromoPage() {
         Configuration.baseUrl = promoUrl;
         open("/bonus-za-prozhivanie");

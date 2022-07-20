@@ -26,6 +26,8 @@ import java.util.stream.Stream;
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
     Data data = new Data();
+    MainPage mainPage = new MainPage();
+    Promo promoPage = new Promo();
 
     @BeforeAll
     static void setUp() {

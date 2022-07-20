@@ -4,6 +4,8 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.withText;
@@ -21,7 +23,7 @@ public class MainPage {
     @Step("Открываем главную страницу и проверяем авторизацию")
     public MainPage openPageWithAuth(String userName) {
         open("/");
-        $(".about__title").shouldHave(text("Суточно.ру — сервис бронирования жилья для поездок"));
+        $(".about__title").shouldHave(text("Суточно.ру — сервис бронирования жилья для поездок"), Duration.ofSeconds(10));
         $(".header-right").$(".account").shouldHave(text(userName));
         return this;
     }
@@ -78,7 +80,7 @@ public class MainPage {
     @Step("Открываем список объявлений и проверяем это")
     public UsersAdvertisements openUsersAdvertisements() {
         $("[aria-label='Сдавайся']").click();
-        $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"));
+        $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"), Duration.ofSeconds(10));
         return new UsersAdvertisements();
     }
 
