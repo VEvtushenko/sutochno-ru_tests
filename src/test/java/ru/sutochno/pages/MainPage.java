@@ -7,8 +7,7 @@ import org.openqa.selenium.Cookie;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 import static io.qameta.allure.Allure.step;
 
 public class MainPage {
@@ -61,7 +60,10 @@ public class MainPage {
     @Step("Авторизация по API")
     public MainPage authorization(Cookie authCookie, String userName) {
         step("Открываем сайт", () -> open("/front/searchapp/favicon.svg"));
-        step("Передаём cookie для авторизации", () -> WebDriverRunner.getWebDriver().manage().addCookie(authCookie));
+        step("Передаём cookie для авторизации", () -> {
+            sleep(2000);
+            WebDriverRunner.getWebDriver().manage().addCookie(authCookie);
+        });
         openPageWithAuth(userName);
         return this;
     }
