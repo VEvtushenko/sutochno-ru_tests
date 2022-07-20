@@ -55,7 +55,7 @@ public class MainPage {
         $(".auth-header-container").$("[placeholder='Введите e-mail или телефон']").setValue(userPhone);
         $(".auth-header-container").$("[placeholder='Введите пароль']").setValue(userPassword);
         $(".auth-header-container").$(withText("Войти")).click();
-        $(".header-right").$(".account").shouldHave(text(userName));
+        $(".header-right").$(".account").shouldHave(text(userName), Duration.ofSeconds(10));
         return this;
     }
 
@@ -63,7 +63,6 @@ public class MainPage {
     public MainPage authorization(Cookie authCookie, String userName) {
         step("Открываем сайт", () -> open("/front/searchapp/favicon.svg"));
         step("Передаём cookie для авторизации", () -> {
-            sleep(2000);
             WebDriverRunner.getWebDriver().manage().addCookie(authCookie);
         });
         openPageWithAuth(userName);
@@ -73,7 +72,7 @@ public class MainPage {
     @Step("Открываем личный кабинет пользователя и проверяем это")
     public UserPage openUserPage() {
         $("[aria-label='Личный кабинет']").click();
-        $(".user-params-list").shouldHave(text("ID пользователя: 6809367"));
+        $(".user-params-list").shouldHave(text("ID пользователя: 6809367"), Duration.ofSeconds(10));
         return new UserPage();
     }
 

@@ -27,10 +27,10 @@ public class Data {
         }
     }
 
-    private Requests requests = new Requests();
+    public static Requests requests = new Requests();
 
     public static String promoUrl = "https://promo.sutochno.ru";
-    public  String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
+    public static String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
 
 //    todo api address
 //    todo адресные переменные

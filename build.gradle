@@ -88,3 +88,9 @@ task mainTests(type: Test) {
         includeTags 'mainTests'
     }
 }
+
+task newAdvertisement(type: Test) {
+    useJUnitPlatform {
+        includeTags 'newAdvertisement'
+    }
+}

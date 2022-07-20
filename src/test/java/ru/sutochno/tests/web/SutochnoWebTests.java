@@ -3,6 +3,7 @@ package ru.sutochno.tests.web;
 import io.qameta.allure.*;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -13,6 +14,7 @@ import ru.sutochno.pages.AddAdvertisementInfo;
 
 import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
+import static ru.sutochno.data.Data.authCookie;
 
 @Owner("Vladimir Evtushenko")
 @DisplayName("Тест сайта ")
@@ -49,12 +51,13 @@ public class SutochnoWebTests extends TestBase {
     }
 
     @Test
+    @Tag("newAdvertisement")
     @AllureId("2")
     @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
     @Owner("admin")
     void makeAdvertisementUiTest() {
         mainPage
-                .authorization(new Cookie("_me_", data.authCookie), Project.config.userName())
+                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
                 .openUsersAdvertisements()
                 .createNewAdvertisement();
 
@@ -163,7 +166,7 @@ public class SutochnoWebTests extends TestBase {
     void moveAdvertisementToArchive() {
 
         mainPage
-                .authorization(new Cookie("_me_", data.authCookie), Project.config.userName())
+                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
                 .openUsersAdvertisements()
                 .moveToArchive();
     }
