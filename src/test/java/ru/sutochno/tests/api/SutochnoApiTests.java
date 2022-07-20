@@ -12,17 +12,17 @@ public class SutochnoApiTests extends TestBase {
         requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
     }
 
-//    @Test
-//    String addNewAdvertisement() {
-//        NewAdvertisement newAdvertisement = requests.addAdvertisement(authCookie);
-//        return newAdvertisement.getData().getObject_id();
-//    }
-//
-//    @Test
-//    void moveAdvertisementToArchive(String advertisementId) {
-//        requests.moveToArchive(advertisementId, authCookie);
-//    }
-//
+    @Test
+    String addNewAdvertisement() {
+        NewAdvertisement newAdvertisement = requests.addAdvertisement(data.authCookie);
+        return newAdvertisement.getData().getObject_id();
+    }
+
+    @Test
+    void moveAdvertisementToArchive(String advertisementId) {
+        requests.moveToArchive(advertisementId, data.authCookie);
+    }
+
     @Test
     void tested() {
         GeneralInfoRequest generalInfoRequest= new GeneralInfoRequest();

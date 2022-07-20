@@ -54,6 +54,13 @@ public class SutochnoWebTests extends TestBase {
     @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
     @Owner("admin")
     void makeAdvertisementUiTest() {
+
+
+//        todo
+//         Пробовали играть с PageLoadStrategy?
+//         Рекомендую погуглить, там есть несколько уровней ожидания загрузки страницы, но вам придется собрать свой инстанс драйвера и отдать его селениду
+//         Не самая тривиальная задача
+
         mainPage
                 .authorization(new Cookie("_me_", data.authCookie), Project.config.userName())
                 .openUsersAdvertisements()
