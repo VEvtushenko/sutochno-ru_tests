@@ -94,3 +94,9 @@ task newAdvertisement(type: Test) {
         includeTags 'newAdvertisement'
     }
 }
+
+task authUI(type: Test) {
+    useJUnitPlatform {
+        includeTags 'authUI'
+    }
+}
