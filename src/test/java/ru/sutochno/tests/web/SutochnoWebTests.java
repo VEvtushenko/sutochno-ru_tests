@@ -23,6 +23,7 @@ import static ru.sutochno.data.Data.authCookie;
 
 public class SutochnoWebTests extends TestBase {
 
+    @Tag("openMain")
     @Description("Open main page test")
     @Severity(SeverityLevel.BLOCKER)
     @Test
@@ -30,6 +31,7 @@ public class SutochnoWebTests extends TestBase {
         mainPage.openPage();
     }
 
+    @Tag("authUI")
     @Test
     @Description("Проверка авторизации с помощью логина и пароля через интерфейс пользователя")
     @Severity(SeverityLevel.BLOCKER)
@@ -45,6 +47,7 @@ public class SutochnoWebTests extends TestBase {
     void currencyChangeTest() {
 
     }
+
 
     @Test
     void searchTest() {
