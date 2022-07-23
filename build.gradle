@@ -100,3 +100,5 @@ task authUI(type: Test) {
         includeTags 'authUI'
     }
 }
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11

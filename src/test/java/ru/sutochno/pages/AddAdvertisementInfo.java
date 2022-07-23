@@ -5,6 +5,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.codeborne.selenide.Condition.*;
@@ -32,10 +33,18 @@ public class AddAdvertisementInfo {
         return $("[data='Bathroom']").$(".container").$(".row").sibling(numberOfRow);
     }
 
+    @Step("Нажать Продолжить")
+    public AddAdvertisementInfo toNextStep() {
+        $(".object-creating__btn-wrap").$(byText("Продолжить")).click();
+    // todo       $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"));
+        return this;
+    }
+
 //    Screen 1
 
     @Step("Выберите тип улицы")
     public AddAdvertisementInfo chooseStreetType(String streetType) {
+        $(".object-creating-form__form-title").shouldHave(text("Адрес"), Duration.ofSeconds(10));
         chooseItem("Address", 0).$(".sc-select").selectOptionContainingText(streetType);
         return this;
     }
@@ -64,19 +73,18 @@ public class AddAdvertisementInfo {
         return this;
     }
 
-    @Step("Нажать Продолжить")
-    public AddAdvertisementInfo toNextStep() {
-        sleep(200);
-        $(".object-creating__btn-wrap").$(byText("Продолжить")).click();
-// todo       $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"));
+//    Screen 2
+
+    @Step("Подтвердить карту")
+    public AddAdvertisementInfo map() {
+        $(".object-creating-form__form-title").shouldHave(text("Карта"), Duration.ofSeconds(10));
         return this;
     }
-
-
 //  Screen 3
 
     @Step("Ввести максимум гостей")
     public AddAdvertisementInfo maxGuests(Integer maxGuests) {
+        $(".object-creating-form__form-title").shouldHave(text("Сколько гостей вмещает ваше жильё"), Duration.ofSeconds(10));
         chooseItem("Guest", 0).$(".sc-input-quantity__input")
                 .setValue(maxGuests.toString());
         return this;
@@ -189,6 +197,7 @@ public class AddAdvertisementInfo {
 
     @Step("Ввести удобства")
     public AddAdvertisementInfo homeFacilities(String facility) {
+        $(".object-creating-form__form-title").shouldHave(text("Удобства"), Duration.ofSeconds(10));
         chooseItem("Facilities", 0).$(byText(facility)).click();
         return this;
     }
@@ -218,16 +227,19 @@ public class AddAdvertisementInfo {
 
 //    Screen 5
 
-    @Step("Загружаем фото")
+    @Step("Загрузите фотографии")
     public AddAdvertisementInfo uploadFoto(String pathToImage) {
+        $(".object-creating-form__form-title").shouldHave(text("Загрузите фотографии"), Duration.ofSeconds(10));
         $(".load-image").$(".load-image__select-files").$("[type='file']").uploadFile(new File(pathToImage));
         sleep(2000);
         return this;
     }
 
     //    Screen 6
-    @Step("Ввести имя объекта")
+
+    @Step("Заголовок объекта")
     public AddAdvertisementInfo inputAdvertisementName(String name) {
+        $(".object-creating-form__form-title").shouldHave(text("Заголовок объекта"), Duration.ofSeconds(10));
         $("[data='NameObject']").$(".name__item").$(".sc-input--elem").setValue(name);
         return this;
     }
@@ -249,6 +261,7 @@ public class AddAdvertisementInfo {
 
     @Step("Правила размещения")
     public AddAdvertisementInfo hostingRules(boolean withChildren, int childrenAge, boolean withPets, boolean smoking, boolean party) {
+        $(".object-creating-form__form-title").shouldHave(text("Правила размещения"), Duration.ofSeconds(10));
         AtomicReference<Integer> numberOfRow = new AtomicReference<>(1);
         if (withChildren) {
             step("Выберите разрешённый возраст детей", () ->
@@ -282,6 +295,7 @@ public class AddAdvertisementInfo {
 
     @Step("Время заезда")
     public AddAdvertisementInfo checkInTime(String checkInTime) {
+        $(".object-creating-form__form-title").shouldHave(text("Заезд / отъезд"), Duration.ofSeconds(10));
         chooseItem("CheckInCheckOut", 1).$(".sc-select").selectOption(checkInTime);
         return this;
     }
@@ -296,6 +310,7 @@ public class AddAdvertisementInfo {
 
     @Step("Способ бронирования")
     public AddAdvertisementInfo howGuestBook(boolean isBookingImmediate) {
+        $(".object-creating-form__form-title").shouldHave(text("Как гости могут бронировать"), Duration.ofSeconds(10));
         if (isBookingImmediate) {
             $("[data='HowGuestBook']").$(".sc-radio__label").click();
         } else {
@@ -309,6 +324,7 @@ public class AddAdvertisementInfo {
 
     @Step("Выбираем промежуток от бронирования до заселения")
     public AddAdvertisementInfo bookingGap(Integer bookingGap) {
+        $(".object-creating-form__form-title").shouldHave(text("Сроки бронирования"), Duration.ofSeconds(10));
         $("[data='BookingDate']").$(".booking-date__line").$(".sc-select").selectOption(bookingGap);
         return this;
     }
@@ -329,6 +345,7 @@ public class AddAdvertisementInfo {
 
     @Step("Подтверждаем, что будем вести календарь бронирований")
     public AddAdvertisementInfo сalendarInfoAgreement() {
+        $(".object-creating-form__form-title").shouldHave(text("Ведите календарь занятости — гостям важна каждая дата"), Duration.ofSeconds(10));
         $("[data='CalendarInfo']").$(".sc-checkbox").click();
         return this;
     }
@@ -336,6 +353,7 @@ public class AddAdvertisementInfo {
     //  Step 3 Screen 1
     @Step("Выбираем валюту оплаты")
     public AddAdvertisementInfo currencyPay(Integer currency) {
+        $(".object-creating-form__form-title").shouldHave(text("Цены"), Duration.ofSeconds(10));
         chooseItemPrice(0).$(".sc-select").selectOption(currency);
         return this;
     }
@@ -366,8 +384,10 @@ public class AddAdvertisementInfo {
     }
 
 // Step 3, Screen 2
+
     @Step("Настраиваем параметры первой скидки")
-    public AddAdvertisementInfo сhooseDiscountParam(String dayForDiscount, Integer valueOfDiscount, String discountType) {
+    public AddAdvertisementInfo chooseDiscountParam(String dayForDiscount, Integer valueOfDiscount, String discountType) {
+        $(".object-creating-form__form-title").shouldHave(text("Скидки"), Duration.ofSeconds(10));
         $(".object-creating__loader").$(".sc-select").selectOptionContainingText(dayForDiscount);
         $(".object-creating__loader").$(".sc-input--elem").setValue(valueOfDiscount.toString());
         $(".object-creating__loader").$(".sc-select:not(.sale-price--wrapper__date)")
@@ -391,7 +411,7 @@ public class AddAdvertisementInfo {
 
     @Step("Удаляем скидку")
     public AddAdvertisementInfo rmDiscount() {
-        sleep(2000);
+        $(".object-creating-form__form-title").shouldHave(text("Скидки"), Duration.ofSeconds(10));
         $(".sale-price--wrapper__close").click();
         return this;
     }
@@ -400,6 +420,7 @@ public class AddAdvertisementInfo {
 
     @Step("Выбираем, включена ли уборка в стоимость проживания")
     public AddAdvertisementInfo additionalServices(Integer cleaning) {
+        $(".object-creating-form__form-title").shouldHave(text("Плата за уборку"), Duration.ofSeconds(10));
         $("[data='FeeAdditionalServices']").$(".sc-select").selectOption(cleaning);
         return this;
     }
@@ -433,12 +454,13 @@ public class AddAdvertisementInfo {
 //    Step 3 Screen 4
     @Step("Проверяем введённые данные")
     public AddAdvertisementInfo checkMainData(String checkMainData) {
+        $(".object-creating-form__form-title").shouldHave(text("Ваше объявление почти готово! Проверьте главное:"), Duration.ofSeconds(10));
         $$(".step-booking--text").findBy(text(checkMainData + " $")).shouldBe(visible);
         return this;
     }
 
     @Step("Проверяем введённые данные")
-    @Description("Этот шаг является багом - согасно общей логике здесь должен быть редирект на объявление")
+    @Description("Результат выполнения этого шага, судя по всему, является багом - согласно общей логике здесь должен быть редирект на объявление")
     public AddAdvertisementInfo finalPage() {
         sleep(1000);
         $$(".desktop").findBy(text("К сожалению, такой страницы нет.")).shouldBe(visible);

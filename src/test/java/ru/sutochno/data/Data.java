@@ -4,6 +4,7 @@ import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,18 @@ public class Data {
             }
             return stringsArray;
         } catch (IOException e) {
-        e.printStackTrace();
-            return null;
+            e.printStackTrace();
+            return new String[] {""};
+        }
+    }
+
+
+    private static String getTextString(String fileName)  {
+        try {
+            return new String((Files.readAllBytes(Paths.get(fileName))));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new String("");
         }
     }
 
@@ -91,4 +102,5 @@ public class Data {
     public Integer depositAmount = 30000;
     public String transferTerm = "Transfer term";
     public Integer checkMainData = 3000;
+    public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
 }

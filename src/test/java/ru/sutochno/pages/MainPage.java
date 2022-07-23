@@ -20,6 +20,12 @@ public class MainPage {
         return this;
     }
 
+    @Step("Проверяем наличие и текст баннера с решением суда")
+    public MainPage judgmentTextCheck(String judgmentText) {
+        $("#modal-cookies").shouldHave(text(judgmentText), Duration.ofSeconds(5));
+        return this;
+    }
+
     @Step("Открываем главную страницу и проверяем авторизацию")
     public MainPage openPageWithAuth(String userName) {
         open("/");
