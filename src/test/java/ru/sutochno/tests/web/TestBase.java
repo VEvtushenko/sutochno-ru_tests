@@ -27,7 +27,6 @@ import java.util.stream.Stream;
 public class TestBase {
     Data data = new Data();
     MainPage mainPage = new MainPage();
-    Promo promoPage = new Promo();
 
     @BeforeAll
     static void setUp() {
