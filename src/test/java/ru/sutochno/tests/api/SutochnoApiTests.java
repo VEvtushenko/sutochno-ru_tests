@@ -2,7 +2,7 @@ package ru.sutochno.tests.api;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import ru.sutochno.api.models.GeneralInfoRequest;
+import ru.sutochno.api.models.SetProperties;
 import ru.sutochno.api.models.NewAdvertisement;
 import ru.sutochno.config.Project;
 
@@ -30,8 +30,8 @@ public class SutochnoApiTests extends TestBase {
 
     @Test
     void tested() {
-        GeneralInfoRequest generalInfoRequest = new GeneralInfoRequest();
-        generalInfoRequest.setObjectId(1212637);
+        SetProperties setProperties = new SetProperties();
+        setProperties.setObjectId(1212637);
 //        generalInfoRequest.setProperties);
     }
 }

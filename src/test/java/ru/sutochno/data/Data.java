@@ -57,7 +57,7 @@ public class Data {
     public String[] country = new String[] {"Беларусь"};
     public String[] region = new String[] {"Брестская область"};
     public String[] city = new String[] {"Брест"}; // todo [][] by region
-    public String[] streetType = getTextStrings("src/test/resources/data/streetName.txt");
+    public String[] streetType = getTextStrings("src/test/resources/data/streetType.txt");
     public String streetName = "Ленина";
     public String houseNumber = "12";
     public String houseExNumber = "А";

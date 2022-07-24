@@ -6,5 +6,5 @@ import lombok.Data;
 public class PropertiesItem{
 	private String name;
 	private String title;
-	private String value;
+	private Integer value;
 }

@@ -3,7 +3,7 @@ package ru.sutochno.api.requests;
 
 import io.restassured.http.ContentType;
 import ru.sutochno.api.models.AdvertisementChangeResponse;
-import ru.sutochno.api.models.GeneralInfoRequest;
+import ru.sutochno.api.models.SetProperties;
 import ru.sutochno.api.models.NewAdvertisement;
 
 import static io.restassured.RestAssured.given;
@@ -56,7 +56,7 @@ public class Requests {
                     .extract().as(NewAdvertisement.class);
     }
 
-    public AdvertisementChangeResponse changeObjectGeneralInfo(String authCookie, GeneralInfoRequest requestBody)  {
+    public AdvertisementChangeResponse changeObjectGeneralInfo(String authCookie, SetProperties requestBody)  {
         AdvertisementChangeResponse advertisementChangeResponse;
         return advertisementChangeResponse =
                 given()
