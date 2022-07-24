@@ -13,7 +13,6 @@ import static ru.sutochno.api.specifications.Specs.*;
 
 public class Requests {
 
-
     public String  getAuth(String userPhone, String userPassword) {
         return given()
                 .spec(requestSpecUser)
@@ -71,6 +70,5 @@ public class Requests {
                         .spec(responseSpec)
                         .extract().as(AdvertisementChangeResponse.class);
     }
-
 
 }

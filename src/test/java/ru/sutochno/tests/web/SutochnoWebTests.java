@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Cookie;
+import ru.sutochno.api.models.NewAdvertisement;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
 
 import static io.qameta.allure.Allure.step;
-import static ru.sutochno.data.Data.authCookie;
+import static ru.sutochno.data.Data.AUTH_COOKIE;
 
 @Owner("Vladimir Evtushenko")
 @DisplayName("Тест сайта ")
@@ -44,12 +45,14 @@ public class SutochnoWebTests extends TestBase {
     @MethodSource("currencyNameSource")
     @ParameterizedTest(name = "")
     void currencyChangeTest() {
-
     }
 
 
     @Test
     void searchTest() {
+        mainPage
+                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName());
+        NewAdvertisement newAdvertisement = requests.addAdvertisement(AUTH_COOKIE);
     }
 
     @Test
@@ -59,7 +62,7 @@ public class SutochnoWebTests extends TestBase {
     @Owner("admin")
     void makeAdvertisementUiTest() {
         mainPage
-                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
+                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName())
                 .openUsersAdvertisements()
                 .createNewAdvertisement();
 
@@ -168,7 +171,7 @@ public class SutochnoWebTests extends TestBase {
     @Owner("admin")
     void moveAdvertisementToArchive() {
         mainPage
-                .authorization(new Cookie("_me_", authCookie), Project.config.userName())
+                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName())
                 .openUsersAdvertisements()
                 .moveToArchive();
     }

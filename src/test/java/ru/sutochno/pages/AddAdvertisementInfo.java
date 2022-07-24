@@ -466,5 +466,4 @@ public class AddAdvertisementInfo {
         $$(".desktop").findBy(text("К сожалению, такой страницы нет.")).shouldBe(visible);
         return this;
     }
-
 }

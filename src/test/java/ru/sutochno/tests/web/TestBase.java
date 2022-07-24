@@ -29,6 +29,7 @@ public class TestBase {
     Data data = new Data();
     CheckData checkData = new CheckData();
     MainPage mainPage = new MainPage();
+    Requests requests = new Requests();
 
     @BeforeAll
     static void setUp() {

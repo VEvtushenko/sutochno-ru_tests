@@ -14,5 +14,4 @@ public class UserPage {
         return new AddNewAdvertisement();
     }
 
-
 }

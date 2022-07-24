@@ -49,7 +49,7 @@ public class Data {
     public static Requests requests = new Requests();
 
     public static String promoUrl = "https://promo.sutochno.ru";
-    public static String authCookie =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
+    public static final String AUTH_COOKIE =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
 
 //    todo api address
 //    todo адресные переменные
@@ -111,5 +111,4 @@ public class Data {
     public String transferTerm = "Transfer term";
     public Integer checkMainData = 3000;
     public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
-
 }

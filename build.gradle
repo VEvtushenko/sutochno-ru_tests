@@ -100,5 +100,13 @@ task authUI(type: Test) {
         includeTags 'authUI'
     }
 }
+
+
+task apiTests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'apiTests'
+    }
+}
+
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11

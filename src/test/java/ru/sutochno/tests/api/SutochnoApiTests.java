@@ -1,11 +1,13 @@
 package ru.sutochno.tests.api;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import ru.sutochno.api.models.GeneralInfoRequest;
 import ru.sutochno.api.models.NewAdvertisement;
 import ru.sutochno.config.Project;
 
-import static ru.sutochno.data.Data.authCookie;
+import static com.codeborne.selenide.Selenide.open;
+import static ru.sutochno.data.Data.AUTH_COOKIE;
 
 
 public class SutochnoApiTests extends TestBase {
@@ -15,19 +17,20 @@ public class SutochnoApiTests extends TestBase {
     }
 
     @Test
+    @Tag("apiTests")
     String addNewAdvertisement() {
-        NewAdvertisement newAdvertisement = requests.addAdvertisement(authCookie);
+        NewAdvertisement newAdvertisement = requests.addAdvertisement(AUTH_COOKIE);
         return newAdvertisement.getData().getObject_id();
     }
 
     @Test
     void moveAdvertisementToArchive(String advertisementId) {
-        requests.moveToArchive(advertisementId, authCookie);
+        requests.moveToArchive(advertisementId, AUTH_COOKIE);
     }
 
     @Test
     void tested() {
-        GeneralInfoRequest generalInfoRequest= new GeneralInfoRequest();
+        GeneralInfoRequest generalInfoRequest = new GeneralInfoRequest();
         generalInfoRequest.setObjectId(1212637);
 //        generalInfoRequest.setProperties);
     }
