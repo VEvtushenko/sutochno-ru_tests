@@ -78,14 +78,14 @@ public class MainPage {
     @Step("Открываем личный кабинет пользователя и проверяем это")
     public UserPage openUserPage() {
         $("[aria-label='Личный кабинет']").click();
-        $(".user-params-list").shouldHave(text("ID пользователя: 6809367"), Duration.ofSeconds(10));
+        $(".user-params-list").shouldHave(text("ID пользователя: 6809367"), Duration.ofSeconds(30));
         return new UserPage();
     }
 
     @Step("Открываем список объявлений и проверяем это")
     public UsersAdvertisements openUsersAdvertisements() {
         $("[aria-label='Сдавайся']").click();
-        $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"), Duration.ofSeconds(10));
+        $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"), Duration.ofSeconds(30));
         return new UsersAdvertisements();
     }
 

@@ -44,7 +44,7 @@ public class AddAdvertisementInfo {
 
     @Step("Выберите тип улицы")
     public AddAdvertisementInfo chooseStreetType(String streetType) {
-        $(".object-creating-form__form-title").shouldHave(text("Адрес"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Адрес"), Duration.ofSeconds(30));
         chooseItem("Address", 0).$(".sc-select").selectOptionContainingText(streetType);
         return this;
     }
@@ -77,14 +77,14 @@ public class AddAdvertisementInfo {
 
     @Step("Подтвердить карту")
     public AddAdvertisementInfo map() {
-        $(".object-creating-form__form-title").shouldHave(text("Карта"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Карта"), Duration.ofSeconds(30));
         return this;
     }
 //  Screen 3
 
     @Step("Ввести максимум гостей")
     public AddAdvertisementInfo maxGuests(Integer maxGuests) {
-        $(".object-creating-form__form-title").shouldHave(text("Сколько гостей вмещает ваше жильё"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Сколько гостей вмещает ваше жильё"), Duration.ofSeconds(30));
         chooseItem("Guest", 0).$(".sc-input-quantity__input")
                 .setValue(maxGuests.toString());
         return this;
@@ -197,7 +197,7 @@ public class AddAdvertisementInfo {
 
     @Step("Ввести удобства")
     public AddAdvertisementInfo homeFacilities(String facility) {
-        $(".object-creating-form__form-title").shouldHave(text("Удобства"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Удобства"), Duration.ofSeconds(30));
         chooseItem("Facilities", 0).$(byText(facility)).click();
         return this;
     }
@@ -229,7 +229,7 @@ public class AddAdvertisementInfo {
 
     @Step("Загрузите фотографии")
     public AddAdvertisementInfo uploadFoto(String pathToImage) {
-        $(".object-creating-form__form-title").shouldHave(text("Загрузите фотографии"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Загрузите фотографии"), Duration.ofSeconds(30));
         $(".load-image").$(".load-image__select-files").$("[type='file']").uploadFile(new File(pathToImage));
         sleep(2000);
         return this;
@@ -239,7 +239,7 @@ public class AddAdvertisementInfo {
 
     @Step("Заголовок объекта")
     public AddAdvertisementInfo inputAdvertisementName(String name) {
-        $(".object-creating-form__form-title").shouldHave(text("Заголовок объекта"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Заголовок объекта"), Duration.ofSeconds(30));
         $("[data='NameObject']").$(".name__item").$(".sc-input--elem").setValue(name);
         return this;
     }
@@ -261,7 +261,7 @@ public class AddAdvertisementInfo {
 
     @Step("Правила размещения")
     public AddAdvertisementInfo hostingRules(boolean withChildren, int childrenAge, boolean withPets, boolean smoking, boolean party) {
-        $(".object-creating-form__form-title").shouldHave(text("Правила размещения"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Правила размещения"), Duration.ofSeconds(30));
         AtomicReference<Integer> numberOfRow = new AtomicReference<>(1);
         if (withChildren) {
             step("Выберите разрешённый возраст детей", () ->
@@ -295,7 +295,7 @@ public class AddAdvertisementInfo {
 
     @Step("Время заезда")
     public AddAdvertisementInfo checkInTime(String checkInTime) {
-        $(".object-creating-form__form-title").shouldHave(text("Заезд / отъезд"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Заезд / отъезд"), Duration.ofSeconds(30));
         chooseItem("CheckInCheckOut", 1).$(".sc-select").selectOption(checkInTime);
         return this;
     }
@@ -310,7 +310,7 @@ public class AddAdvertisementInfo {
 
     @Step("Способ бронирования")
     public AddAdvertisementInfo howGuestBook(boolean isBookingImmediate) {
-        $(".object-creating-form__form-title").shouldHave(text("Как гости могут бронировать"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Как гости могут бронировать"), Duration.ofSeconds(30));
         if (isBookingImmediate) {
             $("[data='HowGuestBook']").$(".sc-radio__label").click();
         } else {
@@ -324,7 +324,7 @@ public class AddAdvertisementInfo {
 
     @Step("Выбираем промежуток от бронирования до заселения")
     public AddAdvertisementInfo bookingGap(Integer bookingGap) {
-        $(".object-creating-form__form-title").shouldHave(text("Сроки бронирования"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Сроки бронирования"), Duration.ofSeconds(30));
         $("[data='BookingDate']").$(".booking-date__line").$(".sc-select").selectOption(bookingGap);
         return this;
     }
@@ -345,7 +345,7 @@ public class AddAdvertisementInfo {
 
     @Step("Подтверждаем, что будем вести календарь бронирований")
     public AddAdvertisementInfo сalendarInfoAgreement() {
-        $(".object-creating-form__form-title").shouldHave(text("Ведите календарь занятости — гостям важна каждая дата"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Ведите календарь занятости — гостям важна каждая дата"), Duration.ofSeconds(30));
         $("[data='CalendarInfo']").$(".sc-checkbox").click();
         return this;
     }
@@ -353,14 +353,14 @@ public class AddAdvertisementInfo {
     //  Step 3 Screen 1
     @Step("Выбираем валюту оплаты")
     public AddAdvertisementInfo currencyPay(Integer currency) {
-        $(".object-creating-form__form-title").shouldHave(text("Цены"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Цены"), Duration.ofSeconds(30));
         chooseItemPrice(0).$(".sc-select").selectOption(currency);
         return this;
     }
 
     @Step("Выбираем минимальный срок проживания")
     public AddAdvertisementInfo minimalPeriodOfResidence(Integer minPeriodOfResidence) {
-        chooseItemPrice(1).$(".sc-select").selectOption(minPeriodOfResidence);
+        chooseItemPrice(1).$(".sc-select").selectOption(minPeriodOfResidence - 1);
         return this;
     }
 
@@ -387,7 +387,7 @@ public class AddAdvertisementInfo {
 
     @Step("Настраиваем параметры первой скидки")
     public AddAdvertisementInfo chooseDiscountParam(String dayForDiscount, Integer valueOfDiscount, String discountType) {
-        $(".object-creating-form__form-title").shouldHave(text("Скидки"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Скидки"), Duration.ofSeconds(30));
         $(".object-creating__loader").$(".sc-select").selectOptionContainingText(dayForDiscount);
         $(".object-creating__loader").$(".sc-input--elem").setValue(valueOfDiscount.toString());
         $(".object-creating__loader").$(".sc-select:not(.sale-price--wrapper__date)")
@@ -411,7 +411,7 @@ public class AddAdvertisementInfo {
 
     @Step("Удаляем скидку")
     public AddAdvertisementInfo rmDiscount() {
-        $(".object-creating-form__form-title").shouldHave(text("Скидки"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Скидки"), Duration.ofSeconds(30));
         $(".sale-price--wrapper__close").click();
         return this;
     }
@@ -420,7 +420,7 @@ public class AddAdvertisementInfo {
 
     @Step("Выбираем, включена ли уборка в стоимость проживания")
     public AddAdvertisementInfo additionalServices(Integer cleaning) {
-        $(".object-creating-form__form-title").shouldHave(text("Плата за уборку"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Плата за уборку"), Duration.ofSeconds(30));
         $("[data='FeeAdditionalServices']").$(".sc-select").selectOption(cleaning);
         return this;
     }
@@ -454,7 +454,7 @@ public class AddAdvertisementInfo {
 //    Step 3 Screen 4
     @Step("Проверяем введённые данные")
     public AddAdvertisementInfo checkMainData(String checkMainData) {
-        $(".object-creating-form__form-title").shouldHave(text("Ваше объявление почти готово! Проверьте главное:"), Duration.ofSeconds(10));
+        $(".object-creating-form__form-title").shouldHave(text("Ваше объявление почти готово! Проверьте главное:"), Duration.ofSeconds(30));
         $$(".step-booking--text").findBy(text(checkMainData + " $")).shouldBe(visible);
         return this;
     }

@@ -4,7 +4,6 @@ import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.nio.file.Files;
 
 public class Data {
 
-    private static String[] getTextStrings(String fileName)  {
+    private  String[] getTextStrings(String fileName)  {
         try {
             List<String> text = new ArrayList((Files.readAllLines(Paths.get(fileName))));
             String[] stringsArray = new String[text.size()];
@@ -29,7 +28,7 @@ public class Data {
     }
 
 
-    private static String getTextString(String fileName)  {
+    private  String getTextString(String fileName)  {
         try {
             return new String((Files.readAllBytes(Paths.get(fileName))));
         } catch (IOException e) {
@@ -37,6 +36,15 @@ public class Data {
             return new String("");
         }
     }
+
+    private Integer[] getFollowingIntArray(int max)  {
+        Integer[] intArray = new Integer[max];
+        for (int i = 0; i < max; i++) {
+            intArray[i] = i + 1;
+        }
+        return intArray;
+    }
+
 
     public static Requests requests = new Requests();
 
@@ -56,7 +64,7 @@ public class Data {
     public Integer maxGuests = 5;
     public Integer numberOfRooms = 4;
     public Integer numberOfBedrooms = 2;
-// todo metod   public static Integer numberOfBeds = 2;
+    public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
     public String[] typeOfBeds;
     public Integer bathroomsWithToilet = 1;
     public Integer bathroomsWithoutToilet = 0;
@@ -74,8 +82,8 @@ public class Data {
 //    public String[] bookingGap = getTextStrings("");
 //    public String[] bookingDuration = getTextStrings("");
 //    public String[] currencyPay = getTextStrings("");
-//    public String[] minimalPeriodOfResidence = getTextStrings("");
-//    public String[] childrenAge = getTextStrings("");
+    public Integer[] minimalPeriodOfResidence = getFollowingIntArray(30);
+    public Integer[] childrenAge = getFollowingIntArray(17);
     public String[] checkInTime = new String[] {"12:00"};
     public String[] checkOutTime = new String[] {"16:00"};
 //    public String[] additionalServices = getTextStrings("");
@@ -87,9 +95,9 @@ public class Data {
     public String photo1 = "src/test/resources/images/1.jpeg";
     public String photo2 = "src/test/resources/images/2.jpeg";
     public String photo3 = "src/test/resources/images/3.jpg";
-    public String inputAdvertisementName = "В Бресте на бульваре";
-    public String addUniqName = "Квартира в Бресте";
-    public String inputAdvertisementDesc = "Брест, квартира, бульвар Ленина";
+    public String advertisementName = "В Бресте на бульваре";
+    public String advertisementUniqName = "Квартира в Бресте";
+    public String advertisementDesc = "Брест, квартира, бульвар Ленина";
     public boolean withChildren = true;
     public boolean withPets = true;
     public boolean smoking = false;
@@ -103,4 +111,5 @@ public class Data {
     public String transferTerm = "Transfer term";
     public Integer checkMainData = 3000;
     public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
+
 }

@@ -1,6 +1,5 @@
 package ru.sutochno.tests.web;
 
-import com.codeborne.selenide.Condition;
 import io.qameta.allure.*;
 import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
@@ -12,8 +11,6 @@ import org.openqa.selenium.Cookie;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
 import static io.qameta.allure.Allure.step;
 import static ru.sutochno.data.Data.authCookie;
 
@@ -74,7 +71,7 @@ public class SutochnoWebTests extends TestBase {
                 .chooseCountry(data.country[0])
                 .chooseRegion(data.region[0])
                 .chooseCity(data.city[0])
-                .toNextPage())
+                .toNextPage()
                 .chooseStreetType(data.streetType[1])
                 .chooseStreetName(data.streetName)
                 .houseNumber(data.houseNumber)
@@ -110,11 +107,11 @@ public class SutochnoWebTests extends TestBase {
                 .uploadFoto(data.photo2)
                 .uploadFoto(data.photo3)
                 .toNextStep()
-                .inputAdvertisementName(data.inputAdvertisementName)
-                .addUniqName(data.addUniqName)
-                .inputAdvertisementDesc(data.inputAdvertisementDesc)
+                .inputAdvertisementName(data.advertisementName)
+                .addUniqName(data.advertisementUniqName)
+                .inputAdvertisementDesc(data.advertisementDesc)
                 .toNextStep()
-                .hostingRules(data.withChildren, 1, data.withPets, data.smoking, data.party)
+                .hostingRules(data.withChildren, data.childrenAge[0], data.withPets, data.smoking, data.party)
                 .toNextStep()
                 .checkInTime(data.checkInTime[0])
                 .checkOutTime(data.checkOutTime[0])
@@ -127,7 +124,7 @@ public class SutochnoWebTests extends TestBase {
                 .сalendarInfoAgreement()
                 .toNextStep()
                 .currencyPay(1)
-                .minimalPeriodOfResidence(2)
+                .minimalPeriodOfResidence(data.minimalPeriodOfResidence[2])
                 .costPerDay(data.costPerDay.toString(), data.amountOfGuestsForCost.toString())
                 .exGuestPrice(data.exGuestPrice.toString())
                 .toNextStep()
@@ -143,14 +140,26 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .checkMainData(data.checkMainData.toString())
                 .toNextStep()
-                .finalPage();
+                .finalPage());
 
         mainPage
                 .openUsersAdvertisements()
-                .openLastAdvertisements();
+                .openLastAdvertisements()
+                .checkTitle(data.advertisementName)
+                .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType[1], data.houseNumber, data.houseExNumber))
+                .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(),
+                        checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floorOfFlat.toString(), data.numberOfFloors.toString(), true),
+                        data.advertisementDesc)
+                .checkIncomingRules(data.checkInTime[0], data.checkOutTime[0], data.minimalPeriodOfResidence[2].toString())
+                .checkRules(checkData.getChildrenRules(data.withChildren, data.childrenAge[0].toString()))
+                .checkRules(checkData.getSmokingRules(data.smoking))
+                .checkRules(checkData.getPetsRules(data.withPets))
+                .checkRules(checkData.getPartyRules(data.party))
+//todo  30 000 ₽ from 30000 ₽               .checkDepositRules(data.depositAmount.toString())
+                .checkEquipments(data.kitchenEquipments[2]);
 
-//                .moveToArchive();
-        step("Проверить наличие объявления");
+                mainPage
+                .openUsersAdvertisements().moveToArchive();
     }
 
     @Test
