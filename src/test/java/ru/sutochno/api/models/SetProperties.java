@@ -468,6 +468,13 @@ public class SetProperties {
 		@JsonProperty("check_out")
 		private String checkOut;
 
+		@JsonProperty("check_in_early")
+		private String checkInEarly;
+
+		@JsonProperty("check_out_early")
+		private String checkOutEarly;
+
+
 		@JsonProperty("pets")
 		private String pets;
 
@@ -509,6 +516,12 @@ public class SetProperties {
 
 		@JsonProperty("before_hours")
 		private String beforeHours;
+
+		@JsonProperty("children_age")
+		private String childrenAge;
+
+		@JsonProperty("documents")
+		private String documents;
 
 	}
 }
