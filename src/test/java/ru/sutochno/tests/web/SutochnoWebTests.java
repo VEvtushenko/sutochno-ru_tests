@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Cookie;
+import ru.sutochno.api.models.AdvertisementChangeResponse;
 import ru.sutochno.api.models.NewAdvertisement;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
@@ -53,6 +54,7 @@ public class SutochnoWebTests extends TestBase {
         mainPage
                 .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName());
         NewAdvertisement newAdvertisement = requests.addAdvertisement(AUTH_COOKIE);
+        AdvertisementChangeResponse advertisementChangeResponse = requests.setProperties(AUTH_COOKIE, model.getChangeProperties(Integer.parseInt(newAdvertisement.getData().getObject_id())));
     }
 
     @Test
@@ -88,13 +90,13 @@ public class SutochnoWebTests extends TestBase {
                 .numberOfBeds(2, 1)
                 .addNewBed(1, 1)
                 .addNewBed(1, 1)
-                .bathroomsWithToilet(data.bathroomsWithToilet)
-                .bathroomsWithoutToilet(data.bathroomsWithoutToilet)
-                .toilets(data.toilets)
+                .bathroomsWithToilet(data.cntBathroomsToilet)
+                .bathroomsWithoutToilet(data.cntBathrooms)
+                .toilets(data.cntToilets)
                 .conveniencesInBathroom(data.conveniencesInBathroom[1])
                 .squareOfFlat(data.squareOfFlat)
-                .floorOfFlat(data.floorOfFlat, data.isAttic)
-                .numberOfFloors(data.numberOfFloors, data.isElevator)
+                .floorOfFlat(data.floor, data.isAttic)
+                .numberOfFloors(data.maxFloor, data.isElevator)
                 .typeOfKitchen(2)
                 .typeOfRepairment(2)
                 .toNextStep()
@@ -110,14 +112,14 @@ public class SutochnoWebTests extends TestBase {
                 .uploadFoto(data.photo2)
                 .uploadFoto(data.photo3)
                 .toNextStep()
-                .inputAdvertisementName(data.advertisementName)
-                .addUniqName(data.advertisementUniqName)
-                .inputAdvertisementDesc(data.advertisementDesc)
+                .inputAdvertisementName(data.nameObject)
+                .addUniqName(data.selfNumberObject)
+                .inputAdvertisementDesc(data.description)
                 .toNextStep()
-                .hostingRules(data.withChildren, data.childrenAge[0], data.withPets, data.smoking, data.party)
+                .hostingRules(data.withChildren, data.childrenAge[0], data.withPets, data.smokingBoolean, data.partyBoolean)
                 .toNextStep()
-                .checkInTime(data.checkInTime[0])
-                .checkOutTime(data.checkOutTime[0])
+                .checkInTime(data.checkTime[10])
+                .checkOutTime(data.checkTime[12])
                 .toNextStep()
                 .howGuestBook(data.quickBooking)
                 .toNextStep()
@@ -127,7 +129,7 @@ public class SutochnoWebTests extends TestBase {
                 .сalendarInfoAgreement()
                 .toNextStep()
                 .currencyPay(1)
-                .minimalPeriodOfResidence(data.minimalPeriodOfResidence[2])
+                .minimalPeriodOfResidence(data.minNights[2])
                 .costPerDay(data.costPerDay.toString(), data.amountOfGuestsForCost.toString())
                 .exGuestPrice(data.exGuestPrice.toString())
                 .toNextStep()
@@ -137,7 +139,7 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .additionalServices(0)
                 .cleaningCost(data.cleaningCost.toString())
-                .depositAmount(data.depositAmount.toString())
+                .depositAmount(data.deposit.toString())
                 .isTransfer()
                 .transferTerm(data.transferTerm)
                 .toNextStep()
@@ -148,16 +150,16 @@ public class SutochnoWebTests extends TestBase {
         mainPage
                 .openUsersAdvertisements()
                 .openLastAdvertisements()
-                .checkTitle(data.advertisementName)
+                .checkTitle(data.nameObject)
                 .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType[1], data.houseNumber, data.houseExNumber))
                 .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(),
-                        checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floorOfFlat.toString(), data.numberOfFloors.toString(), true),
-                        data.advertisementDesc)
-                .checkIncomingRules(data.checkInTime[0], data.checkOutTime[0], data.minimalPeriodOfResidence[2].toString())
+                        checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floor.toString(), data.maxFloor.toString(), true),
+                        data.description)
+                .checkIncomingRules(data.checkTime[10], data.checkTime[12], data.minNights[2].toString())
                 .checkRules(checkData.getChildrenRules(data.withChildren, data.childrenAge[0].toString()))
-                .checkRules(checkData.getSmokingRules(data.smoking))
+                .checkRules(checkData.getSmokingRules(data.smokingBoolean))
                 .checkRules(checkData.getPetsRules(data.withPets))
-                .checkRules(checkData.getPartyRules(data.party))
+                .checkRules(checkData.getPartyRules(data.partyBoolean))
 //todo  30 000 ₽ from 30000 ₽               .checkDepositRules(data.depositAmount.toString())
                 .checkEquipments(data.kitchenEquipments[2]);
 

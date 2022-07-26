@@ -1,3 +1,6 @@
+## <p align="center"> Описание смысла и возможных значений properties для changeProperties </p>
+##### <p align="center"> Описание поделено на подразделы в соответствии с разделами UI </p>
+
 ### Заголовок    
 <p align="center"> String </p>
 

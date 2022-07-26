@@ -8,10 +8,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Files;
-
+import java.util.Random;
 
 
 public class Data {
+
+    Random random = new Random();
 
     private  String[] getTextStrings(String fileName)  {
         try {
@@ -66,9 +68,9 @@ public class Data {
     public Integer numberOfBedrooms = 2;
     public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
     public String[] typeOfBeds;
-    public Integer bathroomsWithToilet = 1;
-    public Integer bathroomsWithoutToilet = 0;
-    public Integer toilets = 1;
+    public Integer cntBathroomsToilet = 1;
+    public Integer cntBathrooms = 0;
+    public Integer cntToilets = 1;
     public String[] conveniencesInBathroom = getTextStrings("src/test/resources/data/convenciesInBathrooms.txt");
     public String[] homeFacilities = getTextStrings("src/test/resources/data/homeFcilities.txt");
 //    public String[] typeOfKitchen= getTextStrings("");
@@ -82,33 +84,48 @@ public class Data {
 //    public String[] bookingGap = getTextStrings("");
 //    public String[] bookingDuration = getTextStrings("");
 //    public String[] currencyPay = getTextStrings("");
-    public Integer[] minimalPeriodOfResidence = getFollowingIntArray(30);
+    public Integer[] minNights = getFollowingIntArray(30);
     public Integer[] childrenAge = getFollowingIntArray(17);
-    public String[] checkInTime = new String[] {"12:00"};
-    public String[] checkOutTime = new String[] {"16:00"};
+    public String[] checkTime = new String[] {"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+//    public String[] checkOutTime = new String[] {"16:00"};
 //    public String[] additionalServices = getTextStrings("");
-    public Integer squareOfFlat = 120;
-    public Integer floorOfFlat = 5;
+    public String[] checkInEarly = new String[] {"0", "2", "3"};
+    public String[] checkOutEarly = new String[] {"0", "2", "3"};
+
+    public Integer squareOfFlat = random.nextInt(500);
+
+    public Integer floor = 5;
     public boolean isAttic = true;
-    public Integer numberOfFloors = 12;
+    public Integer maxFloor = 12;
     public boolean isElevator = true;
     public String photo1 = "src/test/resources/images/1.jpeg";
     public String photo2 = "src/test/resources/images/2.jpeg";
     public String photo3 = "src/test/resources/images/3.jpg";
-    public String advertisementName = "В Бресте на бульваре";
-    public String advertisementUniqName = "Квартира в Бресте";
-    public String advertisementDesc = "Брест, квартира, бульвар Ленина";
+    public String nameObject = "В Бресте на бульваре";
+    public String selfNumberObject = "Квартира в Бресте";
+    public String description = "Брест, квартира, бульвар Ленина";
     public boolean withChildren = true;
     public boolean withPets = true;
-    public boolean smoking = false;
-    public boolean party = true;
+    public boolean smokingBoolean = false;
+    public boolean partyBoolean = true;
     public boolean quickBooking = true;
     public Integer costPerDay = 3000;
     public Integer amountOfGuestsForCost = 1;
     public Integer exGuestPrice = 2000;
     public Integer cleaningCost = 10;
-    public Integer depositAmount = 30000;
+    public Integer deposit = 30000;
     public String transferTerm = "Transfer term";
     public Integer checkMainData = 3000;
     public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
+    public Integer beforeDays = random.nextInt(5)*30;
+    public Integer beforeHours = random.nextInt(23) + 1;
+    public String[] documents = new String[] {"0", "2", "3"};
+    public  Integer gethering = random.nextInt(5000);
+    public String[] isChildren = new String[] {"0", "2", "1"};
+    public String[] party = new String[] {"0", "2", "1"};
+    public String[] pets = new String[] {"0", "2", "1"};
+    public String[] qualityRepair = new String[] {"-10", "0", "1", "2", "3"};
+    public String[] smoking = new String[] {"0", "1", "3"};
+    public String[] kitchenFlat = new String[] {"-1", "0", "1", "2", "3"};
+
 }
