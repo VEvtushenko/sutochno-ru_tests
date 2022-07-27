@@ -96,7 +96,7 @@
     "geyser":               газовый водонагреватель,
     "seating_area":         гостиный уголок
     "sofa_bed":             диван-кровать
-    "jacuzzi":              джакузи (гидромассажная ванна),
+    "jacuzzi":              джакузи (гидромассажная ванна)
     "ctable":               журнальный столик
     "fireplace":            камин
     "mosquito_net":         москитная сетка
@@ -123,12 +123,11 @@
     "pc":                   персональный компьютер
     "folding_bed":          раскладная кровать
     "washmachine":          стиральная машина
-    "drying_machine":       сушильная машина,
+    "drying_machine":       сушильная машина
     "iron":                 утюг с гладильной доской
     "cleaning_products":    чистящие средства
 
 ###### Для отдыха в помещении (boolean)
-
 
     "blu_ray_pl":           blu-ray плеер
     "dvd":                  DVD-проигрыватель
@@ -144,7 +143,7 @@
     "music_center":         музыкальный центр
     "tabletennis":          настольный теннис
     "radio":                радио
-
+    
 ###### Оснащение двора (boolean)
 
     "swimpool1":            бассейн
@@ -152,7 +151,7 @@
     "veranda":              веранда
     "garage":               гараж
     "playground":           игровая площадка
-    "outdoor_furniture":    мебель на улице,
+    "outdoor_furniture":    мебель на улице
     "security":             охраняемая территория
     "patio":                патио
     "gym":                  спортивный зал
@@ -169,7 +168,7 @@
     "parasol":              пляжный зонтик
     "terrace":              терраса
     "deckchair":            шезлонги
-
+    
 ###### Для детей (boolean)
 
     "high_chair_for_child": высокий стул для ребенка

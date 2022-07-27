@@ -20,14 +20,13 @@ import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
 import ru.sutochno.pages.MainPage;
 
-import java.util.Random;
 import java.util.stream.Stream;
 
 
 @Tag("mainTests")
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
-    Data data = new Data();
+    public Data data = new Data();
     CheckData checkData = new CheckData();
     MainPage mainPage = new MainPage();
     Requests requests = new Requests();

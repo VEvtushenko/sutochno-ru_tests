@@ -40,7 +40,7 @@ public class Data {
             return new String((Files.readAllBytes(Paths.get(fileName))));
         } catch (IOException e) {
             e.printStackTrace();
-            return new String("");
+            return "";
         }
     }
 
@@ -90,26 +90,34 @@ public class Data {
     public Integer cntBathrooms = random.nextInt(2);
     public Integer cntToilets = random.nextInt(2);
 
-    public String[] conveniencesInBathroom = getTextStrings("src/test/resources/data/convenciesInBathrooms.txt");
+    public String[] bathroomEquipmentsSource = getTextStrings("src/test/resources/data/convenciesInBathrooms.txt");
+    public Map<String, Boolean> bathroomEquipments = setMapBoolean(bathroomEquipmentsSource);
 
-    public String[] homeFacilitiesSourse = getTextStrings("src/test/resources/data/homeFcilities.txt");
+    public String[] homeFacilitiesSource = getTextStrings("src/test/resources/data/homeFcilities.txt");
+    public Map<String, Boolean> homeFacilities = setMapBoolean(homeFacilitiesSource);
 
     public String[] viewSource = getTextStrings("src/test/resources/data/views.txt");
     public Map<String, Boolean> view = setMapBoolean(viewSource);
 
-    public String[] kitchenEquipments = getTextStrings("src/test/resources/data/kitchenEquipments.txt");
-    public Map<String, Boolean> kitchen = setMapBoolean(kitchenEquipments);
+    public String[] kitchenEquipmentsSource = getTextStrings("src/test/resources/data/kitchenEquipments.txt");
+    public Map<String, Boolean> kitchen = setMapBoolean(kitchenEquipmentsSource);
 
+    public String[] houseEquipmentsSource = getTextStrings("src/test/resources/data/houseEquipments.txt");
+    public Map<String, Boolean> houseEquipments = setMapBoolean(houseEquipmentsSource);
 
-    public String[] houseEquipments = getTextStrings("src/test/resources/data/houseEquipments.txt");
-    public String[] restEquipments = getTextStrings("src/test/resources/data/restEquipments.txt");
-    public String[] yardEquipments = getTextStrings("src/test/resources/data/yardEquipments.txt");
-    public String[] childrenEquipments = getTextStrings("src/test/resources/data/childrenEquipments.txt");
+    public String[] restEquipmentsSource = getTextStrings("src/test/resources/data/restEquipments.txt");
+    public Map<String, Boolean> restEquipments = setMapBoolean(restEquipmentsSource);
+
+    public String[] yardEquipmentsSource = getTextStrings("src/test/resources/data/yardEquipments.txt");
+    public Map<String, Boolean> yardEquipments = setMapBoolean(yardEquipmentsSource);
+
+    public String[] childrenEquipmentsSource = getTextStrings("src/test/resources/data/childrenEquipments.txt");
+    public Map<String, Boolean> childrenEquipments = setMapBoolean(childrenEquipmentsSource);
+
 //    public String[] bookingGap = getTextStrings("");
 //    public String[] bookingDuration = getTextStrings("");
 //    public String[] currencyPay = getTextStrings("");
     public Integer[] minNights = getFollowingIntArray(30);
-    public Integer[] childrenAge = getFollowingIntArray(17);
 //    public String[] checkOutTime = new String[] {"16:00"};
 //    public String[] additionalServices = getTextStrings("");
     public String[] checkInEarly = new String[] {"0", "2", "3"};
@@ -118,12 +126,11 @@ public class Data {
     public Integer squareOfFlat = random.nextInt(500);
 
     public Integer floor = random.nextInt(40);
-    public boolean isAttic = true;
     public Integer maxFloor = randomUtils.getInt(floor, 40);
+    public boolean isAttic = true;
     public boolean isElevator = true;
 
-    public String photo1 = "src/test/resources/images/" +
-            "1.jpeg";
+    public String photo1 = "src/test/resources/images/1.jpeg";
     public String photo2 = "src/test/resources/images/2.jpeg";
     public String photo3 = "src/test/resources/images/3.jpg";
 
@@ -137,7 +144,10 @@ public class Data {
     public Integer exGuestPrice = 2000;
     public Integer cleaningCost = 10;
     public Integer deposit = 30000;
+
+    public boolean transfer = random.nextBoolean();
     public String transferTerm = "Transfer term";
+
     public Integer checkMainData = 3000;
     public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
     public Integer beforeDays = random.nextInt(5)*30;
@@ -147,6 +157,8 @@ public class Data {
     public boolean withChildren = true;
     public String[] isChildrenArray = new String[] {"0", "2", "1"};
     public String isChildren = isChildrenArray[random.nextInt(isChildrenArray.length)];
+    public Integer[] childrenAgeArray = getFollowingIntArray(17);
+    public Integer childrenAge = childrenAgeArray[random.nextInt(childrenAgeArray.length)];
 
     public boolean partyBoolean = true;
     public String[] partyArray = new String[] {"0", "2", "1"};
