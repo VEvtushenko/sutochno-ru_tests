@@ -52,6 +52,22 @@ public class Data {
         return intArray;
     }
 
+    private Map<String, Boolean> setMapBoolean(String[] source) {
+        Map<String, Boolean> map = new HashMap<>();
+        for(int i = 0; i < source.length; i++) {
+            map.put(source[i], random.nextBoolean());
+        }
+        return map;
+    }
+
+    private Map<String, String> setMapString(String[] sourceData, String[] paramsName) {
+        Map<String, String> map = new HashMap<>();
+        for(int i = 0; i < sourceData.length; i++) {
+            map.put(paramsName[i], sourceData[i]);
+        }
+        return map;
+    }
+
     public String[] typeOfSpace = new String[] {"Апартамент"};
     public String[] country = new String[] {"Беларусь"};
     public String[] region = new String[] {"Брестская область"};
@@ -78,10 +94,13 @@ public class Data {
 
     public String[] homeFacilitiesSourse = getTextStrings("src/test/resources/data/homeFcilities.txt");
 
-    public String[] chooseView = getTextStrings("src/test/resources/data/views.txt");
-    public Map chooseViewMap =
+    public String[] viewSource = getTextStrings("src/test/resources/data/views.txt");
+    public Map<String, Boolean> view = setMapBoolean(viewSource);
 
     public String[] kitchenEquipments = getTextStrings("src/test/resources/data/kitchenEquipments.txt");
+    public Map<String, Boolean> kitchen = setMapBoolean(kitchenEquipments);
+
+
     public String[] houseEquipments = getTextStrings("src/test/resources/data/houseEquipments.txt");
     public String[] restEquipments = getTextStrings("src/test/resources/data/restEquipments.txt");
     public String[] yardEquipments = getTextStrings("src/test/resources/data/yardEquipments.txt");
