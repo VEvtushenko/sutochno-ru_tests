@@ -100,7 +100,7 @@ public class SutochnoWebTests extends TestBase {
                 .typeOfKitchen(2)
                 .typeOfRepairment(2)
                 .toNextStep()
-                .homeFacilities(data.homeFacilities[4])
+                .homeFacilities(data.homeFacilitiesSourse[4])
                 .chooseView(data.chooseView[1])
                 .equipments("кухни", 1, data.kitchenEquipments[2])
                 .equipments("дома", 2, data.houseEquipments[0])
@@ -133,8 +133,6 @@ public class SutochnoWebTests extends TestBase {
                 .costPerDay(data.costPerDay.toString(), data.amountOfGuestsForCost.toString())
                 .exGuestPrice(data.exGuestPrice.toString())
                 .toNextStep()
-//                .chooseDiscountParam("при проживании от 2 дней", 300, "USD")
-//                .addDiscount("10", 15, "проценты")
                 .rmDiscount()
                 .toNextStep()
                 .additionalServices(0)
@@ -151,7 +149,7 @@ public class SutochnoWebTests extends TestBase {
                 .openUsersAdvertisements()
                 .openLastAdvertisements()
                 .checkTitle(data.nameObject)
-                .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType[1], data.houseNumber, data.houseExNumber))
+                .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType, data.houseNumber.toString(), data.houseExNumber))
                 .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(),
                         checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floor.toString(), data.maxFloor.toString(), true),
                         data.description)

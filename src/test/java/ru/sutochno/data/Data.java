@@ -1,19 +1,25 @@
 package ru.sutochno.data;
 
+import com.github.javafaker.Faker;
 import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
+import ru.sutochno.helpers.RandomUtils;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.nio.file.Files;
-import java.util.Random;
 
 
 public class Data {
 
     Random random = new Random();
+    RandomUtils randomUtils = new RandomUtils();
+    static Requests requests = new Requests();
+    public static String promoUrl = "https://promo.sutochno.ru";
+    public static final String AUTH_COOKIE =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
+    private Faker faker = new Faker(new Locale("RU", "RUS"));
+
 
     private  String[] getTextStrings(String fileName)  {
         try {
@@ -28,7 +34,6 @@ public class Data {
             return new String[] {""};
         }
     }
-
 
     private  String getTextString(String fileName)  {
         try {
@@ -47,35 +52,35 @@ public class Data {
         return intArray;
     }
 
-
-    public static Requests requests = new Requests();
-
-    public static String promoUrl = "https://promo.sutochno.ru";
-    public static final String AUTH_COOKIE =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
-
-//    todo api address
-//    todo адресные переменные
     public String[] typeOfSpace = new String[] {"Апартамент"};
     public String[] country = new String[] {"Беларусь"};
     public String[] region = new String[] {"Брестская область"};
-    public String[] city = new String[] {"Брест"}; // todo [][] by region
-    public String[] streetType = getTextStrings("src/test/resources/data/streetType.txt");
-    public String streetName = "Ленина";
-    public String houseNumber = "12";
-    public String houseExNumber = "А";
-    public Integer maxGuests = 5;
-    public Integer numberOfRooms = 4;
-    public Integer numberOfBedrooms = 2;
+    public String[] city = new String[] {"Брест"};
+
+    public String[] streetTypeArray = getTextStrings("src/test/resources/data/streetType.txt");
+    public String streetType = streetTypeArray[random.nextInt(streetTypeArray.length)];
+
+    public String streetName = faker.address().streetName();
+    public Integer houseNumber = random.nextInt(50);
+    public String houseExNumber = faker.bothify("??");
+
+    public Integer maxGuests = random.nextInt(7);
+    public Integer numberOfRooms = random.nextInt(9);
+    public Integer numberOfBedrooms = random.nextInt(4);
     public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
     public String[] typeOfBeds;
-    public Integer cntBathroomsToilet = 1;
-    public Integer cntBathrooms = 0;
-    public Integer cntToilets = 1;
+
+    public Integer cntBathroomsToilet = random.nextInt(2);
+    public Integer cntBathrooms = random.nextInt(2);
+    public Integer cntToilets = random.nextInt(2);
+
     public String[] conveniencesInBathroom = getTextStrings("src/test/resources/data/convenciesInBathrooms.txt");
-    public String[] homeFacilities = getTextStrings("src/test/resources/data/homeFcilities.txt");
-//    public String[] typeOfKitchen= getTextStrings("");
-//    public String[] typeOfRepairment = getTextStrings("");
+
+    public String[] homeFacilitiesSourse = getTextStrings("src/test/resources/data/homeFcilities.txt");
+
     public String[] chooseView = getTextStrings("src/test/resources/data/views.txt");
+    public Map chooseViewMap =
+
     public String[] kitchenEquipments = getTextStrings("src/test/resources/data/kitchenEquipments.txt");
     public String[] houseEquipments = getTextStrings("src/test/resources/data/houseEquipments.txt");
     public String[] restEquipments = getTextStrings("src/test/resources/data/restEquipments.txt");
@@ -86,7 +91,6 @@ public class Data {
 //    public String[] currencyPay = getTextStrings("");
     public Integer[] minNights = getFollowingIntArray(30);
     public Integer[] childrenAge = getFollowingIntArray(17);
-    public String[] checkTime = new String[] {"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
 //    public String[] checkOutTime = new String[] {"16:00"};
 //    public String[] additionalServices = getTextStrings("");
     public String[] checkInEarly = new String[] {"0", "2", "3"};
@@ -94,20 +98,20 @@ public class Data {
 
     public Integer squareOfFlat = random.nextInt(500);
 
-    public Integer floor = 5;
+    public Integer floor = random.nextInt(40);
     public boolean isAttic = true;
-    public Integer maxFloor = 12;
+    public Integer maxFloor = randomUtils.getInt(floor, 40);
     public boolean isElevator = true;
-    public String photo1 = "src/test/resources/images/1.jpeg";
+
+    public String photo1 = "src/test/resources/images/" +
+            "1.jpeg";
     public String photo2 = "src/test/resources/images/2.jpeg";
     public String photo3 = "src/test/resources/images/3.jpg";
-    public String nameObject = "В Бресте на бульваре";
-    public String selfNumberObject = "Квартира в Бресте";
-    public String description = "Брест, квартира, бульвар Ленина";
-    public boolean withChildren = true;
-    public boolean withPets = true;
-    public boolean smokingBoolean = false;
-    public boolean partyBoolean = true;
+
+    public String nameObject = faker.funnyName().name();
+    public String selfNumberObject = faker.rockBand().name();
+    public String description = faker.address().fullAddress();
+
     public boolean quickBooking = true;
     public Integer costPerDay = 3000;
     public Integer amountOfGuestsForCost = 1;
@@ -119,13 +123,37 @@ public class Data {
     public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
     public Integer beforeDays = random.nextInt(5)*30;
     public Integer beforeHours = random.nextInt(23) + 1;
-    public String[] documents = new String[] {"0", "2", "3"};
     public  Integer gethering = random.nextInt(5000);
-    public String[] isChildren = new String[] {"0", "2", "1"};
-    public String[] party = new String[] {"0", "2", "1"};
-    public String[] pets = new String[] {"0", "2", "1"};
-    public String[] qualityRepair = new String[] {"-10", "0", "1", "2", "3"};
-    public String[] smoking = new String[] {"0", "1", "3"};
-    public String[] kitchenFlat = new String[] {"-1", "0", "1", "2", "3"};
+
+    public boolean withChildren = true;
+    public String[] isChildrenArray = new String[] {"0", "2", "1"};
+    public String isChildren = isChildrenArray[random.nextInt(isChildrenArray.length)];
+
+    public boolean partyBoolean = true;
+    public String[] partyArray = new String[] {"0", "2", "1"};
+    public String party = partyArray[random.nextInt(partyArray.length)];
+
+    public boolean withPets = true;
+    public String[] petsArray = new String[] {"0", "2", "1"};
+    public String pets = petsArray[random.nextInt(petsArray.length)];
+
+    public boolean smokingBoolean = false;
+    public String[] smokingArray = new String[] {"0", "1", "3"};
+    public String smoking = smokingArray[random.nextInt(smokingArray.length)];
+
+    //    public String[] qualityRepairString = getTextStrings("");
+    public String[] qualityRepairArray = new String[] {"-10", "0", "1", "2", "3"};
+    public String qualityRepair = qualityRepairArray[random.nextInt(qualityRepairArray.length)];
+
+    //    public String[] kitchenFlatString = getTextStrings("");
+    public String[] kitchenFlatArray = new String[] {"-1", "0", "1", "2", "3"};
+    public String kitchenFlat = kitchenFlatArray[random.nextInt(kitchenFlatArray.length)];
+
+    public String[] checkTime = new String[] {"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    public String checkIn = checkTime[random.nextInt(checkTime.length)];
+    public String checkOut = checkTime[random.nextInt(checkTime.length)];
+
+    public String[] documentsArray = new String[] {"0", "2", "3"};
+    public String documents = documentsArray[random.nextInt(documentsArray.length)];
 
 }

@@ -19,7 +19,6 @@ import ru.sutochno.helpers.AllureAttachments;
 import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
 import ru.sutochno.pages.MainPage;
-import ru.sutochno.pages.Promo;
 
 import java.util.Random;
 import java.util.stream.Stream;
@@ -32,7 +31,6 @@ public class TestBase {
     CheckData checkData = new CheckData();
     MainPage mainPage = new MainPage();
     Requests requests = new Requests();
-    Random random = new Random();
     Models model = new Models();
 
     @BeforeAll

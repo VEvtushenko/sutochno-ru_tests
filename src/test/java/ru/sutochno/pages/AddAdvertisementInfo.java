@@ -58,9 +58,9 @@ public class AddAdvertisementInfo {
     }
 
     @Step("Ввести номер дома")
-    public AddAdvertisementInfo houseNumber(String houseNumber) {
+    public AddAdvertisementInfo houseNumber(Integer houseNumber) {
         $("[class='object-creating-form__mobile-row-wrap']")
-                .$(".row").$(".object-creating-form__form-input").setValue(houseNumber);
+                .$(".row").$(".object-creating-form__form-input").setValue(houseNumber.toString());
         return this;
     }
 
