@@ -68,6 +68,29 @@ public class Data {
         return map;
     }
 
+    public Map setPrices(Integer price, Integer currency, String gethering, String deposit, String pricePerPerson,
+                         String includedPersons, String checkIn, String checkOut) {
+
+        Map<String, Integer> basePrice = new HashMap<String, Integer>();
+        basePrice.put("price", price);
+        basePrice.put("currency_id", currency);
+
+        Map<String, String> priceProperties = new HashMap<>();
+        priceProperties.put("gethering", gethering);
+        priceProperties.put("deposit", deposit);
+        priceProperties.put("rates_info", "");
+        priceProperties.put("price_per_person", pricePerPerson);
+        priceProperties.put("included_persons", includedPersons);
+        priceProperties.put("check_in", checkIn);
+        priceProperties.put("check_out", checkOut);
+
+        Map<String, Map> pricesParams = new HashMap<>();
+        pricesParams.put("base_price", basePrice);
+        pricesParams.put("price_properties", priceProperties);
+
+        return pricesParams;
+    }
+
     public String[] typeOfSpace = new String[] {"Апартамент"};
     public String[] country = new String[] {"Беларусь"};
     public String[] region = new String[] {"Брестская область"};
@@ -80,7 +103,7 @@ public class Data {
     public Integer houseNumber = random.nextInt(50);
     public String houseExNumber = faker.bothify("??");
 
-    public Integer maxGuests = random.nextInt(7);
+    public Integer maxGuests = random.nextInt(7) + 1;
     public Integer numberOfRooms = random.nextInt(9);
     public Integer numberOfBedrooms = random.nextInt(4);
     public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
@@ -155,36 +178,38 @@ public class Data {
     public  Integer gethering = random.nextInt(5000);
 
     public boolean withChildren = true;
-    public String[] isChildrenArray = new String[] {"0", "2", "1"};
+    public final String[] isChildrenArray = new String[] {"0", "2", "1"};
     public String isChildren = isChildrenArray[random.nextInt(isChildrenArray.length)];
-    public Integer[] childrenAgeArray = getFollowingIntArray(17);
+    public final Integer[] childrenAgeArray = getFollowingIntArray(17);
     public Integer childrenAge = childrenAgeArray[random.nextInt(childrenAgeArray.length)];
 
     public boolean partyBoolean = true;
-    public String[] partyArray = new String[] {"0", "2", "1"};
+    public final String[] partyArray = new String[] {"0", "2", "1"};
     public String party = partyArray[random.nextInt(partyArray.length)];
 
     public boolean withPets = true;
-    public String[] petsArray = new String[] {"0", "2", "1"};
+    public final String[] petsArray = new String[] {"0", "2", "1"};
     public String pets = petsArray[random.nextInt(petsArray.length)];
 
     public boolean smokingBoolean = false;
-    public String[] smokingArray = new String[] {"0", "1", "3"};
+    public final String[] smokingArray = new String[] {"0", "1", "3"};
     public String smoking = smokingArray[random.nextInt(smokingArray.length)];
 
     //    public String[] qualityRepairString = getTextStrings("");
-    public String[] qualityRepairArray = new String[] {"-10", "0", "1", "2", "3"};
+    public final String[] qualityRepairArray = new String[] {"-10", "0", "1", "2", "3"};
     public String qualityRepair = qualityRepairArray[random.nextInt(qualityRepairArray.length)];
 
     //    public String[] kitchenFlatString = getTextStrings("");
-    public String[] kitchenFlatArray = new String[] {"-1", "0", "1", "2", "3"};
+    public final String[] kitchenFlatArray = new String[] {"-1", "0", "1", "2", "3"};
     public String kitchenFlat = kitchenFlatArray[random.nextInt(kitchenFlatArray.length)];
 
-    public String[] checkTime = new String[] {"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
+    public final String[] checkTime = new String[] {"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00",
+                                              "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
+                                              "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"};
     public String checkIn = checkTime[random.nextInt(checkTime.length)];
     public String checkOut = checkTime[random.nextInt(checkTime.length)];
 
-    public String[] documentsArray = new String[] {"0", "2", "3"};
+    public final String[] documentsArray = new String[] {"0", "2", "3"};
     public String documents = documentsArray[random.nextInt(documentsArray.length)];
 
 }

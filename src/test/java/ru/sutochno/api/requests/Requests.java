@@ -6,10 +6,16 @@ import ru.sutochno.api.models.AdvertisementChangeResponse;
 import ru.sutochno.api.models.ChangeProperties;
 import ru.sutochno.api.models.NewAdvertisement;
 
+import java.io.File;
+import java.util.Map;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;
 import static ru.sutochno.api.specifications.Specs.*;
+
+import org.springframework.mock.web.MockMultipartFile;
+
 
 public class Requests {
 
@@ -69,6 +75,74 @@ public class Requests {
                 .then()
                         .spec(responseSpec)
                         .extract().as(AdvertisementChangeResponse.class);
+    }
+
+    public void uploadPhotos(String authCookie, String objectId, File image){
+        given()
+                .spec(requestSpecObjects)
+                .cookie("_me_", authCookie)
+                .header("api-version", 1.9)
+                .contentType(ContentType.JSON)
+                .when()
+                .formParam("entity_id", objectId)
+                .formParam("module_name", "objects")
+                .multiPart("files[0]", image, "image/jpg")
+                .post("/setProperties")
+                .then()
+                .spec(responseSpec)
+                .body("", hasToString(""));
+    }
+
+    public void addDiscount(String authCookie, String objectId, String disValue, String disDays, String disType,
+                            String currency)  {
+        given()
+                .spec(requestSpecObjects)
+                .cookie("_me_", authCookie)
+                .contentType(ContentType.JSON)
+        .when()
+                .formParam("value", disValue)
+                .formParam("days", disDays)
+                .formParam("type", disType)
+                .formParam("currencyId", currency)
+                .formParam("objectId", objectId)
+                .post("/addDiscount")
+        .then()
+                .spec(responseSpec)
+                .body("success", is(true))
+                .body("data.discounts.object_id", hasToString(objectId));
+    }
+
+    public void editDiscount(String authCookie, String discountId, String disValue, String disDays, String disType,
+                             String currency)  {
+        given()
+                .spec(requestSpecObjects)
+                .cookie("_me_", authCookie)
+                .contentType(ContentType.JSON)
+        .when()
+                .formParam("value", disValue)
+                .formParam("days", disDays)
+                .formParam("type", disType)
+                .formParam("currencyId", currency)
+                .formParam("objectId", discountId)
+        .post("/addDiscount")
+                .then()
+                .spec(responseSpec)
+                .body("success", is(true))
+                .body("data.discounts.id", hasToString(discountId));
+        }
+
+    public void setPrices(String authCookie, String objectId, Map<String, Map>  pricesParams)  {
+
+        given()
+                .spec(requestSpecObjects)
+                .cookie("_me_", authCookie)
+                .contentType(ContentType.JSON)
+        .when()
+                .get("/addDiscount?objectId=" + objectId, pricesParams)
+        .then()
+                .spec(responseSpec)
+                .body("success", is(true))
+                .body("actions", hasToString("Objects price is updated"));
     }
 
 }

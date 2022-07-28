@@ -34,4 +34,6 @@ public class SutochnoApiTests extends TestBase {
         changeProperties.setObjectId(1212637);
 //        generalInfoRequest.setProperties);
     }
+
+    //todo negative discount test
 }

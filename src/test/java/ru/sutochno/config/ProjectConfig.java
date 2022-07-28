@@ -24,4 +24,5 @@ public interface ProjectConfig extends Config {
     String userPhone();
     String userPassword();
     String userName();
+    String siteToken();
 }

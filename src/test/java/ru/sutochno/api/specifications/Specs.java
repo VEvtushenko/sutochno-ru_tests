@@ -4,6 +4,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import ru.sutochno.config.Project;
 
 import static io.restassured.RestAssured.with;
 import static io.restassured.filter.log.LogDetail.ALL;
@@ -11,7 +12,8 @@ import static ru.sutochno.helpers.ApiListener.withCustomTemplates;
 
 public class Specs {
 
-    private static final String TOKEN = "Hy6U3z61fflbgT2yJ/VdlQ2719";
+    private static final String TOKEN = Project.config.siteToken();
+
     public static RequestSpecification requestSpecUser =
             with()
                     .filter(withCustomTemplates())
@@ -30,7 +32,7 @@ public class Specs {
             with()
                     .log().body()
                     .filter(withCustomTemplates())
-                    .header("token", "Hy6U3z61fflbgT2yJ/VdlQ2719")
+                    .header("token", TOKEN)
                     .basePath("/api/json/objects")
                     .baseUri("https://sutochno.ru");
 }
