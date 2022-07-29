@@ -3,7 +3,7 @@ package ru.sutochno.data;
 import ru.sutochno.api.models.ChangeProperties;
 import ru.sutochno.api.models.Properties;
 
-public class Models {
+public class ModelsData {
 
     public ChangeProperties changeProperties = new ChangeProperties();
     private Data data = new Data();

@@ -35,4 +35,13 @@ public class Specs {
                     .header("token", TOKEN)
                     .basePath("/api/json/objects")
                     .baseUri("https://sutochno.ru");
+
+    public static RequestSpecification requestSpec =
+            with()
+                    .log().body()
+                    .filter(withCustomTemplates())
+                    .header("token", TOKEN)
+                    .basePath("/api/json/")
+                    .baseUri("https://sutochno.ru");
+
 }

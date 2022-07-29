@@ -14,7 +14,7 @@ import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
 import ru.sutochno.data.CheckData;
 import ru.sutochno.data.Data;
-import ru.sutochno.data.Models;
+import ru.sutochno.data.ModelsData;
 import ru.sutochno.helpers.AllureAttachments;
 import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
@@ -30,7 +30,7 @@ public class TestBase {
     CheckData checkData = new CheckData();
     MainPage mainPage = new MainPage();
     Requests requests = new Requests();
-    Models model = new Models();
+    ModelsData changeObjectData = new ModelsData();
 
     @BeforeAll
     static void setUp() {

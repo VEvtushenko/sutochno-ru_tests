@@ -6,7 +6,6 @@ import ru.sutochno.api.models.ChangeProperties;
 import ru.sutochno.api.models.NewAdvertisement;
 import ru.sutochno.config.Project;
 
-import static com.codeborne.selenide.Selenide.open;
 import static ru.sutochno.data.Data.AUTH_COOKIE;
 
 

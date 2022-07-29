@@ -13,6 +13,8 @@ import ru.sutochno.api.models.NewAdvertisement;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
 
+import java.io.File;
+
 import static io.qameta.allure.Allure.step;
 import static ru.sutochno.data.Data.AUTH_COOKIE;
 
@@ -54,7 +56,17 @@ public class SutochnoWebTests extends TestBase {
         mainPage
                 .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName());
         NewAdvertisement newAdvertisement = requests.addAdvertisement(AUTH_COOKIE);
-        AdvertisementChangeResponse advertisementChangeResponse = requests.setProperties(AUTH_COOKIE, model.getChangeProperties(Integer.parseInt(newAdvertisement.getData().getObject_id())));
+        String objectId = newAdvertisement.getData().getObject_id();
+        AdvertisementChangeResponse advertisementChangeResponse =
+                requests.setProperties(AUTH_COOKIE, changeObjectData.getChangeProperties(Integer.parseInt(objectId)));
+
+        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo1));
+        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo2));
+        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo3));
+
+//        requests.addDiscount("uqRMKVsX9cJNN7sGVuDgIAaxB0evDCXfgn3R3Qsjok1Q", "1234091", "10", "20", "relative", "5");
+//        requests.setPrices(AUTH_COOKIE, "1234111", data.setStringPrices("100000", "5", "1000", "15000", "1050", "1", data.checkIn, data.checkOut));
+
     }
 
     @Test

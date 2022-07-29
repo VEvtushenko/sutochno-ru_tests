@@ -14,9 +14,6 @@ import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;
 import static ru.sutochno.api.specifications.Specs.*;
 
-import org.springframework.mock.web.MockMultipartFile;
-
-
 public class Requests {
 
     public String  getAuth(String userPhone, String userPassword) {
@@ -79,37 +76,41 @@ public class Requests {
 
     public void uploadPhotos(String authCookie, String objectId, File image){
         given()
-                .spec(requestSpecObjects)
-                .cookie("_me_", authCookie)
+                .spec(requestSpec)
+                .log().all()
                 .header("api-version", 1.9)
-                .contentType(ContentType.JSON)
+                .cookie("_me_", authCookie)
                 .when()
                 .formParam("entity_id", objectId)
                 .formParam("module_name", "objects")
                 .multiPart("files[0]", image, "image/jpg")
-                .post("/setProperties")
+                .post("mdatas/uploadPhotos")
                 .then()
                 .spec(responseSpec)
-                .body("", hasToString(""));
+//                .body("", hasToString(""));
+        ;
     }
 
     public void addDiscount(String authCookie, String objectId, String disValue, String disDays, String disType,
                             String currency)  {
         given()
-                .spec(requestSpecObjects)
+//                .spec(requestSpecObjects)
+                .header("api-version", 1.10)
                 .cookie("_me_", authCookie)
-                .contentType(ContentType.JSON)
+                .header("token", "Hy6U3z61fflbgT2yJ/VdlQ2719")
+//                .contentType(ContentType.JSON)
         .when()
                 .formParam("value", disValue)
                 .formParam("days", disDays)
                 .formParam("type", disType)
                 .formParam("currencyId", currency)
                 .formParam("objectId", objectId)
-                .post("/addDiscount")
+                .post("https://sutochno.ru/api/json/objects/addDiscount")
         .then()
-                .spec(responseSpec)
-                .body("success", is(true))
-                .body("data.discounts.object_id", hasToString(objectId));
+                .log().all();
+//                .spec(responseSpec)
+//                .body("success", is(true))
+//                .body("data.discounts.object_id", hasToString(objectId));
     }
 
     public void editDiscount(String authCookie, String discountId, String disValue, String disDays, String disType,
@@ -131,14 +132,14 @@ public class Requests {
                 .body("data.discounts.id", hasToString(discountId));
         }
 
-    public void setPrices(String authCookie, String objectId, Map<String, Map>  pricesParams)  {
+    public void setPrices(String authCookie, String objectId, String  pricesParams)  {
 
         given()
                 .spec(requestSpecObjects)
                 .cookie("_me_", authCookie)
                 .contentType(ContentType.JSON)
         .when()
-                .get("/addDiscount?objectId=" + objectId, pricesParams)
+                .get("/addDiscount?objectId=" + objectId + "&params=" + pricesParams)
         .then()
                 .spec(responseSpec)
                 .body("success", is(true))

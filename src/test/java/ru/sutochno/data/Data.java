@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.nio.file.Files;
 
+import static java.lang.String.format;
+
 
 public class Data {
 
@@ -91,7 +93,24 @@ public class Data {
         return pricesParams;
     }
 
-    public String[] typeOfSpace = new String[] {"Апартамент"};
+    public String setStringPrices(String  price, String  currency, String gethering, String deposit, String pricePerPerson,
+                         String includedPersons, String checkIn, String checkOut) {
+        return new String(format("{\"base_price\": " +
+                                    "{\"price\":%s+, " +
+                                        "\"currency_id\":%s" +
+                                    "}," +
+                                "\"price_properties\": " +
+                                    "{\"gethering\":\"%s\", " +
+                                     "\"deposit\":\"%s\", " +
+                                     "\"rates_info\":\"2\", " +
+                                     "\"price_per_person\":%s, " +
+                                     "\"included_persons\":%s, " +
+                                     "\"check_in\":\"%s\", " +
+                                     "\"check_out\":\"%s\"" +
+                                    "}}", price, currency, gethering, deposit, pricePerPerson, includedPersons, checkIn, checkOut));
+    }
+
+        public String[] typeOfSpace = new String[] {"Апартамент"};
     public String[] country = new String[] {"Беларусь"};
     public String[] region = new String[] {"Брестская область"};
     public String[] city = new String[] {"Брест"};
