@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Properties{
+    private int rooms;
+
     @JsonProperty("parking")
     private boolean parking;
 
@@ -469,8 +471,8 @@ public class Properties{
     @JsonProperty("check_in_early")
     private String checkInEarly;
 
-//    @JsonProperty("check_out_early")
-//    private String checkOutEarly;
+    @JsonProperty("check_out_early")
+    private String checkOutEarly;
 
 
     @JsonProperty("pets")

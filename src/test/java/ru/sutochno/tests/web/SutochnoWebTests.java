@@ -8,12 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Cookie;
-import ru.sutochno.api.models.AdvertisementChangeResponse;
-import ru.sutochno.api.models.NewAdvertisement;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
-
-import java.io.File;
 
 import static io.qameta.allure.Allure.step;
 import static ru.sutochno.data.Data.AUTH_COOKIE;
@@ -52,28 +48,28 @@ public class SutochnoWebTests extends TestBase {
 
 
     @Test
-    void searchTest() {
-        mainPage
-                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName());
-        NewAdvertisement newAdvertisement = requests.addAdvertisement(AUTH_COOKIE);
-        String objectId = newAdvertisement.getData().getObject_id();
-        AdvertisementChangeResponse advertisementChangeResponse =
-                requests.setProperties(AUTH_COOKIE, changeObjectData.getChangeProperties(Integer.parseInt(objectId)));
+    void newAdverticementApi() throws InterruptedException {
+//        NewAdvertisement newAdvertisement = requests.addAdvertisement(AUTH_COOKIE);
+//        String objectId = newAdvertisement.getData().getObject_id();
+//        AdvertisementChangeResponse advertisementChangeResponse =
+//                requests.setProperties(AUTH_COOKIE, changeObjectData.getChangeProperties(Integer.parseInt(objectId)));
+//
+//        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo1));
+//        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo2));
+//        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo3));
+//
+//        requests.setPrices(AUTH_COOKIE, objectId, data.prices);
+//
+        requests.setAddress(AUTH_COOKIE, "1235961", data.streetType, data.streetName, data.houseNumber.toString(), data.houseExNumber, "55.95685305638317", "36.97412763887026");
 
-        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo1));
-        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo2));
-        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo3));
-
-//        requests.addDiscount("uqRMKVsX9cJNN7sGVuDgIAaxB0evDCXfgn3R3Qsjok1Q", "1234091", "10", "20", "relative", "5");
-//        requests.setPrices(AUTH_COOKIE, "1234111", data.setStringPrices("100000", "5", "1000", "15000", "1050", "1", data.checkIn, data.checkOut));
+//        mainPage
+//                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName());
 
     }
 
     @Test
     @Tag("newAdvertisement")
-    @AllureId("2")
     @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
-    @Owner("admin")
     void makeAdvertisementUiTest() {
         mainPage
                 .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName())
@@ -148,12 +144,12 @@ public class SutochnoWebTests extends TestBase {
                 .rmDiscount()
                 .toNextStep()
                 .additionalServices(0)
-                .cleaningCost(data.cleaningCost.toString())
+                .cleaningCost(data.gethering.toString())
                 .depositAmount(data.deposit.toString())
                 .isTransfer()
                 .transferTerm(data.transferTerm)
                 .toNextStep()
-                .checkMainData(data.checkMainData.toString())
+                .checkMainData(data.costPerDay.toString())
                 .toNextStep()
                 .finalPage());
 
@@ -162,15 +158,13 @@ public class SutochnoWebTests extends TestBase {
                 .openLastAdvertisements()
                 .checkTitle(data.nameObject)
                 .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType, data.houseNumber.toString(), data.houseExNumber))
-                .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(),
-                        checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floor.toString(), data.maxFloor.toString(), true),
-                        data.description)
+                .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(), checkData.mainParams, data.description)
                 .checkIncomingRules(data.checkTime[10], data.checkTime[12], data.minNights[2].toString())
                 .checkRules(checkData.getChildrenRules(data.withChildren, data.childrenAgeArray[0].toString()))
                 .checkRules(checkData.getSmokingRules(data.smokingBoolean))
                 .checkRules(checkData.getPetsRules(data.withPets))
                 .checkRules(checkData.getPartyRules(data.partyBoolean))
-//todo  30 000 ₽ from 30000 ₽               .checkDepositRules(data.depositAmount.toString())
+                .checkDepositRules(checkData.addDigitSpace(data.deposit))
                 .checkEquipments(data.kitchenEquipmentsSource[2]);
 
                 mainPage
@@ -178,9 +172,7 @@ public class SutochnoWebTests extends TestBase {
     }
 
     @Test
-    @AllureId("5")
     @DisplayName("Проверка переноса объявления в архив, UI")
-    @Owner("admin")
     void moveAdvertisementToArchive() {
         mainPage
                 .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName())

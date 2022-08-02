@@ -1,17 +1,21 @@
 package ru.sutochno.api.requests;
 
 
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import ru.sutochno.api.models.AdvertisementChangeResponse;
 import ru.sutochno.api.models.ChangeProperties;
 import ru.sutochno.api.models.NewAdvertisement;
 
 import java.io.File;
-import java.util.Map;
+import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.config.EncoderConfig.encoderConfig;
+import static io.restassured.http.ContentType.*;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.sutochno.api.specifications.Specs.*;
 
 public class Requests {
@@ -30,18 +34,18 @@ public class Requests {
                 .getCookie("_me_");
     }
 
-    public void moveToArchive(String advertisementId, String authCookie) {
+    public void moveToArchive(String authCookie, String objectId) {
         given()
                 .spec(requestSpecObjects)
                 .cookie("_me_", authCookie)
-                .formParam("objectId", advertisementId)
+                .formParam("objectId", objectId)
         .when()
                 .log().body()
                 .post("/updateObjectStop")
         .then()
                 .spec(responseSpec)
                 .body(    "success", is(true))
-                .body(    "data.status", hasToString(advertisementId));
+                .body(    "data.status", hasToString(objectId));
     }
 
     public NewAdvertisement  addAdvertisement(String authCookie) {
@@ -66,7 +70,7 @@ public class Requests {
                         .spec(requestSpecObjects)
                         .cookie("_me_", authCookie)
                         .body(requestBody)
-                        .contentType(ContentType.JSON)
+                        .contentType(JSON)
                 .when()
                         .post("/setProperties")
                 .then()
@@ -75,20 +79,24 @@ public class Requests {
     }
 
     public void uploadPhotos(String authCookie, String objectId, File image){
-        given()
-                .spec(requestSpec)
-                .log().all()
-                .header("api-version", 1.9)
-                .cookie("_me_", authCookie)
+
+        ArrayList<String> fileName =
+                given()
+                    .spec(requestSpec)
+                    .log().all()
+                    .header("api-version", 1.9)
+                    .cookie("_me_", authCookie)
                 .when()
-                .formParam("entity_id", objectId)
-                .formParam("module_name", "objects")
-                .multiPart("files[0]", image, "image/jpg")
-                .post("mdatas/uploadPhotos")
+                    .formParam("entity_id", objectId)
+                    .formParam("module_name", "objects")
+                    .multiPart("files[0]", image, "image/jpg")
+                    .post("mdatas/uploadPhotos")
                 .then()
-                .spec(responseSpec)
-//                .body("", hasToString(""));
-        ;
+                    .spec(responseSpec)
+                    .body("success", is(true))
+                    .extract().body().path("data.files.fileName");
+
+        assertEquals(image.getName(), fileName.get(0));
     }
 
     public void addDiscount(String authCookie, String objectId, String disValue, String disDays, String disType,
@@ -118,15 +126,15 @@ public class Requests {
         given()
                 .spec(requestSpecObjects)
                 .cookie("_me_", authCookie)
-                .contentType(ContentType.JSON)
+                .contentType(JSON)
         .when()
                 .formParam("value", disValue)
                 .formParam("days", disDays)
                 .formParam("type", disType)
                 .formParam("currencyId", currency)
                 .formParam("objectId", discountId)
-        .post("/addDiscount")
-                .then()
+                .post("/editDiscountById")
+        .then()
                 .spec(responseSpec)
                 .body("success", is(true))
                 .body("data.discounts.id", hasToString(discountId));
@@ -134,16 +142,68 @@ public class Requests {
 
     public void setPrices(String authCookie, String objectId, String  pricesParams)  {
 
+        ArrayList<String> actions =
         given()
                 .spec(requestSpecObjects)
+                .header("api-version", 1.7)
                 .cookie("_me_", authCookie)
-                .contentType(ContentType.JSON)
+                .contentType(JSON)
         .when()
-                .get("/addDiscount?objectId=" + objectId + "&params=" + pricesParams)
+                .param("objectId", objectId)
+                .param("params", pricesParams)
+                .get("/setObjectPrices")
         .then()
                 .spec(responseSpec)
                 .body("success", is(true))
-                .body("actions", hasToString("Objects price is updated"));
+                .body("data.object_id", hasToString(objectId))
+                .extract().body().path("actions");
+
+        assertEquals("Objects price is updated", actions.get(0));
     }
+
+
+    public void setAddress(String authCookie, String objectId,  String streetType, String streetName,String houseNumber, String houseExNumber, String lat, String  lng) {
+
+        given()
+                .spec(requestSpecObjects)
+                .header("accept","application/json, text/plain, */*")
+                .header("accept-language", "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7")
+                .header("content-type","multipart/form-data;  boundary=----WebKitFormBoundarySQveeHXAjzfYkC1e")
+                .log().all()
+                .cookie("_me_", authCookie)
+        .when()
+//                .body("------WebKitFormBoundarySQveeHXAjzfYkC1e\\r\\nContent-Disposition: form-data; name=\"objectId\"\\r\\n\\r\\n1236339\\r\\n------WebKitFormBoundarySQveeHXAjzfYkC1e\\r\\nContent-Disposition: form-data; name=\"data[location][stype]\"\\r\\n\\r\\nулица\\r\\n------WebKitFormBoundarySQveeHXAjzfYkC1e\\r\\nContent-Disposition: form-data; name=\"data[location][street]\"\\r\\n\\r\\nlenina\\r\\n------WebKitFormBoundarySQveeHXAjzfYkC1e\\r\\nContent-Disposition: form-data; name=\"data[location][house]\"\\r\\n\\r\\n55\\r\\n------WebKitFormBoundarySQveeHXAjzfYkC1e\\r\\nContent-Disposition: form-data; name=\"data[location][korp]\"\\r\\n\\r\\n1b\\r\\n------WebKitFormBoundarySQveeHXAjzfYkC1e--\\r\\n")
+                .multiPart("objectId", objectId)
+                .multiPart("data[location][stype]", streetType)
+                .multiPart("data[location][street]", streetName)
+                .multiPart("data[location][house]", houseNumber)
+                .multiPart("data[location][korp]", houseExNumber)
+                .multiPart("data[location][lat]", lat)
+                .multiPart("data[location][lng]", lng)
+                .post("/editObject")
+        .then()
+//                .spec(responseSpec)
+                .log().all()
+                .body("success", is(true))
+                .body("data.object_id", hasToString(objectId));
+    }
+
+    public void setAddress(String authCookie, String objectId,  String streetType, String streetName) {
+        given()
+                .spec(requestSpecObjects)
+                .header("accept", "application/json, text/plain, */*")
+                .cookie("_me_", authCookie)
+                .formParam("objectId", objectId)
+                .formParam("data[location][stype]", streetType)
+                .formParam("data[location][street]", streetName)
+                .when()
+                .log().body()
+                .post("/editObject")
+                .then()
+                .spec(responseSpec)
+                .body(    "success", is(true))
+                .body(    "data.object_id", hasToString(objectId));
+    }
+
 
 }

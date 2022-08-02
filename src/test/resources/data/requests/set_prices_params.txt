@@ -1,0 +1,1 @@
+{"base_price":{"price":%s,"currency_id":%s},"price_properties":{"gethering":%s,"deposit":%s,"rates_info":"","price_per_person":%s,"included_persons":%s,"check_in":"%s","check_out":"%s"}}

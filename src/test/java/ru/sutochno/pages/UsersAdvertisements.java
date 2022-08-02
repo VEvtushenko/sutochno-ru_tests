@@ -11,7 +11,7 @@ public class UsersAdvertisements {
     public AddNewAdvertisement createNewAdvertisement() {
         $(".object-head__button-create").click();
         switchTo().window("Российский сервис бронирования жилья: более 100 тысяч квартир посуточно, комнаты, гостевые дома — Суточно.ру");
-        $("[class='object-create__heading object-create__text-center']").shouldHave(text("Сдайте свое жильё"));
+        $("[class='object-create__heading object-create__text-center']").shouldHave(text("Сдавайте своё жильё на Суточно.ру"));
         return new AddNewAdvertisement();
     }
 

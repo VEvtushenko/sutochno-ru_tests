@@ -11,6 +11,7 @@ public class ModelsData {
     public ChangeProperties getChangeProperties(Integer id) {
         changeProperties.setObjectId(id);
         Properties properties = new Properties();
+        properties.setRooms(data.numberOfRooms);
         properties.setAddBathroom(data.bathroomEquipments.get("дополнительная ванная"));
         properties.setAddToilet(data.bathroomEquipments.get("дополнительный туалет"));
         properties.setArbor(data.yardEquipments.get("беседка"));
@@ -43,7 +44,7 @@ public class ModelsData {
         properties.setCheckIn(data.checkIn);
         properties.setCheckInEarly(data.checkInEarly[1]);
         properties.setCheckOut(data.checkOut);
-//todo        properties.setCheckOutEarly(data.checkOutEarly[2]);
+        properties.setCheckOutEarly(data.checkOutEarly[1]);
         properties.setChildrenAge(data.childrenAge.toString());
         properties.setCleaning(2);
         properties.setCleaningProducts(data.houseEquipments.get("чистящие средства"));

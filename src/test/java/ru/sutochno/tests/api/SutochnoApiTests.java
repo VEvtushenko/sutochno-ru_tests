@@ -23,8 +23,8 @@ public class SutochnoApiTests extends TestBase {
     }
 
     @Test
-    void moveAdvertisementToArchive(String advertisementId) {
-        requests.moveToArchive(advertisementId, AUTH_COOKIE);
+    void moveAdvertisementToArchive(String objectId) {
+        requests.moveToArchive(AUTH_COOKIE, objectId);
     }
 
     @Test

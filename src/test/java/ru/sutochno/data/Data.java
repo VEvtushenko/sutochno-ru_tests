@@ -15,10 +15,10 @@ import static java.lang.String.format;
 
 public class Data {
 
-    Random random = new Random();
-    RandomUtils randomUtils = new RandomUtils();
-    static Requests requests = new Requests();
-    public static String promoUrl = "https://promo.sutochno.ru";
+    private Random random = new Random();
+    private RandomUtils randomUtils = new RandomUtils();
+    private static Requests requests = new Requests();
+    public String promoUrl = "https://promo.sutochno.ru";
     public static final String AUTH_COOKIE =  requests.getAuth(Project.config.userPhone(), Project.config.userPassword());
     private Faker faker = new Faker(new Locale("RU", "RUS"));
 
@@ -70,47 +70,16 @@ public class Data {
         return map;
     }
 
-    public Map setPrices(Integer price, Integer currency, String gethering, String deposit, String pricePerPerson,
-                         String includedPersons, String checkIn, String checkOut) {
 
-        Map<String, Integer> basePrice = new HashMap<String, Integer>();
-        basePrice.put("price", price);
-        basePrice.put("currency_id", currency);
-
-        Map<String, String> priceProperties = new HashMap<>();
-        priceProperties.put("gethering", gethering);
-        priceProperties.put("deposit", deposit);
-        priceProperties.put("rates_info", "");
-        priceProperties.put("price_per_person", pricePerPerson);
-        priceProperties.put("included_persons", includedPersons);
-        priceProperties.put("check_in", checkIn);
-        priceProperties.put("check_out", checkOut);
-
-        Map<String, Map> pricesParams = new HashMap<>();
-        pricesParams.put("base_price", basePrice);
-        pricesParams.put("price_properties", priceProperties);
-
-        return pricesParams;
+    private String setPrices(String  price, String  currency, String gethering, String deposit, String pricePerPerson,
+                            String includedPersons, String checkIn, String checkOut) {
+        return new String(format(getTextString("src/test/resources/data/requests/set_prices_params.txt"),
+                price, currency, gethering, deposit, pricePerPerson, includedPersons, checkIn, checkOut));
     }
 
-    public String setStringPrices(String  price, String  currency, String gethering, String deposit, String pricePerPerson,
-                         String includedPersons, String checkIn, String checkOut) {
-        return new String(format("{\"base_price\": " +
-                                    "{\"price\":%s+, " +
-                                        "\"currency_id\":%s" +
-                                    "}," +
-                                "\"price_properties\": " +
-                                    "{\"gethering\":\"%s\", " +
-                                     "\"deposit\":\"%s\", " +
-                                     "\"rates_info\":\"2\", " +
-                                     "\"price_per_person\":%s, " +
-                                     "\"included_persons\":%s, " +
-                                     "\"check_in\":\"%s\", " +
-                                     "\"check_out\":\"%s\"" +
-                                    "}}", price, currency, gethering, deposit, pricePerPerson, includedPersons, checkIn, checkOut));
-    }
+    public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
 
-        public String[] typeOfSpace = new String[] {"Апартамент"};
+    public String[] typeOfSpace = new String[] {"Апартамент"};
     public String[] country = new String[] {"Беларусь"};
     public String[] region = new String[] {"Брестская область"};
     public String[] city = new String[] {"Брест"};
@@ -118,13 +87,13 @@ public class Data {
     public String[] streetTypeArray = getTextStrings("src/test/resources/data/streetType.txt");
     public String streetType = streetTypeArray[random.nextInt(streetTypeArray.length)];
 
-    public String streetName = faker.address().streetName();
-    public Integer houseNumber = random.nextInt(50);
+    public String streetName = faker.animal().name();
+    public Integer houseNumber = random.nextInt(50) + 1;
     public String houseExNumber = faker.bothify("??");
 
     public Integer maxGuests = random.nextInt(7) + 1;
-    public Integer numberOfRooms = random.nextInt(9);
-    public Integer numberOfBedrooms = random.nextInt(4);
+    public Integer numberOfRooms = random.nextInt(9) + 1;
+    public Integer numberOfBedrooms = random.nextInt(numberOfRooms);
     public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
     public String[] typeOfBeds;
 
@@ -165,10 +134,10 @@ public class Data {
     public String[] checkInEarly = new String[] {"0", "2", "3"};
     public String[] checkOutEarly = new String[] {"0", "2", "3"};
 
-    public Integer squareOfFlat = random.nextInt(500);
+    public Integer squareOfFlat = randomUtils.getInt(100, 500);
 
-    public Integer floor = random.nextInt(40);
-    public Integer maxFloor = randomUtils.getInt(floor, 40);
+    public Integer floor = random.nextInt(40) + 1;
+    public Integer maxFloor = randomUtils.getInt(floor, 41);
     public boolean isAttic = true;
     public boolean isElevator = true;
 
@@ -180,21 +149,8 @@ public class Data {
     public String selfNumberObject = faker.rockBand().name();
     public String description = faker.address().fullAddress();
 
-    public boolean quickBooking = true;
-    public Integer costPerDay = 3000;
-    public Integer amountOfGuestsForCost = 1;
-    public Integer exGuestPrice = 2000;
-    public Integer cleaningCost = 10;
-    public Integer deposit = 30000;
-
     public boolean transfer = random.nextBoolean();
     public String transferTerm = "Transfer term";
-
-    public Integer checkMainData = 3000;
-    public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
-    public Integer beforeDays = random.nextInt(5)*30;
-    public Integer beforeHours = random.nextInt(23) + 1;
-    public  Integer gethering = random.nextInt(5000);
 
     public boolean withChildren = true;
     public final String[] isChildrenArray = new String[] {"0", "2", "1"};
@@ -230,5 +186,21 @@ public class Data {
 
     public final String[] documentsArray = new String[] {"0", "2", "3"};
     public String documents = documentsArray[random.nextInt(documentsArray.length)];
+
+//    public Integer checkMainData = 3000;
+    public boolean quickBooking = true;
+    public Integer costPerDay = randomUtils.getInt(10000, 100000);
+    public Integer amountOfGuestsForCost = random.nextInt(maxGuests);
+    public Integer exGuestPrice = random.nextInt(costPerDay);
+    public Integer deposit = random.nextInt(100000);
+
+    public Integer beforeDays = random.nextInt(5)*30;
+    public Integer beforeHours = random.nextInt(23) + 1;
+    public Integer gethering = random.nextInt(5000);
+    private String[] currencyNumbers = getTextStrings("src/test/resources/data/currency_values.txt");
+    public String currency = currencyNumbers[random.nextInt(currencyNumbers.length)];
+    public Map<String, String> currencyNames = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_names.txt"));
+    public Map<String, String> currencySymbols = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_symbols.txt"));
+    public String prices = setPrices(costPerDay.toString(), currency, gethering.toString(), deposit.toString(), exGuestPrice.toString(), amountOfGuestsForCost.toString(), checkIn, checkOut);
 
 }

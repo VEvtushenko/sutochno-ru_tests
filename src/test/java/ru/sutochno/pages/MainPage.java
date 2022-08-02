@@ -30,7 +30,7 @@ public class MainPage {
     public MainPage openPageWithAuth(String userName) {
         open("/");
         $(".about__title").shouldHave(text("Суточно.ру — сервис бронирования жилья для поездок"), Duration.ofSeconds(10));
-        $(".header-right").$(".account").shouldHave(text(userName));
+        $(".header-right").$(".account").shouldHave(text(userName), Duration.ofSeconds(30));
         return this;
     }
 

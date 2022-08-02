@@ -1,8 +1,13 @@
 package ru.sutochno.data;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+
 import static java.lang.String.format;
 
 public class CheckData {
+    Data data = new Data();
 
     public String getAddress(String streetName, String streetType, String houseNumber, String houseExNumber) {
         if (!houseExNumber.equals("")) {
@@ -64,4 +69,13 @@ public class CheckData {
         }
     }
 
+    public String addDigitSpace(Integer number) {
+        DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance();
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator(' '); //разделитель тысяч '
+        formatter.setDecimalFormatSymbols(symbols);
+        return formatter.format(number);
+    }
+
+    public String mainParams = getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floor.toString(), data.maxFloor.toString(), true);
 }
