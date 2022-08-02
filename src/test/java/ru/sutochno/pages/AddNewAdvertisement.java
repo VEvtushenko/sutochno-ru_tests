@@ -2,9 +2,12 @@ package ru.sutochno.pages;
 
 import io.qameta.allure.Step;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class AddNewAdvertisement {
     @Step("Выбираем тип сдаваемого помещения: квартира/апартаменты/студия")
@@ -16,6 +19,7 @@ public class AddNewAdvertisement {
 
     @Step("Выберите заголовок объявления")
     public AddNewAdvertisement chooseTitle(String title) {
+        sleep(20000);
         $(".animation-active").$(byText(title)).click();
         return this;
     }
@@ -44,8 +48,8 @@ public class AddNewAdvertisement {
     @Step("Перейти на следующую страницу")
     public AddAdvertisementInfo toNextPage() {
         $("[class='btn object-create__btn-submit btn btn-primary btn-secondary']").click();
-        $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"));
-        $(".object-creating__loader").shouldHave(text("Адрес"));
+        $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"), Duration.ofSeconds(30));
+        $(".object-creating__loader").shouldHave(text("Адрес"), Duration.ofSeconds(30));
         return new AddAdvertisementInfo();
     }
 

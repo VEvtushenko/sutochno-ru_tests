@@ -231,7 +231,7 @@ public class AddAdvertisementInfo {
     public AddAdvertisementInfo uploadFoto(String pathToImage) {
         $(".object-creating-form__form-title").shouldHave(text("Загрузите фотографии"), Duration.ofSeconds(30));
         $(".load-image").$(".load-image__select-files").$("[type='file']").uploadFile(new File(pathToImage));
-        sleep(2000);
+        sleep(3000);
         return this;
     }
 
@@ -455,15 +455,14 @@ public class AddAdvertisementInfo {
     @Step("Проверяем введённые данные")
     public AddAdvertisementInfo checkMainData(String checkMainData) {
         $(".object-creating-form__form-title").shouldHave(text("Ваше объявление почти готово! Проверьте главное:"), Duration.ofSeconds(30));
-        $$(".step-booking--text").findBy(text(checkMainData + " $")).shouldBe(visible);
+        $$(".step-booking--text").findBy(text(checkMainData + " $")).shouldBe(visible, Duration.ofSeconds(30));
         return this;
     }
 
     @Step("Проверяем введённые данные")
     @Description("Результат выполнения этого шага, судя по всему, является багом - согласно общей логике здесь должен быть редирект на объявление")
     public AddAdvertisementInfo finalPage() {
-        sleep(1000);
-        $$(".desktop").findBy(text("К сожалению, такой страницы нет.")).shouldBe(visible);
+        $$(".desktop").findBy(text("К сожалению, такой страницы нет.")).shouldBe(visible, Duration.ofSeconds(30));
         return this;
     }
 }

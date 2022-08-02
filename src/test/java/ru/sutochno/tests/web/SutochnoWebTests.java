@@ -108,7 +108,7 @@ public class SutochnoWebTests extends TestBase {
                 .typeOfKitchen(2)
                 .typeOfRepairment(2)
                 .toNextStep()
-                .homeFacilities(data.homeFacilitiesSource[4])
+                .homeFacilities(data.homeFacilitiesSource[2])
                 .chooseView(data.viewSource[1])
                 .equipments("кухни", 1, data.kitchenEquipmentsSource[2])
                 .equipments("дома", 2, data.houseEquipmentsSource[0])
@@ -153,12 +153,14 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .finalPage());
 
+        String mainParams = checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floor.toString(), data.maxFloor.toString(), true);
+
         mainPage
                 .openUsersAdvertisements()
                 .openLastAdvertisements()
                 .checkTitle(data.nameObject)
                 .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType, data.houseNumber.toString(), data.houseExNumber))
-                .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(), checkData.mainParams, data.description)
+                .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(), mainParams, data.description)
                 .checkIncomingRules(data.checkTime[10], data.checkTime[12], data.minNights[2].toString())
                 .checkRules(checkData.getChildrenRules(data.withChildren, data.childrenAgeArray[0].toString()))
                 .checkRules(checkData.getSmokingRules(data.smokingBoolean))

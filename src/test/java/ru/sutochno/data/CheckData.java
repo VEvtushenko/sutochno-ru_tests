@@ -19,9 +19,25 @@ public class CheckData {
 
     public String getParams(String maxGuests, String numberOfBedrooms, String numberOfBeds, String floorOfFlat, String numberOfFloors, boolean isElevator) {
         if (isElevator) {
-            return format("%s гостей%s кровати%s спальни%s из %s этаж (лифт)", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+            if (maxGuests.equals("1")) {
+                return format("%s гость%s кровати%s спальни%s из %s этаж (лифт)", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+            } else {
+                if (Integer.parseInt(maxGuests) <= 4) {
+                    return format("%s гостя%s кровати%s спальни%s из %s этаж (лифт)", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+                } else {
+                    return format("%s гостей%s кровати%s спальни%s из %s этаж (лифт)", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+                }
+            }
         } else {
-            return format("%s гостей%s кровати%s спальни%s из %s этаж", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+            if (maxGuests.equals("1")) {
+                return format("%s гость%s кровати%s спальни%s из %s этаж", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+            } else {
+                if (Integer.parseInt(maxGuests) <= 4) {
+                    return format("%s гостя%s кровати%s спальни%s из %s этаж", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+                } else {
+                    return format("%s гостей%s кровати%s спальни%s из %s этаж", maxGuests, numberOfBeds, numberOfBedrooms, floorOfFlat, numberOfFloors);
+                }
+            }
         }
     }
 

@@ -13,12 +13,12 @@ import static java.lang.String.format;
 public class ViewingAdvertisement {
     @Step("Проверим имя объявления")
     public ViewingAdvertisement checkTitle(String title) {
-        $(".detail-top--name").shouldHave(text(title), Duration.ofSeconds(2));
+        $(".detail-top--name").shouldHave(text(title), Duration.ofSeconds(20));
         return this;
     }
     @Step("Проверим адрес")
     public ViewingAdvertisement checkTitleAddress(String address) {
-        $(".detail-top--body").shouldHave(text(address), Duration.ofSeconds(2));
+        $(".detail-top--body").shouldHave(text(address), Duration.ofSeconds(20));
         return this;
     }
 

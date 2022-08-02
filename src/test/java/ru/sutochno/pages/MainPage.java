@@ -85,7 +85,7 @@ public class MainPage {
     @Step("Открываем список объявлений и проверяем это")
     public UsersAdvertisements openUsersAdvertisements() {
         $("[aria-label='Сдавайся']").click();
-        $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"), Duration.ofSeconds(30));
+        $(".object-head__title-wrap").shouldHave(text("Создать новое объявление"), Duration.ofSeconds(60));
         return new UsersAdvertisements();
     }
 

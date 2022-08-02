@@ -91,7 +91,7 @@ public class Data {
     public Integer houseNumber = random.nextInt(50) + 1;
     public String houseExNumber = faker.bothify("??");
 
-    public Integer maxGuests = random.nextInt(7) + 1;
+    public Integer maxGuests = random.nextInt(6) + 2;
     public Integer numberOfRooms = random.nextInt(9) + 1;
     public Integer numberOfBedrooms = random.nextInt(numberOfRooms);
     public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
@@ -190,7 +190,7 @@ public class Data {
 //    public Integer checkMainData = 3000;
     public boolean quickBooking = true;
     public Integer costPerDay = randomUtils.getInt(10000, 100000);
-    public Integer amountOfGuestsForCost = random.nextInt(maxGuests);
+    public Integer amountOfGuestsForCost = random.nextInt(maxGuests-1) + 1;
     public Integer exGuestPrice = random.nextInt(costPerDay);
     public Integer deposit = random.nextInt(100000);
 
