@@ -1,12 +1,30 @@
 package ru.sutochno.data;
 
+import com.github.javafaker.Faker;
 import ru.sutochno.api.models.ChangeProperties;
 import ru.sutochno.api.models.Properties;
+import ru.sutochno.api.requests.Requests;
+import ru.sutochno.data.adverticement.Beds;
+import ru.sutochno.data.adverticement.CheckData;
+import ru.sutochno.data.adverticement.MainInfo;
+import ru.sutochno.pages.MainPage;
+
+import java.util.Locale;
+import java.util.Random;
 
 public class ModelsData {
 
     public ChangeProperties changeProperties = new ChangeProperties();
     private Data data = new Data();
+    CheckData checkData = new CheckData();
+    MainPage mainPage = new MainPage();
+    Requests requests = new Requests();
+    ModelsData changeObjectData = new ModelsData();
+    Random random = new Random();
+    Faker faker = new Faker(new Locale("RU", "RUS"));
+    Beds beds = new Beds(new Random());
+    MainInfo mainInfo = new MainInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
+
 
     public ChangeProperties getChangeProperties(Integer id) {
         changeProperties.setObjectId(id);
@@ -31,7 +49,7 @@ public class ModelsData {
         properties.setBathrobe(data.bathroomEquipments.get("халат"));
         properties.setBathrooms(data.bathroomEquipments.get("ванна"));
         properties.setBedclothes(data.homeFacilities.get("постельное бельё"));
-        properties.setBedrooms(data.numberOfBedrooms);
+        properties.setBedrooms(mainInfo.getNumberOfBedrooms());
         properties.setBeforeDays(data.beforeDays.toString());
         properties.setBeforeHours(data.beforeHours.toString());
         properties.setBidet(data.bathroomEquipments.get("биде"));
@@ -110,7 +128,7 @@ public class ModelsData {
         properties.setLift(data.isElevator);
         properties.setLinoleum(data.houseEquipments.get("линолеум"));
         properties.setMaxFloor(data.maxFloor.toString());
-        properties.setMaxGuests(data.maxGuests);
+        properties.setMaxGuests(mainInfo.getMaxGuests());
         properties.setMicrowave(data.kitchen.get("СВЧ-печь"));
         properties.setMinNights(data.minNights[1]);
         properties.setMiniBar(data.kitchen.get("мини-бар"));

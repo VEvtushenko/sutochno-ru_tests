@@ -92,12 +92,12 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .map()
                 .toNextStep()
-                .maxGuests(data.maxGuests)
-                .numberOfRooms(data.numberOfRooms)
-                .numberOfBedrooms(data.numberOfBedrooms)
-                .numberOfBeds(2, 1)
-                .addNewBed(1, 1)
-                .addNewBed(1, 1)
+                .maxGuests(mainInfo.getMaxGuests())
+                .numberOfRooms(mainInfo.getNumberOfRooms())
+                .numberOfBedrooms(mainInfo.getNumberOfBedrooms())
+//todo                .numberOfBeds(2, 1)
+//                .addNewBed(1, 1)
+//                .addNewBed(1, 1)
                 .bathroomsWithToilet(data.cntBathroomsToilet)
                 .bathroomsWithoutToilet(data.cntBathrooms)
                 .toilets(data.cntToilets)
@@ -153,7 +153,7 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .finalPage());
 
-        String mainParams = checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floor.toString(), data.maxFloor.toString(), true);
+//        String mainParams = checkData.getParams(data.maxGuests.toString(), data.numberOfBedrooms.toString(), data.numberOfBeds.toString(), data.floor.toString(), data.maxFloor.toString(), true);
 
         mainPage
                 .openUsersAdvertisements()

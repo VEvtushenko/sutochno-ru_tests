@@ -2,6 +2,7 @@ package ru.sutochno.data;
 
 import com.github.javafaker.Faker;
 import ru.sutochno.api.requests.Requests;
+import ru.sutochno.base.domain.buisnes.Price;
 import ru.sutochno.config.Project;
 import ru.sutochno.helpers.RandomUtils;
 
@@ -70,11 +71,9 @@ public class Data {
         return map;
     }
 
-
-    private String setPrices(String  price, String  currency, String gethering, String deposit, String pricePerPerson,
-                            String includedPersons, String checkIn, String checkOut) {
-        return new String(format(getTextString("src/test/resources/data/requests/set_prices_params.txt"),
-                price, currency, gethering, deposit, pricePerPerson, includedPersons, checkIn, checkOut));
+    private String setPrices(Price price, String pricePerPerson, String includedPersons, String checkIn, String checkOut) {
+        return format(getTextString("src/test/resources/data/requests/set_prices_params.txt"),
+                price.getPrice(), price.getCurrency(), price.getGethering(), price.getDeposit(), pricePerPerson, includedPersons, checkIn, checkOut);
     }
 
     public String judgmentText = getTextString("src/test/resources/data/judgmentText.txt");
@@ -91,10 +90,10 @@ public class Data {
     public Integer houseNumber = random.nextInt(50) + 1;
     public String houseExNumber = faker.bothify("??");
 
-    public Integer maxGuests = random.nextInt(6) + 2;
+//    public Integer maxGuests = random.nextInt(6) + 2;
     public Integer numberOfRooms = random.nextInt(9) + 1;
-    public Integer numberOfBedrooms = random.nextInt(numberOfRooms);
-    public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
+//    public Integer numberOfBedrooms = random.nextInt(numberOfRooms);
+//    public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
     public String[] typeOfBeds;
 
     public Integer cntBathroomsToilet = random.nextInt(2);
@@ -201,6 +200,8 @@ public class Data {
     public String currency = currencyNumbers[random.nextInt(currencyNumbers.length)];
     public Map<String, String> currencyNames = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_names.txt"));
     public Map<String, String> currencySymbols = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_symbols.txt"));
-    public String prices = setPrices(costPerDay.toString(), currency, gethering.toString(), deposit.toString(), exGuestPrice.toString(), amountOfGuestsForCost.toString(), checkIn, checkOut);
+
+    Price price = new Price(costPerDay.toString(), currency, gethering.toString(), deposit.toString());
+    public String prices = setPrices(price, exGuestPrice.toString(), amountOfGuestsForCost.toString(), checkIn, checkOut);
 
 }

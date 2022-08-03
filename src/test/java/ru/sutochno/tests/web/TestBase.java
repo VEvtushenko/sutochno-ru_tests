@@ -3,6 +3,7 @@ package ru.sutochno.tests.web;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
+import com.github.javafaker.Faker;
 import io.qameta.allure.junit5.AllureJunit5;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterAll;
@@ -12,15 +13,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
 import ru.sutochno.api.requests.Requests;
 import ru.sutochno.config.Project;
-import ru.sutochno.data.CheckData;
+import ru.sutochno.data.adverticement.Beds;
+import ru.sutochno.data.adverticement.CheckData;
 import ru.sutochno.data.Data;
 import ru.sutochno.data.ModelsData;
+import ru.sutochno.data.adverticement.MainInfo;
 import ru.sutochno.helpers.AllureAttachments;
 import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
 import ru.sutochno.pages.MainPage;
 
+import java.util.Locale;
+import java.util.Random;
 import java.util.stream.Stream;
+
+import static ru.sutochno.helpers.RandomUtils.getInt;
 
 
 @Tag("mainTests")
@@ -31,6 +38,11 @@ public class TestBase {
     MainPage mainPage = new MainPage();
     Requests requests = new Requests();
     ModelsData changeObjectData = new ModelsData();
+    Random random = new Random();
+    Faker faker = new Faker(new Locale("RU", "RUS"));
+    Beds beds = new Beds(new Random());
+    MainInfo mainInfo = new MainInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
+
 
     @BeforeAll
     static void setUp() {
