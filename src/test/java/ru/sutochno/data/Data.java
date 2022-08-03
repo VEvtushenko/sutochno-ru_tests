@@ -189,7 +189,7 @@ public class Data {
 //    public Integer checkMainData = 3000;
     public boolean quickBooking = true;
     public Integer costPerDay = randomUtils.getInt(10000, 100000);
-    public Integer amountOfGuestsForCost = random.nextInt(maxGuests-1) + 1;
+//    public Integer amountOfGuestsForCost = random.nextInt(maxGuests-1) + 1;
     public Integer exGuestPrice = random.nextInt(costPerDay);
     public Integer deposit = random.nextInt(100000);
 
@@ -202,6 +202,6 @@ public class Data {
     public Map<String, String> currencySymbols = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_symbols.txt"));
 
     Price price = new Price(costPerDay.toString(), currency, gethering.toString(), deposit.toString());
-    public String prices = setPrices(price, exGuestPrice.toString(), amountOfGuestsForCost.toString(), checkIn, checkOut);
+//    public String prices = setPrices(price, exGuestPrice.toString(), amountOfGuestsForCost.toString(), checkIn, checkOut);
 
 }

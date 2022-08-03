@@ -138,7 +138,7 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .currencyPay(1)
                 .minimalPeriodOfResidence(data.minNights[2])
-                .costPerDay(data.costPerDay.toString(), data.amountOfGuestsForCost.toString())
+//                .costPerDay(data.costPerDay.toString(), data.amountOfGuestsForCost.toString())
                 .exGuestPrice(data.exGuestPrice.toString())
                 .toNextStep()
                 .rmDiscount()
@@ -159,14 +159,14 @@ public class SutochnoWebTests extends TestBase {
                 .openUsersAdvertisements()
                 .openLastAdvertisements()
                 .checkTitle(data.nameObject)
-                .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType, data.houseNumber.toString(), data.houseExNumber))
-                .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(), mainParams, data.description)
+//                .checkTitleAddress(checkData.getAddress(data.streetName, data.streetType, data.houseNumber.toString(), data.houseExNumber))
+//                .checkMainInfo(data.typeOfSpace[0], data.squareOfFlat.toString(), mainParams, data.description)
                 .checkIncomingRules(data.checkTime[10], data.checkTime[12], data.minNights[2].toString())
                 .checkRules(checkData.getChildrenRules(data.withChildren, data.childrenAgeArray[0].toString()))
                 .checkRules(checkData.getSmokingRules(data.smokingBoolean))
                 .checkRules(checkData.getPetsRules(data.withPets))
                 .checkRules(checkData.getPartyRules(data.partyBoolean))
-                .checkDepositRules(checkData.addDigitSpace(data.deposit))
+//                .checkDepositRules(checkData.addDigitSpace(data.deposit))
                 .checkEquipments(data.kitchenEquipmentsSource[2]);
 
                 mainPage
