@@ -1,4 +1,4 @@
-package ru.sutochno.data.adverticement;
+package ru.sutochno.base.domain.adverticement;
 
 import java.util.Random;
 

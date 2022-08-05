@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Cookie;
+import ru.sutochno.base.domain.adverticement.equipment.*;
+import ru.sutochno.base.domain.adverticement.equipments.*;
+import ru.sutochno.base.domain.equipment.*;
+import ru.sutochno.base.domain.equipments.*;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
 
@@ -101,20 +105,20 @@ public class SutochnoWebTests extends TestBase {
                 .bathroomsWithToilet(data.cntBathroomsToilet)
                 .bathroomsWithoutToilet(data.cntBathrooms)
                 .toilets(data.cntToilets)
-                .conveniencesInBathroom(data.bathroomEquipmentsSource[1])
+                .conveniencesInBathroom(BathroomEquipment.BATHROBE.getName())
                 .squareOfFlat(data.squareOfFlat)
-                .floorOfFlat(data.floor, data.isAttic)
-                .numberOfFloors(data.maxFloor, data.isElevator)
+                .floorOfFlat(mainInfo.getFloorOfFlat(), mainInfo.isAttic())
+                .numberOfFloors(mainInfo.getNumberOfFloors(), mainInfo.isElevator())
                 .typeOfKitchen(2)
                 .typeOfRepairment(2)
                 .toNextStep()
                 .homeFacilities(data.homeFacilitiesSource[2])
                 .chooseView(data.viewSource[1])
-                .equipments("кухни", 1, data.kitchenEquipmentsSource[2])
-                .equipments("дома", 2, data.houseEquipmentsSource[0])
-                .equipments("отдыха дома", 3, data.restEquipmentsSource[2])
-                .equipments("двора", 4, data.yardEquipmentsSource[3])
-                .equipments("детей", 5, data.childrenEquipmentsSource[0])
+                .equipments("кухни", 1, KitchenEquipment.KITCHEN.getName())
+                .equipments("дома", 2, HouseEquipment.FAN.getName())
+                .equipments("отдыха дома", 3, RestEquipment.BOOKS.getName())
+                .equipments("двора", 4, YardEquipment.BARBECUE.getName())
+                .equipments("детей", 5, ChildrenEquipment.BABY_POTTY.getName())
                 .toNextStep()
                 .uploadFoto(data.photo1)
                 .uploadFoto(data.photo2)
@@ -167,7 +171,7 @@ public class SutochnoWebTests extends TestBase {
                 .checkRules(checkData.getPetsRules(data.withPets))
                 .checkRules(checkData.getPartyRules(data.partyBoolean))
 //                .checkDepositRules(checkData.addDigitSpace(data.deposit))
-                .checkEquipments(data.kitchenEquipmentsSource[2]);
+                .checkEquipments(KitchenEquipment.KITCHEN.getName());
 
                 mainPage
                 .openUsersAdvertisements().moveToArchive();

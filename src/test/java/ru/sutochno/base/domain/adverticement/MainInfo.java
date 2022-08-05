@@ -1,10 +1,35 @@
-package ru.sutochno.data.adverticement;
+package ru.sutochno.base.domain.adverticement;
 
 import java.util.Random;
 
 import static java.lang.String.format;
 
 public class MainInfo {
+  /*
+        "area":                 площадь
+    "max_floor":            этажей в доме
+
+    "quality_repair":       ремонт:     -10 - выберите
+                                          0 - без ремонта
+                                          1 - косметический ремонт
+                                          2 - капитальный ремонт "под евро"
+            3 - дизайнерский евроремонт
+
+    "kitchen_flat":         кухня:        0 - выберите
+                                          1 - отдельная кухня
+                                          2 - кухня-столовая
+                                          3 - кухонная зона
+                                         -1 - без кухни
+
+
+<p align="center"> Integer </p>
+
+            "floor":                Этаж
+            <p align="center"> boolean </p>
+
+            "lift":                 Лифт (может быть true только если этажей больше двух)
+    "attic_floor":          Мансарда (не может быть true если помещение на первом этаже)
+*/
 
     private Integer maxGuests;
     private final Integer maximumGuests;

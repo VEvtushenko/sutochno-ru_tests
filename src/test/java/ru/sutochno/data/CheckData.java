@@ -1,4 +1,4 @@
-package ru.sutochno.data.adverticement;
+package ru.sutochno.data;
 
 import ru.sutochno.data.Data;
 

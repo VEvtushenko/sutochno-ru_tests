@@ -2,7 +2,7 @@ package ru.sutochno.data;
 
 import com.github.javafaker.Faker;
 import ru.sutochno.api.requests.Requests;
-import ru.sutochno.base.domain.buisnes.Price;
+import ru.sutochno.base.domain.Price;
 import ru.sutochno.config.Project;
 import ru.sutochno.helpers.RandomUtils;
 
@@ -83,46 +83,45 @@ public class Data {
     public String[] region = new String[] {"Брестская область"};
     public String[] city = new String[] {"Брест"};
 
-    public String[] streetTypeArray = getTextStrings("src/test/resources/data/streetType.txt");
-    public String streetType = streetTypeArray[random.nextInt(streetTypeArray.length)];
+//    public String[] streetTypeArray = getTextStrings("src/test/resources/data/streetType.txt");
+//    public String streetType = streetTypeArray[random.nextInt(streetTypeArray.length)];
 
-    public String streetName = faker.animal().name();
-    public Integer houseNumber = random.nextInt(50) + 1;
-    public String houseExNumber = faker.bothify("??");
+//    public String streetName = faker.animal().name();
+//    public Integer houseNumber = random.nextInt(50) + 1;
+//    public String houseExNumber = faker.bothify("??");
 
-//    public Integer maxGuests = random.nextInt(6) + 2;
-    public Integer numberOfRooms = random.nextInt(9) + 1;
-//    public Integer numberOfBedrooms = random.nextInt(numberOfRooms);
-//    public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
-    public String[] typeOfBeds;
+// MainInfo   public Integer maxGuests = random.nextInt(6) + 2;
+// MainInfo   public Integer numberOfRooms = random.nextInt(9) + 1;
+// MainInfo   public Integer numberOfBedrooms = random.nextInt(numberOfRooms);
+// MainInfo   public Integer numberOfBeds = 3  /* + AddAdvertisementInfo.getCount()*/;
 
-    public Integer cntBathroomsToilet = random.nextInt(2);
-    public Integer cntBathrooms = random.nextInt(2);
-    public Integer cntToilets = random.nextInt(2);
+// Sanitation   public Integer cntBathroomsToilet = random.nextInt(2);
+// Sanitation   public Integer cntBathrooms = random.nextInt(2);
+// Sanitation   public Integer cntToilets = random.nextInt(2);
 
-    public String[] bathroomEquipmentsSource = getTextStrings("src/test/resources/data/convenciesInBathrooms.txt");
-    public Map<String, Boolean> bathroomEquipments = setMapBoolean(bathroomEquipmentsSource);
+//    public String[] bathroomEquipmentsSource = getTextStrings("src/test/resources/data/convenciesInBathrooms.txt");
+//    public Map<String, Boolean> bathroomEquipments = setMapBoolean(bathroomEquipmentsSource);
 
-    public String[] homeFacilitiesSource = getTextStrings("src/test/resources/data/homeFcilities.txt");
-    public Map<String, Boolean> homeFacilities = setMapBoolean(homeFacilitiesSource);
+//    public String[] homeFacilitiesSource = getTextStrings("src/test/resources/data/homeFcilities.txt");
+//    public Map<String, Boolean> homeFacilities = setMapBoolean(homeFacilitiesSource);
+//
+//    public String[] viewSource = getTextStrings("src/test/resources/data/views.txt");
+//    public Map<String, Boolean> view = setMapBoolean(viewSource);
 
-    public String[] viewSource = getTextStrings("src/test/resources/data/views.txt");
-    public Map<String, Boolean> view = setMapBoolean(viewSource);
-
-    public String[] kitchenEquipmentsSource = getTextStrings("src/test/resources/data/kitchenEquipments.txt");
-    public Map<String, Boolean> kitchen = setMapBoolean(kitchenEquipmentsSource);
-
-    public String[] houseEquipmentsSource = getTextStrings("src/test/resources/data/houseEquipments.txt");
-    public Map<String, Boolean> houseEquipments = setMapBoolean(houseEquipmentsSource);
-
-    public String[] restEquipmentsSource = getTextStrings("src/test/resources/data/restEquipments.txt");
-    public Map<String, Boolean> restEquipments = setMapBoolean(restEquipmentsSource);
-
-    public String[] yardEquipmentsSource = getTextStrings("src/test/resources/data/yardEquipments.txt");
-    public Map<String, Boolean> yardEquipments = setMapBoolean(yardEquipmentsSource);
-
-    public String[] childrenEquipmentsSource = getTextStrings("src/test/resources/data/childrenEquipments.txt");
-    public Map<String, Boolean> childrenEquipments = setMapBoolean(childrenEquipmentsSource);
+//    public String[] kitchenEquipmentsSource = getTextStrings("src/test/resources/data/kitchenEquipments.txt");
+//    public Map<String, Boolean> kitchen = setMapBoolean(kitchenEquipmentsSource);
+//
+//    public String[] houseEquipmentsSource = getTextStrings("src/test/resources/data/houseEquipments.txt");
+//    public Map<String, Boolean> houseEquipments = setMapBoolean(houseEquipmentsSource);
+//
+//    public String[] restEquipmentsSource = getTextStrings("src/test/resources/data/restEquipments.txt");
+//    public Map<String, Boolean> restEquipments = setMapBoolean(restEquipmentsSource);
+//
+//    public String[] yardEquipmentsSource = getTextStrings("src/test/resources/data/yardEquipments.txt");
+//    public Map<String, Boolean> yardEquipments = setMapBoolean(yardEquipmentsSource);
+//
+//    public String[] childrenEquipmentsSource = getTextStrings("src/test/resources/data/childrenEquipments.txt");
+//    public Map<String, Boolean> childrenEquipments = setMapBoolean(childrenEquipmentsSource);
 
 //    public String[] bookingGap = getTextStrings("");
 //    public String[] bookingDuration = getTextStrings("");
@@ -133,12 +132,12 @@ public class Data {
     public String[] checkInEarly = new String[] {"0", "2", "3"};
     public String[] checkOutEarly = new String[] {"0", "2", "3"};
 
-    public Integer squareOfFlat = randomUtils.getInt(100, 500);
+// MainInfo    public Integer squareOfFlat = randomUtils.getInt(100, 500);
 
-    public Integer floor = random.nextInt(40) + 1;
-    public Integer maxFloor = randomUtils.getInt(floor, 41);
-    public boolean isAttic = true;
-    public boolean isElevator = true;
+// MainInfo   public Integer floor = random.nextInt(40) + 1;
+// MainInfo   public Integer maxFloor = randomUtils.getInt(floor, 41);
+// MainInfo   public boolean isAttic = true;
+// MainInfo   public boolean isElevator = true;
 
     public String photo1 = "src/test/resources/images/1.jpeg";
     public String photo2 = "src/test/resources/images/2.jpeg";
@@ -169,13 +168,13 @@ public class Data {
     public final String[] smokingArray = new String[] {"0", "1", "3"};
     public String smoking = smokingArray[random.nextInt(smokingArray.length)];
 
-    //    public String[] qualityRepairString = getTextStrings("");
-    public final String[] qualityRepairArray = new String[] {"-10", "0", "1", "2", "3"};
-    public String qualityRepair = qualityRepairArray[random.nextInt(qualityRepairArray.length)];
-
-    //    public String[] kitchenFlatString = getTextStrings("");
-    public final String[] kitchenFlatArray = new String[] {"-1", "0", "1", "2", "3"};
-    public String kitchenFlat = kitchenFlatArray[random.nextInt(kitchenFlatArray.length)];
+//    //    public String[] qualityRepairString = getTextStrings("");
+//    public final String[] qualityRepairArray = new String[] {"-10", "0", "1", "2", "3"};
+//    public String qualityRepair = qualityRepairArray[random.nextInt(qualityRepairArray.length)];
+//
+//    //    public String[] kitchenFlatString = getTextStrings("");
+//    public final String[] kitchenFlatArray = new String[] {"-1", "0", "1", "2", "3"};
+//    public String kitchenFlat = kitchenFlatArray[random.nextInt(kitchenFlatArray.length)];
 
     public final String[] checkTime = new String[] {"1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00",
                                               "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00",
@@ -195,13 +194,13 @@ public class Data {
 
     public Integer beforeDays = random.nextInt(5)*30;
     public Integer beforeHours = random.nextInt(23) + 1;
-    public Integer gethering = random.nextInt(5000);
-    private String[] currencyNumbers = getTextStrings("src/test/resources/data/currency_values.txt");
-    public String currency = currencyNumbers[random.nextInt(currencyNumbers.length)];
-    public Map<String, String> currencyNames = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_names.txt"));
-    public Map<String, String> currencySymbols = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_symbols.txt"));
+//    public Integer gethering = random.nextInt(5000);
+//    private String[] currencyNumbers = getTextStrings("src/test/resources/data/currency_values.txt");
+//    public String currency = currencyNumbers[random.nextInt(currencyNumbers.length)];
+//    public Map<String, String> currencyNames = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_names.txt"));
+//    public Map<String, String> currencySymbols = setMapString(currencyNumbers, getTextStrings("src/test/resources/data/currency_symbols.txt"));
 
-    Price price = new Price(costPerDay.toString(), currency, gethering.toString(), deposit.toString());
-//    public String prices = setPrices(price, exGuestPrice.toString(), amountOfGuestsForCost.toString(), checkIn, checkOut);
+//    Price price = new Price(costPerDay.toString(), currency, gethering.toString(), deposit.toString());
+    //    public String prices = setPrices(price, exGuestPrice.toString(), amountOfGuestsForCost.toString(), checkIn, checkOut);
 
 }
