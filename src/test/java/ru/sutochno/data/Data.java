@@ -2,7 +2,7 @@ package ru.sutochno.data;
 
 import com.github.javafaker.Faker;
 import ru.sutochno.api.requests.Requests;
-import ru.sutochno.base.domain.Price;
+import ru.sutochno.base.domain.prices.Price;
 import ru.sutochno.config.Project;
 import ru.sutochno.helpers.RandomUtils;
 

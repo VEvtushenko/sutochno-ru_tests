@@ -1,4 +1,4 @@
-package ru.sutochno.base.domain;
+package ru.sutochno.base.domain.prices;
 
 public class Price {
 

@@ -2,17 +2,17 @@ package ru.sutochno.base.domain.adverticement.address;
 
 public enum StreetType {
 
-    BOULEVARD("бульвар", 1),
-    ALLEYWAY("переулок", 2),
-    STREET("улица", 3),
-    AVENUE("проспект", 4),
-    HIGHWAY("шоссе", 5),
-    ANOTHER("другое", 10);
+    BOULEVARD(1, "бульвар"),
+    ALLEYWAY(2, "переулок"),
+    STREET(3, "улица"),
+    AVENUE(4, "проспект"),
+    HIGHWAY(5, "шоссе"),
+    ANOTHER(10, "другое");
 
     private final String name;
     private final Integer value;
 
-    StreetType(String name, Integer value) {
+    StreetType(Integer value, String name) {
         this.name = name;
         this.value = value;
     }

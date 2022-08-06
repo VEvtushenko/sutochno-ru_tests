@@ -1,4 +1,4 @@
-package ru.sutochno.base.domain.adverticement;
+package ru.sutochno.base.domain.adverticement.general;
 
 public enum RepairmentQuality {
 

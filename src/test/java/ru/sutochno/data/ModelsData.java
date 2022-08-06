@@ -3,8 +3,8 @@ package ru.sutochno.data;
 import com.github.javafaker.Faker;
 import ru.sutochno.api.models.ChangeProperties;
 import ru.sutochno.api.requests.Requests;
-import ru.sutochno.base.domain.adverticement.Beds;
-import ru.sutochno.base.domain.adverticement.MainInfo;
+import ru.sutochno.base.domain.adverticement.general.Beds;
+import ru.sutochno.base.domain.adverticement.general.GeneralInfo;
 import ru.sutochno.pages.MainPage;
 
 import java.util.Locale;
@@ -21,7 +21,7 @@ public class ModelsData {
     Random random = new Random();
     Faker faker = new Faker(new Locale("RU", "RUS"));
     Beds beds = new Beds(new Random());
-    MainInfo mainInfo = new MainInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
+//    GeneralInfo generalInfo = new GeneralInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
 
 
 //    public ChangeProperties getChangeProperties(Integer id) {
