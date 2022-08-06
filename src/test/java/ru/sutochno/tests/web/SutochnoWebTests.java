@@ -9,9 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Cookie;
 import ru.sutochno.base.domain.adverticement.equipment.*;
-import ru.sutochno.base.domain.adverticement.equipments.*;
-import ru.sutochno.base.domain.equipment.*;
-import ru.sutochno.base.domain.equipments.*;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
 
@@ -64,7 +61,7 @@ public class SutochnoWebTests extends TestBase {
 //
 //        requests.setPrices(AUTH_COOKIE, objectId, data.prices);
 //
-        requests.setAddress(AUTH_COOKIE, "1235961", data.streetType, data.streetName, data.houseNumber.toString(), data.houseExNumber, "55.95685305638317", "36.97412763887026");
+//        requests.setAddress(AUTH_COOKIE, "1235961", data.streetType, data.streetName, data.houseNumber.toString(), data.houseExNumber, "55.95685305638317", "36.97412763887026");
 
 //        mainPage
 //                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName());
@@ -128,7 +125,7 @@ public class SutochnoWebTests extends TestBase {
                 .addUniqName(data.selfNumberObject)
                 .inputAdvertisementDesc(data.description)
                 .toNextStep()
-                .hostingRules(data.withChildren, data.childrenAgeArray[0], data.withPets, data.smokingBoolean, data.partyBoolean)
+                .placementTerms(data.withChildren, data.childrenAgeArray[0], data.withPets, data.smokingBoolean, data.partyBoolean)
                 .toNextStep()
                 .checkInTime(data.checkTime[10])
                 .checkOutTime(data.checkTime[12])

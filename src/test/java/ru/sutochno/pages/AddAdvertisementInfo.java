@@ -260,7 +260,7 @@ public class AddAdvertisementInfo {
 //        Screen 7
 
     @Step("Правила размещения")
-    public AddAdvertisementInfo hostingRules(boolean withChildren, int childrenAge, boolean withPets, boolean smoking, boolean party) {
+    public AddAdvertisementInfo placementTerms(boolean withChildren, int childrenAge, boolean withPets, boolean smoking, boolean party) {
         $(".object-creating-form__form-title").shouldHave(text("Правила размещения"), Duration.ofSeconds(30));
         AtomicReference<Integer> numberOfRow = new AtomicReference<>(1);
         if (withChildren) {

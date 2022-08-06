@@ -24,20 +24,6 @@ public class Data {
     private Faker faker = new Faker(new Locale("RU", "RUS"));
 
 
-    private  String[] getTextStrings(String fileName)  {
-        try {
-            List<String> text = new ArrayList((Files.readAllLines(Paths.get(fileName))));
-            String[] stringsArray = new String[text.size()];
-            for (int i = 0; i < text.size(); i++) {
-                stringsArray[i] = text.get(i);
-            }
-            return stringsArray;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new String[] {""};
-        }
-    }
-
     private  String getTextString(String fileName)  {
         try {
             return new String((Files.readAllBytes(Paths.get(fileName))));
@@ -47,29 +33,6 @@ public class Data {
         }
     }
 
-    private Integer[] getFollowingIntArray(int max)  {
-        Integer[] intArray = new Integer[max];
-        for (int i = 0; i < max; i++) {
-            intArray[i] = i + 1;
-        }
-        return intArray;
-    }
-
-    private Map<String, Boolean> setMapBoolean(String[] source) {
-        Map<String, Boolean> map = new HashMap<>();
-        for(int i = 0; i < source.length; i++) {
-            map.put(source[i], random.nextBoolean());
-        }
-        return map;
-    }
-
-    private Map<String, String> setMapString(String[] sourceData, String[] paramsName) {
-        Map<String, String> map = new HashMap<>();
-        for(int i = 0; i < sourceData.length; i++) {
-            map.put(paramsName[i], sourceData[i]);
-        }
-        return map;
-    }
 
     private String setPrices(Price price, String pricePerPerson, String includedPersons, String checkIn, String checkOut) {
         return format(getTextString("src/test/resources/data/requests/set_prices_params.txt"),
@@ -83,7 +46,6 @@ public class Data {
     public String[] region = new String[] {"Брестская область"};
     public String[] city = new String[] {"Брест"};
 
-//    public String[] streetTypeArray = getTextStrings("src/test/resources/data/streetType.txt");
 //    public String streetType = streetTypeArray[random.nextInt(streetTypeArray.length)];
 
 //    public String streetName = faker.animal().name();
@@ -126,7 +88,7 @@ public class Data {
 //    public String[] bookingGap = getTextStrings("");
 //    public String[] bookingDuration = getTextStrings("");
 //    public String[] currencyPay = getTextStrings("");
-    public Integer[] minNights = getFollowingIntArray(30);
+    public Integer minNights = new Random().nextInt(30);
 //    public String[] checkOutTime = new String[] {"16:00"};
 //    public String[] additionalServices = getTextStrings("");
     public String[] checkInEarly = new String[] {"0", "2", "3"};
@@ -147,14 +109,13 @@ public class Data {
     public String selfNumberObject = faker.rockBand().name();
     public String description = faker.address().fullAddress();
 
-    public boolean transfer = random.nextBoolean();
-    public String transferTerm = "Transfer term";
+//    public boolean transfer = random.nextBoolean();
+//    public String transferTerm = "Transfer term";
 
     public boolean withChildren = true;
     public final String[] isChildrenArray = new String[] {"0", "2", "1"};
     public String isChildren = isChildrenArray[random.nextInt(isChildrenArray.length)];
-    public final Integer[] childrenAgeArray = getFollowingIntArray(17);
-    public Integer childrenAge = childrenAgeArray[random.nextInt(childrenAgeArray.length)];
+    public Integer childrenAge = random.nextInt(17);
 
     public boolean partyBoolean = true;
     public final String[] partyArray = new String[] {"0", "2", "1"};

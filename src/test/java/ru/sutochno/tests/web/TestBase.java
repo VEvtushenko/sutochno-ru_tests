@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
 import ru.sutochno.api.requests.Requests;
+import ru.sutochno.base.domain.adverticement.KitchenType;
+import ru.sutochno.base.domain.adverticement.RepairmentQuality;
 import ru.sutochno.config.Project;
 import ru.sutochno.base.domain.adverticement.Beds;
 import ru.sutochno.data.CheckData;
@@ -32,19 +34,20 @@ import java.util.stream.Stream;
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
     public Data data = new Data();
-    CheckData checkData = new CheckData();
+//    CheckData checkData = new CheckData();
     MainPage mainPage = new MainPage();
-    Requests requests = new Requests();
-    ModelsData changeObjectData = new ModelsData();
-    Random random = new Random();
-    Faker faker = new Faker(new Locale("RU", "RUS"));
-    Beds beds = new Beds(new Random());
-    MainInfo mainInfo = new MainInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
-
+//    Requests requests = new Requests();
+//    ModelsData changeObjectData = new ModelsData();
+//    Random random = new Random();
+//    Faker faker = new Faker(new Locale("RU", "RUS"));
+//    Beds beds = new Beds(new Random());
+//    MainInfo mainInfo = new MainInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
+//    KitchenType kitchenType = KitchenType.SEPARATE;
+//    RepairmentQuality repairmentQuality = RepairmentQuality.DISINER;
 
     @BeforeAll
     static void setUp() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+//        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         DriverSettings.configure();
         Configuration.holdBrowserOpen = true;
     }

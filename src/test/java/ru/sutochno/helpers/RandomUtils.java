@@ -7,4 +7,5 @@ public class RandomUtils {
         Random random = new Random();
         return random.nextInt(max - min) + min;
     }
+
 }
