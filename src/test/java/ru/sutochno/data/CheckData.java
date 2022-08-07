@@ -43,14 +43,14 @@ public class CheckData {
         if (withPets) {
             return new String("можно с питомцами");
         } else {
-            return new String("нельзя с питомцами");
+            return new String("можно с питомцами по согласованию с хозяином жилья");
         }
     }
     public String getPartyRules(boolean party) {
         if (party) {
             return new String("можно проводить вечеринки и мероприятия");
         } else {
-            return new String("без вечеринок и мероприятий");
+            return new String("вечеринки и мероприятия по согласованию с хозяином жилья");
         }
     }
 

@@ -19,4 +19,11 @@ public class Transfer {
         this.transferTerm = faker.hitchhikersGuideToTheGalaxy().marvinQuote();
     }
 
+    public boolean isTransfer() {
+        return transfer;
+    }
+
+    public String getTransferTerm() {
+        return transferTerm;
+    }
 }

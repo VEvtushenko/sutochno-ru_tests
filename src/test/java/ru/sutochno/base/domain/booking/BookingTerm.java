@@ -11,6 +11,7 @@ public class BookingTerm {
     private final String checkIn;
     private final String checkOut;
     private final PlacementTerm placementTerm;
+//    todo bookingGap, bookingDuration
 
     private final String timeColonPattern = "H:mm";
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeColonPattern);

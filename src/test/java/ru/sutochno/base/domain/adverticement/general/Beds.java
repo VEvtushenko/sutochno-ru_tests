@@ -1,7 +1,5 @@
 package ru.sutochno.base.domain.adverticement.general;
 
-import ru.sutochno.pages.MainPage;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -10,84 +8,90 @@ import static java.lang.String.format;
 
 public class Beds {
 
-    private Map<String, Integer> beds = new HashMap<>();
+    private Map<String, Integer> bedsList = new HashMap<>();
     private Integer numberOfBeds;
     private Integer maxGuests;
 
     public Beds() {
-        beds.put("Односпальных кроватей", 1);
+        bedsList.put("Односпальных кроватей", 1);
         this.numberOfBeds = 1;
         this.maxGuests = 1;
     }
 
     public  Beds(Integer singleBed, Integer doubleBed, Integer kingBed, Integer superKingBed, Integer yarusBed, Integer bsofaBed) {
-        this.beds.put("Односпальных кроватей", singleBed);
-        this.beds.put("Двуспальных кроватей", doubleBed);
-        this.beds.put("Кроватей king-size", kingBed);
-        this.beds.put("Особо широких двуспальных", superKingBed);
-        this.beds.put("Двухъярусных кроватей", yarusBed);
-        this.beds.put("Диван-кроватей", bsofaBed);
+        this.bedsList.put("Односпальных кроватей", singleBed);
+        this.bedsList.put("Двуспальных кроватей", doubleBed);
+        this.bedsList.put("Кроватей king-size", kingBed);
+        this.bedsList.put("Особо широких двуспальных", superKingBed);
+        this.bedsList.put("Двухъярусных кроватей", yarusBed);
+        this.bedsList.put("Диван-кроватей", bsofaBed);
 
-        for (Integer value : this.beds.values()) {
+        for (Integer value : this.bedsList.values()) {
             this.numberOfBeds = this.numberOfBeds + value;
         }
 
         Integer maxGuests = 0;
-        for (Integer value : this.beds.values()) {
+        for (Integer value : this.bedsList.values()) {
             maxGuests = maxGuests + value*2;
         }
-        this.maxGuests = maxGuests - this.beds.get("Односпальных кроватей");
+        this.maxGuests = maxGuests - this.bedsList.get("Односпальных кроватей");
     }
 
     public  Beds(Random random) {
-        this.beds.put("Односпальных кроватей", random.nextInt(5));
-        this.beds.put("Двуспальных кроватей", random.nextInt(5));
-        this.beds.put("Кроватей king-size", random.nextInt(5));
-        this.beds.put("Особо широких двуспальных", random.nextInt(5));
-        this.beds.put("Двухъярусных кроватей", random.nextInt(5));
-        this.beds.put("Диван-кроватей", random.nextInt(5));
+        this.bedsList.put("Односпальных кроватей", random.nextInt(5));
+        this.bedsList.put("Двуспальных кроватей", random.nextInt(5));
+        this.bedsList.put("Кроватей king-size", random.nextInt(5));
+        this.bedsList.put("Особо широких двуспальных", random.nextInt(5));
+        this.bedsList.put("Двухъярусных кроватей", random.nextInt(5));
+        this.bedsList.put("Диван-кроватей", random.nextInt(5));
 
-        for (Integer value : this.beds.values()) {
-            this.numberOfBeds = this.numberOfBeds + value;
+        Integer numberOfBeds = 0;
+        for (Integer value : this.bedsList.values()) {
+            numberOfBeds = numberOfBeds + value;
         }
+        this.numberOfBeds = numberOfBeds;
 
         Integer maxGuests = 0;
-        for (Integer value : this.beds.values()) {
+        for (Integer value : this.bedsList.values()) {
             maxGuests = maxGuests + value*2;
         }
-        this.maxGuests = maxGuests - this.beds.get("Односпальных кроватей");
+        this.maxGuests = maxGuests - this.bedsList.get("Односпальных кроватей");
     }
 
     public Integer getSingleBed() {
-        return this.beds.get("Односпальных кроватей");
+        return this.bedsList.get("Односпальных кроватей");
     }
 
     public Integer getDoubleBed() {
-        return this.beds.get("Двуспальных кроватей");
+        return this.bedsList.get("Двуспальных кроватей");
     }
 
     public Integer getKingBed() {
-        return this.beds.get("Кроватей king-size");
+        return this.bedsList.get("Кроватей king-size");
     }
 
     public Integer getSuperKingBed() {
-        return this.beds.get("Особо широких двуспальных");
+        return this.bedsList.get("Особо широких двуспальных");
     }
 
     public Integer getYarusBed() {
-        return this.beds.get("Двухъярусных кроватей");
+        return this.bedsList.get("Двухъярусных кроватей");
     }
 
     public Integer getSofaBed() {
-        return this.beds.get("Диван-кроватей");
+        return this.bedsList.get("Диван-кроватей");
     }
 
     public Integer getNumberOfBeds() {
-        return numberOfBeds;
+        return this.numberOfBeds;
     }
 
     public Integer getMaxGuests() {
         return maxGuests;
+    }
+
+    public Map<String, Integer> getBedsList() {
+        return bedsList;
     }
 
     public String bedsNumDesc() {
@@ -103,73 +107,73 @@ public class Beds {
     }
 
     public String singleBedsDesc() {
-        if (this.beds.get("Односпальных кроватей") == 1) {
-            return format("%s односпальная кровать", this.beds.get("Односпальных кроватей"));
+        if (this.bedsList.get("Односпальных кроватей") == 1) {
+            return format("%s односпальная кровать", this.bedsList.get("Односпальных кроватей"));
         } else {
-            if (this.beds.get("Односпальных кроватей") < 5) {
-                return format("%s односпальных кровати", this.beds.get("Односпальных кроватей"));
+            if (this.bedsList.get("Односпальных кроватей") < 5) {
+                return format("%s односпальных кровати", this.bedsList.get("Односпальных кроватей"));
             } else {
-                return format("%s односпальных кроватей", this.beds.get("Односпальных кроватей"));
+                return format("%s односпальных кроватей", this.bedsList.get("Односпальных кроватей"));
             }
         }
     }
 
     public String doubleBedsDesc() {
-        if (this.beds.get("Двуспальных кроватей") == 1) {
-            return format("%s двуспальные кровать", this.beds.get("Двуспальных кроватей"));
+        if (this.bedsList.get("Двуспальных кроватей") == 1) {
+            return format("%s двуспальные кровать", this.bedsList.get("Двуспальных кроватей"));
         } else {
             if (this.numberOfBeds < 5) {
-                return format("%s двуспальных кровати", this.beds.get("Двуспальных кроватей"));
+                return format("%s двуспальных кровати", this.bedsList.get("Двуспальных кроватей"));
             } else {
-                return format("%s двуспальных кроватей", this.beds.get("Двуспальных кроватей"));
+                return format("%s двуспальных кроватей", this.bedsList.get("Двуспальных кроватей"));
             }
         }
     }
 
     public String kingBedsDesc() {
-        if (this.beds.get("Кроватей king-size") == 1) {
-            return format("%s кровать king-size", this.beds.get("Кроватей king-size"));
+        if (this.bedsList.get("Кроватей king-size") == 1) {
+            return format("%s кровать king-size", this.bedsList.get("Кроватей king-size"));
         } else {
             if (this.numberOfBeds < 5) {
-                return format("%s кровати king-size", this.beds.get("Кроватей king-size"));
+                return format("%s кровати king-size", this.bedsList.get("Кроватей king-size"));
             } else {
-                return format("%s кроватей king-size", this.beds.get("Кроватей king-size"));
+                return format("%s кроватей king-size", this.bedsList.get("Кроватей king-size"));
             }
         }
     }
 
     public String superKingBedsDesc() {
-        if (this.beds.get("Особо широких двуспальных") == 1) {
-            return format("%s особо широкая двуспальная кровать", this.beds.get("Особо широких двуспальных"));
+        if (this.bedsList.get("Особо широких двуспальных") == 1) {
+            return format("%s особо широкая двуспальная кровать", this.bedsList.get("Особо широких двуспальных"));
         } else {
             if (this.numberOfBeds < 5) {
-                return format("%s особо широкие двуспальные кровати", this.beds.get("Особо широких двуспальных"));
+                return format("%s особо широкие двуспальные кровати", this.bedsList.get("Особо широких двуспальных"));
             } else {
-                return format("%s особо широких двуспальных кроватей", this.beds.get("Особо широких двуспальных"));
+                return format("%s особо широких двуспальных кроватей", this.bedsList.get("Особо широких двуспальных"));
             }
         }
     }
 
     public String yarusBedsDesc() {
-        if (this.beds.get("Двухъярусных кроватей") == 1) {
-            return format("%s двухъярусная кровать", this.beds.get("Двухъярусных кроватей"));
+        if (this.bedsList.get("Двухъярусных кроватей") == 1) {
+            return format("%s двухъярусная кровать", this.bedsList.get("Двухъярусных кроватей"));
         } else {
             if (this.numberOfBeds < 5) {
-                return format("%s двухъярусных кровати", this.beds.get("Двухъярусных кроватей"));
+                return format("%s двухъярусных кровати", this.bedsList.get("Двухъярусных кроватей"));
             } else {
-                return format("%s двухъярусных кроватей", this.beds.get("Двухъярусных кроватей"));
+                return format("%s двухъярусных кроватей", this.bedsList.get("Двухъярусных кроватей"));
             }
         }
     }
 
     public String sofaBedsDesc() {
-        if (this.beds.get("Диван-кроватей") == 1) {
-            return format("%s диван-кровать", this.beds.get("Диван-кроватей"));
+        if (this.bedsList.get("Диван-кроватей") == 1) {
+            return format("%s диван-кровать", this.bedsList.get("Диван-кроватей"));
         } else {
             if (this.numberOfBeds < 5) {
-                return format("%s диван-кровати", this.beds.get("Диван-кроватей"));
+                return format("%s диван-кровати", this.bedsList.get("Диван-кроватей"));
             } else {
-                return format("%s диван-кроватей", this.beds.get("Диван-кроватей"));
+                return format("%s диван-кроватей", this.bedsList.get("Диван-кроватей"));
             }
         }
     }
@@ -177,44 +181,44 @@ public class Beds {
     public String generalBedsDesc() {
         String desc = "";
         Integer countBeds = this.numberOfBeds;
-        if (this.beds.get("Односпальных кроватей") != 0) {
+        if (this.bedsList.get("Односпальных кроватей") != 0) {
             desc = desc + singleBedsDesc();
-            countBeds = countBeds - this.beds.get("Односпальных кроватей");
+            countBeds = countBeds - this.bedsList.get("Односпальных кроватей");
             if (countBeds != 0) {
                 desc = desc + ", " ;
             }
         }
-        if (this.beds.get("Двуспальных кроватей") != 0) {
+        if (this.bedsList.get("Двуспальных кроватей") != 0) {
             desc = desc + doubleBedsDesc();
-            countBeds = countBeds - this.beds.get("Двуспальных кроватей");
+            countBeds = countBeds - this.bedsList.get("Двуспальных кроватей");
             if (countBeds != 0) {
                 desc = desc + ", " ;
             }
         }
-        if (this.beds.get("Кроватей king-size") != 0) {
+        if (this.bedsList.get("Кроватей king-size") != 0) {
             desc = desc + kingBedsDesc();
-            countBeds = countBeds - this.beds.get("Кроватей king-size");
+            countBeds = countBeds - this.bedsList.get("Кроватей king-size");
             if (countBeds != 0) {
                 desc = desc + ", " ;
             }
         }
-        if (this.beds.get("Особо широких двуспальных") != 0) {
+        if (this.bedsList.get("Особо широких двуспальных") != 0) {
             desc = desc + superKingBedsDesc();
-            countBeds = countBeds - this.beds.get("Особо широких двуспальных");
+            countBeds = countBeds - this.bedsList.get("Особо широких двуспальных");
             if (countBeds != 0) {
                 desc = desc + ", " ;
             }
         }
-        if (this.beds.get("Двухъярусных кроватей") != 0) {
+        if (this.bedsList.get("Двухъярусных кроватей") != 0) {
             desc = desc + yarusBedsDesc();
-            countBeds = countBeds - this.beds.get("Двухъярусных кроватей");
+            countBeds = countBeds - this.bedsList.get("Двухъярусных кроватей");
             if (countBeds != 0) {
                 desc = desc + ", " ;
             }
         }
-        if (this.beds.get("Диван-кроватей") != 0) {
+        if (this.bedsList.get("Диван-кроватей") != 0) {
             desc = desc + sofaBedsDesc();
-            countBeds = countBeds - this.beds.get("Диван-кроватей");
+            countBeds = countBeds - this.bedsList.get("Диван-кроватей");
             if (countBeds != 0) {
                 desc = desc + ", " ;
             }

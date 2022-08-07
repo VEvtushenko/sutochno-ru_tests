@@ -3,11 +3,11 @@ package ru.sutochno.base.domain.prices;
 public class Price {
 
     private final String price;
-    private final String currency;
+    private final Currencies currency;
     private final String gethering;
     private final String deposit;
 
-    public Price(String  price, String  currency, String gethering, String deposit) {
+    public Price(String  price, Currencies  currency, String gethering, String deposit) {
         this.price = price;
         this.currency = currency;
         this.gethering = gethering;
@@ -18,7 +18,7 @@ public class Price {
         return price;
     }
 
-    public String getCurrency() {
+    public Currencies getCurrency() {
         return currency;
     }
 

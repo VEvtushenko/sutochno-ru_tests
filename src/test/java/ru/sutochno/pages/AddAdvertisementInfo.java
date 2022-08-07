@@ -58,9 +58,9 @@ public class AddAdvertisementInfo {
     }
 
     @Step("Ввести номер дома")
-    public AddAdvertisementInfo houseNumber(Integer houseNumber) {
+    public AddAdvertisementInfo houseNumber(String houseNumber) {
         $("[class='object-creating-form__mobile-row-wrap']")
-                .$(".row").$(".object-creating-form__form-input").setValue(houseNumber.toString());
+                .$(".row").$(".object-creating-form__form-input").setValue(houseNumber);
         return this;
     }
 
@@ -105,25 +105,29 @@ public class AddAdvertisementInfo {
     }
 
     @Step("Ввести тип и количество кроватей")
-    public AddAdvertisementInfo numberOfBeds(Integer typeOfBed, Integer numberOfBed) {
+    public AddAdvertisementInfo numberOfBeds(String typeOfBed, Integer numberOfBed) {
         chooseItem("SleepPlaces", 1).$(".col-sm-6").$(".sc-select")
-                .selectOption(typeOfBed);
+                .selectOptionByValue(typeOfBed);
         chooseItem("SleepPlaces", 1).$(".col-sm-5").$(".sc-select")
-                .selectOption(numberOfBed);
+                .selectOptionContainingText(numberOfBed.toString());
         return this;
     }
 
     private Integer numberOfBedsTypes = 0;
 
     @Step("Добавить кровать")
-    public AddAdvertisementInfo addNewBed(Integer typeOfBed, Integer numberOfBed) {
-        chooseItem("SleepPlaces", 1).$(".object-creating-form__link").click();
-        chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-                .sibling(numberOfBedsTypes).$(".col-sm-6").$(".sc-select").selectOption(typeOfBed);
-        chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-                .sibling(numberOfBedsTypes).$(".col-sm-5").$(".sc-select").selectOption(numberOfBed);
-        numberOfBedsTypes = numberOfBedsTypes + 1;
-        return this;
+    public AddAdvertisementInfo addNewBed(String typeOfBed, Integer numberOfBed) {
+        if (numberOfBed == 0) {
+            return this;
+        }  else {
+            chooseItem("SleepPlaces", 1).$(".object-creating-form__link").click();
+            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
+                    .sibling(numberOfBedsTypes).$(".col-sm-6").$(".sc-select").selectOptionByValue(typeOfBed);
+            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
+                    .sibling(numberOfBedsTypes).$(".col-sm-5").$(".sc-select").selectOptionContainingText(numberOfBed.toString());
+            numberOfBedsTypes = numberOfBedsTypes + 1;
+            return this;
+        }
     }
 
     @Step("Ввести количество совмещённых санузлов")
@@ -231,7 +235,7 @@ public class AddAdvertisementInfo {
     public AddAdvertisementInfo uploadFoto(String pathToImage) {
         $(".object-creating-form__form-title").shouldHave(text("Загрузите фотографии"), Duration.ofSeconds(30));
         $(".load-image").$(".load-image__select-files").$("[type='file']").uploadFile(new File(pathToImage));
-        sleep(3000);
+        sleep(5000);
         return this;
     }
 
@@ -352,9 +356,9 @@ public class AddAdvertisementInfo {
 
     //  Step 3 Screen 1
     @Step("Выбираем валюту оплаты")
-    public AddAdvertisementInfo currencyPay(Integer currency) {
+    public AddAdvertisementInfo currencyPay(String currency) {
         $(".object-creating-form__form-title").shouldHave(text("Цены"), Duration.ofSeconds(30));
-        chooseItemPrice(0).$(".sc-select").selectOption(currency);
+        chooseItemPrice(0).$(".sc-select").selectOptionContainingText(currency);
         return this;
     }
 
@@ -453,9 +457,9 @@ public class AddAdvertisementInfo {
 
 //    Step 3 Screen 4
     @Step("Проверяем введённые данные")
-    public AddAdvertisementInfo checkMainData(String checkMainData) {
+    public AddAdvertisementInfo checkMainData(String price, String currencySign) {
         $(".object-creating-form__form-title").shouldHave(text("Ваше объявление почти готово! Проверьте главное:"), Duration.ofSeconds(30));
-        $$(".step-booking--text").findBy(text(checkMainData + " $")).shouldBe(visible, Duration.ofSeconds(30));
+        $$(".step-booking--text").findBy(text(price + " " + currencySign)).shouldBe(visible, Duration.ofSeconds(30));
         return this;
     }
 

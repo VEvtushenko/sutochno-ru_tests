@@ -19,7 +19,7 @@ public class AddNewAdvertisement {
 
     @Step("Выберите заголовок объявления")
     public AddNewAdvertisement chooseTitle(String title) {
-        sleep(20000);
+        sleep(10000);
         $(".animation-active").$(byText(title)).click();
         return this;
     }
@@ -48,8 +48,8 @@ public class AddNewAdvertisement {
     @Step("Перейти на следующую страницу")
     public AddAdvertisementInfo toNextPage() {
         $("[class='btn object-create__btn-submit btn btn-primary btn-secondary']").click();
-        $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"), Duration.ofSeconds(30));
-        $(".object-creating__loader").shouldHave(text("Адрес"), Duration.ofSeconds(30));
+        $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"), Duration.ofSeconds(60));
+        $(".object-creating__loader").shouldHave(text("Адрес"), Duration.ofSeconds(60));
         return new AddAdvertisementInfo();
     }
 

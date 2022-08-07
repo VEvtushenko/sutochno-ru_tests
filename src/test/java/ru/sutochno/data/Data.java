@@ -147,7 +147,7 @@ public class Data {
     public String documents = documentsArray[random.nextInt(documentsArray.length)];
 
 //    public Integer checkMainData = 3000;
-    public boolean quickBooking = true;
+//    public boolean quickBooking = true;
     public Integer costPerDay = randomUtils.getInt(10000, 100000);
 //    public Integer amountOfGuestsForCost = random.nextInt(maxGuests-1) + 1;
     public Integer exGuestPrice = random.nextInt(costPerDay);

@@ -5,10 +5,13 @@ public enum Type {
     FLAT("Квартира"),
     STUDIO("Студия");
 
-    private String name;
+    private final String name;
 
     Type(String name) {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 }

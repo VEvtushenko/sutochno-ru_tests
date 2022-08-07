@@ -25,4 +25,24 @@ public class PlacementTerm {
         this.children = children;
         this.party = party;
     }
+
+    public ChildrenTerm getChildren() {
+        return children;
+    }
+
+    public Integer getChildrenAge() {
+        return childrenAge;
+    }
+
+    public SmokingTerm getSmoking() {
+        return smoking;
+    }
+
+    public PetsTerm getPets() {
+        return pets;
+    }
+
+    public PartyTerm getParty() {
+        return party;
+    }
 }

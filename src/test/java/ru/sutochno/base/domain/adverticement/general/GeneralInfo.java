@@ -1,5 +1,7 @@
 package ru.sutochno.base.domain.adverticement.general;
 
+import com.github.javafaker.Faker;
+
 import java.util.Random;
 
 import static java.lang.String.format;
@@ -11,24 +13,24 @@ public class GeneralInfo {
     private final boolean isElevator;
     private final boolean isAttic;
     private final Integer square;
-    private String type;
+    private Type type;
 
-    public GeneralInfo(Random random, Type type) {
-        this.numberOfFloors = random.nextInt(99) + 1;
-        this.floorOfFlat = random.nextInt(this.numberOfFloors);
+    public GeneralInfo(Faker faker, Type type) {
+        this.numberOfFloors = faker.random().nextInt(1, 99);
+        this.floorOfFlat = faker.random().nextInt(this.numberOfFloors);
         if (numberOfFloors > 2) {
-            this.isElevator = random.nextBoolean();
+            this.isElevator = faker.random().nextBoolean();
         } else {
             this.isElevator = false;
         }
         if (floorOfFlat > 1) {
-            this.isAttic = random.nextBoolean();
+            this.isAttic = faker.random().nextBoolean();
         } else {
             this.isAttic = false;
         }
-        this.square = random.nextInt(600);
+        this.square = new Faker().random().nextInt(30, 600);
 
-        this.type = type.name();
+        this.type = type;
     }
 
     public GeneralInfo(Integer floorOfFlat, boolean isAttic, Integer numberOfFloors, boolean isElevator, Integer square, Type type) {
@@ -46,18 +48,46 @@ public class GeneralInfo {
         }
         this.square = square;
 
-        this.type = type.name();
+        this.type = type;
     }
 
     public String descFloors() {
+        String floorOfFlat = this.floorOfFlat.toString();
+        if (this.floorOfFlat == 0) {
+            floorOfFlat = "цоколь";
+        }
         if (this.isElevator) {
-            return format("%s из %s этаж (лифт)", this.floorOfFlat, this.numberOfFloors);
+            return format("%s из %s этаж (лифт)", floorOfFlat, this.numberOfFloors);
         } else {
-            return format("%s из %s этаж", this.floorOfFlat, this.numberOfFloors);
+            return format("%s из %s этаж", floorOfFlat, this.numberOfFloors);
         }
     }
 
     public String descType() {
         return format("%s %sм2", this.type, this.square.toString());
+    }
+
+    public Integer getFloorOfFlat() {
+        return floorOfFlat;
+    }
+
+    public Integer getNumberOfFloors() {
+        return numberOfFloors;
+    }
+
+    public boolean isElevator() {
+        return isElevator;
+    }
+
+    public boolean isAttic() {
+        return isAttic;
+    }
+
+    public Integer getSquare() {
+        return square;
+    }
+
+    public Type getType() {
+        return type;
     }
 }

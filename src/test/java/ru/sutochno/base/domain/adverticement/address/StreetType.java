@@ -6,8 +6,8 @@ public enum StreetType {
     ALLEYWAY(2, "переулок"),
     STREET(3, "улица"),
     AVENUE(4, "проспект"),
-    HIGHWAY(5, "шоссе"),
-    ANOTHER(10, "другое");
+    HIGHWAY(5, "шоссе");
+//    ANOTHER(10, "другое");
 
     private final String name;
     private final Integer value;
