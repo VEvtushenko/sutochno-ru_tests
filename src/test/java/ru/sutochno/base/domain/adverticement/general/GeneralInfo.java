@@ -2,8 +2,6 @@ package ru.sutochno.base.domain.adverticement.general;
 
 import com.github.javafaker.Faker;
 
-import java.util.Random;
-
 import static java.lang.String.format;
 
 public class GeneralInfo {

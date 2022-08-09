@@ -1,8 +1,11 @@
 package ru.sutochno.pages;
 
 
-import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import ru.sutochno.base.domain.adverticement.Description;
+import ru.sutochno.base.domain.adverticement.general.GeneralInfo;
+import ru.sutochno.base.domain.adverticement.general.GuestsVolume;
+import ru.sutochno.helpers.NumbersFormatter;
 
 import java.time.Duration;
 
@@ -23,11 +26,12 @@ public class ViewingAdvertisement {
     }
 
     @Step("Проверим основную информацию")
-    public ViewingAdvertisement checkMainInfo(String type, String square, String params, String desk/*, String beds*/) {
-        $(".object-data--type").shouldHave(text(type + " " + square), Duration.ofSeconds(2));
-        $(".object-data--params").shouldHave(text(params));
-        $(".object-data--desk").shouldHave(text(desk));
-//todo        $(".object-data--beds").shouldHave(text(beds));
+    public ViewingAdvertisement checkMainInfo(GeneralInfo generalInfo, GuestsVolume guestsVolume, Description desk) {
+        $(".object-data--type").shouldHave(text(generalInfo.getType().getName() + " " + generalInfo.getSquare().toString()), Duration.ofSeconds(2));
+        $(".object-data--params").shouldHave(text(guestsVolume.guestsVolumeDesc() + guestsVolume.getBeds().bedsNumDesc() + guestsVolume.bedroomsDesc() + generalInfo.descFloors()));
+        $(".object-data--desk").shouldHave(text(desk.getDescription()));
+        $(".object-data--beds").shouldHave(text(guestsVolume.getBeds().singleBedsDesc()));
+        $(".object-data--beds").shouldHave(text(guestsVolume.getBeds().doubleBedsDesc()));
         return this;
     }
 
@@ -45,10 +49,10 @@ public class ViewingAdvertisement {
         return this;
     }
 
-    @Step("Проверим информацию о депозите")
-    @Description("баг - неверно отображается валюта")
-    public ViewingAdvertisement checkDepositRules(String depositAmount) {
-        $(".rules--deposit").shouldHave(text(format("%s ₽ страховой депозит (возвращается при отъезде)", depositAmount)));
+    @Step("Проверим информацию о депозите, баг - неверно отображается валюта")
+    public ViewingAdvertisement checkDepositRules(Integer depositAmount) {
+        $(".rules--deposit").shouldHave(text(format("%s ₽ страховой депозит (возвращается при отъезде)",
+                new NumbersFormatter().addDigitSpace(depositAmount))));
         return this;
     }
 

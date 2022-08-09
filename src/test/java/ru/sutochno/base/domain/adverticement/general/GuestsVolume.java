@@ -2,8 +2,6 @@ package ru.sutochno.base.domain.adverticement.general;
 
 import com.github.javafaker.Faker;
 
-import java.util.Random;
-
 import static java.lang.String.format;
 
 public class GuestsVolume {
@@ -11,16 +9,23 @@ public class GuestsVolume {
     private final Integer maxGuests;
     private final Integer numberOfBedrooms;
     private final Integer numberOfRooms;
+    private final Beds beds;
 
-    public GuestsVolume(Faker faker, Integer maxGuests) {
+    public GuestsVolume(Faker faker, Beds beds) {
+        this.beds = beds;
         this.numberOfRooms = faker.random().nextInt(1, 10);
-        this.maxGuests = faker.random().nextInt(2, maxGuests);
+        this.maxGuests = faker.random().nextInt(2, beds.getMaxGuests());
         this.numberOfBedrooms = faker.random().nextInt(numberOfRooms);
     }
 
-    public GuestsVolume(Integer maxGuests, Integer numberOfBedrooms, Integer numberOfRooms) {
+    public GuestsVolume(Integer maxGuests, Integer numberOfBedrooms, Integer numberOfRooms, Beds beds) {
+        this.beds = beds;
         this.numberOfRooms = numberOfRooms;
-        this.maxGuests = maxGuests;
+        if (maxGuests > beds.getMaxGuests()) {
+            this.maxGuests = beds.getMaxGuests();
+        } else {
+            this.maxGuests = maxGuests;
+        }
         this.numberOfBedrooms = numberOfBedrooms;
     }
 
@@ -62,5 +67,9 @@ public class GuestsVolume {
 
     public Integer getNumberOfRooms() {
         return numberOfRooms;
+    }
+
+    public Beds getBeds() {
+        return beds;
     }
 }

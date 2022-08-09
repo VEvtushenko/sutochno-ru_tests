@@ -1,10 +1,10 @@
 package ru.sutochno.base.domain.booking;
 
+import com.github.javafaker.Faker;
 import ru.sutochno.base.domain.booking.placementTerm.PlacementTerm;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Random;
 
 public class BookingTerm {
 
@@ -16,10 +16,10 @@ public class BookingTerm {
     private final String timeColonPattern = "H:mm";
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern(timeColonPattern);
 
-    public BookingTerm(Random random) {
-        this.checkIn = LocalTime.of(random.nextInt(23), 00).format(timeFormatter);
-        this.checkOut = LocalTime.of(random.nextInt(23), 00).format(timeFormatter);
-        this.placementTerm = new PlacementTerm(random);
+    public BookingTerm(Faker faker) {
+        this.checkIn = LocalTime.of(faker.random().nextInt(1, 23), 00).format(timeFormatter);
+        this.checkOut = LocalTime.of(faker.random().nextInt(1, 23), 00).format(timeFormatter);
+        this.placementTerm = new PlacementTerm(faker);
     }
 
     public BookingTerm(PlacementTerm placementTerm, LocalTime checkIn, LocalTime checkOut) {

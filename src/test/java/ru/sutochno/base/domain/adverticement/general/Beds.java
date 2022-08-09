@@ -1,16 +1,17 @@
 package ru.sutochno.base.domain.adverticement.general;
 
+import com.github.javafaker.Faker;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import static java.lang.String.format;
 
 public class Beds {
 
-    private Map<String, Integer> bedsList = new HashMap<>();
+    private final Map<String, Integer> bedsList = new HashMap<>();
     private Integer numberOfBeds;
-    private Integer maxGuests;
+    private final Integer maxGuests;
 
     public Beds() {
         bedsList.put("Односпальных кроватей", 1);
@@ -37,13 +38,13 @@ public class Beds {
         this.maxGuests = maxGuests - this.bedsList.get("Односпальных кроватей");
     }
 
-    public  Beds(Random random) {
-        this.bedsList.put("Односпальных кроватей", random.nextInt(5));
-        this.bedsList.put("Двуспальных кроватей", random.nextInt(5));
-        this.bedsList.put("Кроватей king-size", random.nextInt(5));
-        this.bedsList.put("Особо широких двуспальных", random.nextInt(5));
-        this.bedsList.put("Двухъярусных кроватей", random.nextInt(5));
-        this.bedsList.put("Диван-кроватей", random.nextInt(5));
+    public  Beds(Faker faker) {
+        this.bedsList.put("Односпальных кроватей", faker.random().nextInt(1, 9));
+        this.bedsList.put("Двуспальных кроватей", faker.random().nextInt(1, 9));
+        this.bedsList.put("Кроватей king-size", faker.random().nextInt(1, 9));
+        this.bedsList.put("Особо широких двуспальных", faker.random().nextInt(1, 9));
+        this.bedsList.put("Двухъярусных кроватей", faker.random().nextInt(1, 9));
+        this.bedsList.put("Диван-кроватей", faker.random().nextInt(1, 9));
 
         Integer numberOfBeds = 0;
         for (Integer value : this.bedsList.values()) {

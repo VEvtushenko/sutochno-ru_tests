@@ -7,7 +7,7 @@ public class Description {
     private String publicName;
     private String privateName;
     private String description;
-    private String sideResourcesAdvertisements;
+    private final String sideResourcesAdvertisements;
 
     public Description(Faker faker) {
         this.publicName = "Pretty house in " + faker.hitchhikersGuideToTheGalaxy().location();

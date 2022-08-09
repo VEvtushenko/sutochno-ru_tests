@@ -6,6 +6,9 @@ import io.qameta.allure.Step;
 
 import java.io.File;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.codeborne.selenide.Condition.*;
@@ -104,31 +107,57 @@ public class AddAdvertisementInfo {
         return this;
     }
 
+//    @Step("Ввести тип и количество кроватей")
+//    public AddAdvertisementInfo numberOfBeds(String typeOfBed, Integer numberOfBed) {
+//        chooseItem("SleepPlaces", 1).$(".col-sm-6").$(".sc-select")
+//                .selectOptionByValue(typeOfBed);
+//        chooseItem("SleepPlaces", 1).$(".col-sm-5").$(".sc-select")
+//                .selectOptionContainingText(numberOfBed.toString());
+//        return this;
+//    }
+
     @Step("Ввести тип и количество кроватей")
-    public AddAdvertisementInfo numberOfBeds(String typeOfBed, Integer numberOfBed) {
-        chooseItem("SleepPlaces", 1).$(".col-sm-6").$(".sc-select")
-                .selectOptionByValue(typeOfBed);
-        chooseItem("SleepPlaces", 1).$(".col-sm-5").$(".sc-select")
-                .selectOptionContainingText(numberOfBed.toString());
+    public AddAdvertisementInfo beds(Map<String, Integer> bedsList) {
+        int i = 0;
+        for (HashMap.Entry<String, Integer> entry : bedsList.entrySet()) {
+            String bedsType = entry.getKey();
+            Integer bedsCount = entry.getValue();
+            if (bedsType.equals("Односпальных кроватей")) {
+                    chooseItem("SleepPlaces", 1).$(".col-sm-6").$(".sc-select")
+                        .selectOptionByValue(bedsType);
+                chooseItem("SleepPlaces", 1).$(".col-sm-5").$(".sc-select")
+                        .selectOptionContainingText(bedsCount.toString());
+            } else {
+                if (bedsCount != 0)  {
+                    chooseItem("SleepPlaces", 1).$(".object-creating-form__link").click();
+                    chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
+                             .sibling(i).$(".col-sm-6").$(".sc-select").selectOptionByValue(bedsType);
+                    chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
+                            .sibling(i).$(".col-sm-5").$(".sc-select").selectOptionContainingText(bedsCount.toString());
+                    i++;
+                }
+            }
+        }
         return this;
     }
 
-    private Integer numberOfBedsTypes = 0;
 
-    @Step("Добавить кровать")
-    public AddAdvertisementInfo addNewBed(String typeOfBed, Integer numberOfBed) {
-        if (numberOfBed == 0) {
-            return this;
-        }  else {
-            chooseItem("SleepPlaces", 1).$(".object-creating-form__link").click();
-            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-                    .sibling(numberOfBedsTypes).$(".col-sm-6").$(".sc-select").selectOptionByValue(typeOfBed);
-            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-                    .sibling(numberOfBedsTypes).$(".col-sm-5").$(".sc-select").selectOptionContainingText(numberOfBed.toString());
-            numberOfBedsTypes = numberOfBedsTypes + 1;
-            return this;
-        }
-    }
+//    private Integer numberOfBedsTypes = 0;
+//
+//    @Step("Добавить кровать")
+//    public AddAdvertisementInfo addNewBed(String typeOfBed, Integer numberOfBed) {
+//        if (numberOfBed == 0) {
+//            return this;
+//        }  else {
+//            chooseItem("SleepPlaces", 1).$(".object-creating-form__link").click();
+//            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
+//                    .sibling(numberOfBedsTypes).$(".col-sm-6").$(".sc-select").selectOptionByValue(typeOfBed);
+//            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
+//                    .sibling(numberOfBedsTypes).$(".col-sm-5").$(".sc-select").selectOptionContainingText(numberOfBed.toString());
+//            numberOfBedsTypes = numberOfBedsTypes + 1;
+//            return this;
+//        }
+//    }
 
     @Step("Ввести количество совмещённых санузлов")
     public AddAdvertisementInfo bathroomsWithToilet(Integer bathroomsWithToilet) {
@@ -225,6 +254,25 @@ public class AddAdvertisementInfo {
                 chooseItemForthScreen(numberOfItem).$(".toggle-block__btn").click();
                 chooseItemForthScreen(numberOfItem).$(byText(equipments)).shouldBe(hidden);
             });
+        });
+        return this;
+    }
+
+    @Step("Выберем удобства")
+    public AddAdvertisementInfo equipments(String name, Map<String, Boolean> equipment) {
+        step("Нажать развернуть список", () -> {
+            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click();
+        });
+            for (HashMap.Entry<String, Boolean> entry : equipment.entrySet()) {
+                String equipmentName = entry.getKey();
+                Boolean equipmentTrue = entry.getValue();
+                if (equipmentTrue) {
+                    step("Выбрать " + equipmentName, () ->
+                            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(byText(equipmentName)).click());
+                }
+        }
+        step("Нажать свернуть список", () -> {
+            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click();
         });
         return this;
     }
@@ -369,13 +417,11 @@ public class AddAdvertisementInfo {
     }
 
     @Step("Вводим цену за сутки и количество гостей")
-    public AddAdvertisementInfo costPerDay(String costPerDay, String amountOfGuest) {
+    public AddAdvertisementInfo costPerDay(Integer costPerDay, Integer amountOfGuest) {
         chooseItemPrice(3).$(".object-creating-form__price-w50").$(".object-creating-form__form-input")
-                        .clear();
-        chooseItemPrice(3).$(".object-creating-form__price-w50").$(".object-creating-form__form-input")
-                .setValue(costPerDay);
+                .setValue(costPerDay.toString());
         chooseItemPrice(3).$(".object-creating-form__price-w50").sibling(0)
-                .$(".sc-select").selectOption(amountOfGuest);
+                .$(".sc-select").selectOption(amountOfGuest.toString());
         return this;
     }
 
@@ -430,16 +476,16 @@ public class AddAdvertisementInfo {
     }
 
     @Step("Вводим стоимость уборки")
-    public AddAdvertisementInfo cleaningCost(String cleaningCost) {
+    public AddAdvertisementInfo cleaningCost(Integer cleaningCost) {
         $("[data='FeeAdditionalServices']").$(".object-creating-form__area-input-sign").preceding(0)
-                .setValue(cleaningCost);
+                .setValue(cleaningCost.toString());
         return this;
     }
 
     @Step("Водим размер депозита")
-    public AddAdvertisementInfo depositAmount(String cleaningCost) {
+    public AddAdvertisementInfo depositAmount(Integer cleaningCost) {
         $("[data='SecurityDeposit']").$(".object-creating-form__form-input").clear();
-        $("[data='SecurityDeposit']").$(".object-creating-form__form-input").setValue(cleaningCost);
+        $("[data='SecurityDeposit']").$(".object-creating-form__form-input").setValue(cleaningCost.toString());
         return this;
     }
 
@@ -457,7 +503,7 @@ public class AddAdvertisementInfo {
 
 //    Step 3 Screen 4
     @Step("Проверяем введённые данные")
-    public AddAdvertisementInfo checkMainData(String price, String currencySign) {
+    public AddAdvertisementInfo checkMainData(Integer price, String currencySign) {
         $(".object-creating-form__form-title").shouldHave(text("Ваше объявление почти готово! Проверьте главное:"), Duration.ofSeconds(30));
         $$(".step-booking--text").findBy(text(price + " " + currencySign)).shouldBe(visible, Duration.ofSeconds(30));
         return this;

@@ -96,12 +96,7 @@ public class SutochnoWebTests extends TestBase {
                 .maxGuests(guestsVolume.getMaxGuests()))
                 .numberOfRooms(guestsVolume.getNumberOfRooms())
                 .numberOfBedrooms(guestsVolume.getNumberOfBedrooms())
-                .numberOfBeds("Односпальных кроватей", beds.getSingleBed())
-                .addNewBed("Двуспальных кроватей", beds.getDoubleBed())
-                .addNewBed("Кроватей king-size", beds.getKingBed())
-                .addNewBed("Особо широких двуспальных", beds.getSuperKingBed())
-                .addNewBed("Двухъярусных кроватей", beds.getYarusBed())
-                .addNewBed("Диван-кроватей", beds.getSofaBed())
+                .beds(beds.getBedsList())
                 .bathroomsWithToilet(sanitation.getCntBathroomsToilet())
                 .bathroomsWithoutToilet(sanitation.getCntBathrooms())
                 .toilets(sanitation.getCntToilets())
@@ -114,11 +109,11 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .homeFacilities(HomeFacilities.ISOLATION.getName())
                 .chooseView(view.getName())
-                .equipments("кухни", 1, KitchenEquipment.KITCHEN.getName())
-                .equipments("дома", 2, HouseEquipment.FAN.getName())
-                .equipments("отдыха дома", 3, RestEquipment.BOOKS.getName())
-                .equipments("двора", 4, YardEquipment.BARBECUE.getName())
-                .equipments("детей", 5, ChildrenEquipment.BABY_POTTY.getName())
+                .equipments("Кухонное оборудование", equipment.getKitchenEquipment())
+                .equipments("Оснащение", equipment.getHouseEquipment())
+                .equipments("Для отдыха в помещении", equipment.getRestEquipment())
+                .equipments("Оснащение двора", equipment.getYardEquipment())
+                .equipments("Для детей", equipment.getChildrenEquipment())
                 .toNextStep()
                 .uploadFoto(data.photo1)
                 .uploadFoto(data.photo2)
@@ -146,7 +141,7 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .currencyPay(price.getCurrency().getName())
                 .minimalPeriodOfResidence(2)
-                .costPerDay(price.getPrice(), "1")
+                .costPerDay(price.getPrice(), 1)
                 .exGuestPrice(data.exGuestPrice.toString())
                 .toNextStep()
                 .rmDiscount()
@@ -161,20 +156,19 @@ public class SutochnoWebTests extends TestBase {
                 .toNextStep()
                 .finalPage();
 
-        String mainParams = guestsVolume.guestsVolumeDesc() + beds.bedsNumDesc() + guestsVolume.bedroomsDesc() + generalInfo.descFloors();
 
         mainPage
                 .openUsersAdvertisements()
                 .openLastAdvertisements()
                 .checkTitle(description.getPublicName())
                 .checkTitleAddress(address.getAddress())
-                .checkMainInfo(generalInfo.getType().getName(), generalInfo.getSquare().toString(), mainParams, description.getDescription())
+                .checkMainInfo(generalInfo, guestsVolume, description)
                 .checkIncomingRules(bookingTerm.getCheckIn(), bookingTerm.getCheckOut(), "2")
                 .checkRules(checkData.getChildrenRules(bookingTerm.getPlacementTerm().getChildren().isSwitchValue(), bookingTerm.getPlacementTerm().getChildrenAge().toString()))
                 .checkRules(checkData.getSmokingRules(bookingTerm.getPlacementTerm().getSmoking().isSwitchValue()))
                 .checkRules(checkData.getPetsRules(bookingTerm.getPlacementTerm().getPets().isSwitchValue()))
                 .checkRules(checkData.getPartyRules(bookingTerm.getPlacementTerm().getParty().isSwitchValue()))
-//                .checkDepositRules(price.getDeposit().)
+                .checkDepositRules(price.getDeposit())
                 .checkEquipments(KitchenEquipment.KITCHEN.getName());
 
                 mainPage

@@ -1,8 +1,5 @@
 package ru.sutochno.base.domain.booking.placementTerm;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum PartyTerm {
 
     REQUEST(2, "вечеринки и мероприятия по согласованию с хозяином жилья", false),
@@ -12,7 +9,6 @@ public enum PartyTerm {
     private final String name;
     private final Integer value;
     private final boolean switchValue;
-    private static final Map<Integer, PartyTerm> partyTermMap = new HashMap<Integer, PartyTerm>();
 
     PartyTerm(Integer value, String name, boolean switchValue) {
         this.value = value;
@@ -28,20 +24,8 @@ public enum PartyTerm {
         return value;
     }
 
-    static {
-        int i = 0;
-        for (PartyTerm partyTerm : PartyTerm.values()) {
-            partyTermMap.put(i, partyTerm);
-            i++;
-        }
-    }
-
     public boolean isSwitchValue() {
         return switchValue;
-    }
-
-    public static Map<Integer, PartyTerm> getPartyTermMap() {
-        return partyTermMap;
     }
 
 }

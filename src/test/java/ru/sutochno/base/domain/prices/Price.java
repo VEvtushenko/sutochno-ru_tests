@@ -1,20 +1,29 @@
 package ru.sutochno.base.domain.prices;
 
+import com.github.javafaker.Faker;
+
 public class Price {
 
-    private final String price;
+    private final Integer price;
     private final Currencies currency;
-    private final String gethering;
-    private final String deposit;
+    private final Integer gethering;
+    private final Integer deposit;
 
-    public Price(String  price, Currencies  currency, String gethering, String deposit) {
+    public Price(Faker faker, Currencies currency) {
+        this.price = faker.random().nextInt(5000, 50000);
+        this.currency = currency;
+        this.gethering = faker.random().nextInt(10, 1000);
+        this.deposit = faker.random().nextInt(5000, 50000);;
+    }
+
+    public Price(Integer  price, Currencies  currency, Integer gethering, Integer deposit) {
         this.price = price;
         this.currency = currency;
         this.gethering = gethering;
         this.deposit = deposit;
     }
 
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
@@ -22,11 +31,11 @@ public class Price {
         return currency;
     }
 
-    public String getGethering() {
+    public Integer getGethering() {
         return gethering;
     }
 
-    public String getDeposit() {
+    public Integer getDeposit() {
         return deposit;
     }
 }

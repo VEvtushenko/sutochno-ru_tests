@@ -18,9 +18,8 @@ public class ModelsData {
     MainPage mainPage = new MainPage();
     Requests requests = new Requests();
     ModelsData changeObjectData = new ModelsData();
-    Random random = new Random();
     Faker faker = new Faker(new Locale("RU", "RUS"));
-    Beds beds = new Beds(new Random());
+    Beds beds = new Beds(faker);
 //    GeneralInfo generalInfo = new GeneralInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
 
 

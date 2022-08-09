@@ -41,21 +41,20 @@ public class TestBase {
     MainPage mainPage = new MainPage();
 //    Requests requests = new Requests();
 //    ModelsData changeObjectData = new ModelsData();
-    Random random = new Random();
     Faker faker = new Faker(new Locale("RU", "RUS"));
     GeneralInfo generalInfo = new GeneralInfo(faker, Type.APART);
-    Beds beds = new Beds(new Random());
-    GuestsVolume guestsVolume = new GuestsVolume(faker, beds.getMaxGuests());
+    Beds beds = new Beds(faker);
+    GuestsVolume guestsVolume = new GuestsVolume(faker, beds);
     KitchenType kitchenType = KitchenType.SEPARATE;
     RepairmentQuality repairmentQuality = RepairmentQuality.DISINER;
-    Sanitation sanitation = new Sanitation(random);
-    Equipment equipment = new Equipment(random);
+    Sanitation sanitation = new Sanitation(faker);
+    Equipment equipment = new Equipment(faker);
     Address address = new Address(faker);
     Description description = new Description(faker);
-    Transfer transfer = new Transfer(random, faker);
+    Transfer transfer = new Transfer(faker);
     View view = View.SEA;
-    BookingTerm bookingTerm = new BookingTerm(random);
-    Price price = new Price("30000", Currencies.RUB, "300", "30000");
+    BookingTerm bookingTerm = new BookingTerm(faker);
+    Price price = new Price(30000, Currencies.RUB, 300, 30000);
 
 
     @BeforeAll
