@@ -7,7 +7,6 @@ import io.qameta.allure.Step;
 import java.io.File;
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -22,11 +21,6 @@ public class AddAdvertisementInfo {
         return $("[data='" + itemName + "']").$(".row").sibling(numberOfRow);
     }
 
-    private SelenideElement chooseItemForthScreen(int numberOfItem) {
-        return $("[data='Facilities']").$(".object-creating-form")
-                .sibling(numberOfItem).$(".row").sibling(0);
-    }
-
     private SelenideElement chooseItemPrice(int numberOfItem) {
         return $("[data='BasePriceSettings']").$(".row").sibling(0)
                 .$(".row").sibling(numberOfItem);
@@ -39,7 +33,6 @@ public class AddAdvertisementInfo {
     @Step("Нажать Продолжить")
     public AddAdvertisementInfo toNextStep() {
         $(".object-creating__btn-wrap").$(byText("Продолжить")).click();
-    // todo       $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"));
         return this;
     }
 
@@ -107,15 +100,6 @@ public class AddAdvertisementInfo {
         return this;
     }
 
-//    @Step("Ввести тип и количество кроватей")
-//    public AddAdvertisementInfo numberOfBeds(String typeOfBed, Integer numberOfBed) {
-//        chooseItem("SleepPlaces", 1).$(".col-sm-6").$(".sc-select")
-//                .selectOptionByValue(typeOfBed);
-//        chooseItem("SleepPlaces", 1).$(".col-sm-5").$(".sc-select")
-//                .selectOptionContainingText(numberOfBed.toString());
-//        return this;
-//    }
-
     @Step("Ввести тип и количество кроватей")
     public AddAdvertisementInfo beds(Map<String, Integer> bedsList) {
         int i = 0;
@@ -140,24 +124,6 @@ public class AddAdvertisementInfo {
         }
         return this;
     }
-
-
-//    private Integer numberOfBedsTypes = 0;
-//
-//    @Step("Добавить кровать")
-//    public AddAdvertisementInfo addNewBed(String typeOfBed, Integer numberOfBed) {
-//        if (numberOfBed == 0) {
-//            return this;
-//        }  else {
-//            chooseItem("SleepPlaces", 1).$(".object-creating-form__link").click();
-//            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-//                    .sibling(numberOfBedsTypes).$(".col-sm-6").$(".sc-select").selectOptionByValue(typeOfBed);
-//            chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-//                    .sibling(numberOfBedsTypes).$(".col-sm-5").$(".sc-select").selectOptionContainingText(numberOfBed.toString());
-//            numberOfBedsTypes = numberOfBedsTypes + 1;
-//            return this;
-//        }
-//    }
 
     @Step("Ввести количество совмещённых санузлов")
     public AddAdvertisementInfo bathroomsWithToilet(Integer bathroomsWithToilet) {
@@ -237,32 +203,15 @@ public class AddAdvertisementInfo {
 
     @Step("Ввести вид из окон")
     public AddAdvertisementInfo chooseView(String view) {
-        chooseItemForthScreen(0).$(byText(view)).click();
-        return this;
-    }
-
-    public AddAdvertisementInfo equipments(String stepName, int numberOfItem, String equipments) {
-        step("Оснащение для " + stepName, () -> {
-            step("Нажать развернуть список", () -> {
-                chooseItemForthScreen(numberOfItem).$(".toggle-block__btn").click();
-                chooseItemForthScreen(numberOfItem).$(byText(equipments)).shouldBe(visible);
-            });
-            step("Выбрать оснащение", () ->
-                    chooseItemForthScreen(numberOfItem).$("[class='row list']")
-                            .$(byText(equipments)).click());
-            step("Нажать свернуть список", () -> {
-                chooseItemForthScreen(numberOfItem).$(".toggle-block__btn").click();
-                chooseItemForthScreen(numberOfItem).$(byText(equipments)).shouldBe(hidden);
-            });
-        });
+        $("[data='Facilities']").$(".object-creating-form")
+                .sibling(0).$(".row").sibling(0).$(byText(view)).click();
         return this;
     }
 
     @Step("Выберем удобства")
     public AddAdvertisementInfo equipments(String name, Map<String, Boolean> equipment) {
-        step("Нажать развернуть список", () -> {
-            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click();
-        });
+        step("Нажать развернуть список", () ->
+            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click());
             for (HashMap.Entry<String, Boolean> entry : equipment.entrySet()) {
                 String equipmentName = entry.getKey();
                 Boolean equipmentTrue = entry.getValue();
@@ -271,9 +220,8 @@ public class AddAdvertisementInfo {
                             $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(byText(equipmentName)).click());
                 }
         }
-        step("Нажать свернуть список", () -> {
-            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click();
-        });
+        step("Нажать свернуть список", () ->
+            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click());
         return this;
     }
 
@@ -366,7 +314,6 @@ public class AddAdvertisementInfo {
         if (isBookingImmediate) {
             $("[data='HowGuestBook']").$(".sc-radio__label").click();
         } else {
-//            todo check chema
             $("[data='HowGuestBook']").$(".pt-10").$(".sc-radio__label").click();
         }
         return this;
@@ -396,7 +343,7 @@ public class AddAdvertisementInfo {
     }
 
     @Step("Подтверждаем, что будем вести календарь бронирований")
-    public AddAdvertisementInfo сalendarInfoAgreement() {
+    public AddAdvertisementInfo calendarInfoAgreement() {
         $(".object-creating-form__form-title").shouldHave(text("Ведите календарь занятости — гостям важна каждая дата"), Duration.ofSeconds(30));
         $("[data='CalendarInfo']").$(".sc-checkbox").click();
         return this;

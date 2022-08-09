@@ -1,7 +1,6 @@
 package ru.sutochno.tests.web;
 
 import io.qameta.allure.*;
-import jdk.jfr.Description;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -12,8 +11,9 @@ import ru.sutochno.base.domain.adverticement.equipment.*;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
 
+import java.io.IOException;
+
 import static io.qameta.allure.Allure.step;
-import static ru.sutochno.data.Data.AUTH_COOKIE;
 
 @Owner("Vladimir Evtushenko")
 @DisplayName("Тест сайта ")
@@ -21,6 +21,9 @@ import static ru.sutochno.data.Data.AUTH_COOKIE;
 @Link(value = "Code of tests on GitHub ", url = "https://github.com/VEvtushenko/")
 
 public class SutochnoWebTests extends TestBase {
+
+    public SutochnoWebTests() throws IOException {
+    }
 
     @Tag("openMain")
     @Description("Open main page test")
@@ -73,7 +76,7 @@ public class SutochnoWebTests extends TestBase {
     @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
     void makeAdvertisementUiTest() {
         mainPage
-                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName())
+                .authorization(new Cookie("_me_", data.AUTH_COOKIE), Project.config.userName())
                 .openUsersAdvertisements()
                 .createNewAdvertisement();
 
@@ -137,12 +140,12 @@ public class SutochnoWebTests extends TestBase {
                 .bookingGap(2)
                 .bookingDuration(1)
                 .toNextStep()
-                .сalendarInfoAgreement()
+                .calendarInfoAgreement()
                 .toNextStep()
                 .currencyPay(price.getCurrency().getName())
                 .minimalPeriodOfResidence(2)
                 .costPerDay(price.getPrice(), 1)
-                .exGuestPrice(data.exGuestPrice.toString())
+                .exGuestPrice(price.getExGuestPrice().toString())
                 .toNextStep()
                 .rmDiscount()
                 .toNextStep()
@@ -179,7 +182,7 @@ public class SutochnoWebTests extends TestBase {
     @DisplayName("Проверка переноса объявления в архив, UI")
     void moveAdvertisementToArchive() {
         mainPage
-                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName())
+                .authorization(new Cookie("_me_", data.AUTH_COOKIE), Project.config.userName())
                 .openUsersAdvertisements()
                 .moveToArchive();
     }

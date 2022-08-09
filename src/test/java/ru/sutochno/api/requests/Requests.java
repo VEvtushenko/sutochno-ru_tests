@@ -1,8 +1,6 @@
 package ru.sutochno.api.requests;
 
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import ru.sutochno.api.models.AdvertisementChangeResponse;
 import ru.sutochno.api.models.ChangeProperties;
 import ru.sutochno.api.models.NewAdvertisement;
@@ -11,7 +9,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.config.EncoderConfig.encoderConfig;
 import static io.restassured.http.ContentType.*;
 import static org.hamcrest.Matchers.hasToString;
 import static org.hamcrest.Matchers.is;

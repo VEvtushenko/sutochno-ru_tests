@@ -28,6 +28,7 @@ import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
 import ru.sutochno.pages.MainPage;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -48,13 +49,17 @@ public class TestBase {
     KitchenType kitchenType = KitchenType.SEPARATE;
     RepairmentQuality repairmentQuality = RepairmentQuality.DISINER;
     Sanitation sanitation = new Sanitation(faker);
+    //todo - показать, что свойство "линолеум" в коде сайта "Линолеум" и естли оно тру как есть то не работает
     Equipment equipment = new Equipment(faker);
     Address address = new Address(faker);
     Description description = new Description(faker);
     Transfer transfer = new Transfer(faker);
     View view = View.SEA;
     BookingTerm bookingTerm = new BookingTerm(faker);
-    Price price = new Price(30000, Currencies.RUB, 300, 30000);
+    Price price = new Price(faker, Currencies.RUB);
+
+    public TestBase() throws IOException {
+    }
 
 
     @BeforeAll

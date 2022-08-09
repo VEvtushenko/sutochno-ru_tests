@@ -7,8 +7,8 @@ import ru.sutochno.base.domain.adverticement.general.Beds;
 import ru.sutochno.base.domain.adverticement.general.GeneralInfo;
 import ru.sutochno.pages.MainPage;
 
+import java.io.IOException;
 import java.util.Locale;
-import java.util.Random;
 
 public class ModelsData {
 
@@ -20,6 +20,9 @@ public class ModelsData {
     ModelsData changeObjectData = new ModelsData();
     Faker faker = new Faker(new Locale("RU", "RUS"));
     Beds beds = new Beds(faker);
+
+    public ModelsData() throws IOException {
+    }
 //    GeneralInfo generalInfo = new GeneralInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
 
 
