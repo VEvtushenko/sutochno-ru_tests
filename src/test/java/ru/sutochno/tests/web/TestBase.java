@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
+import ru.sutochno.api.requests.Requests;
 import ru.sutochno.base.domain.adverticement.Description;
 import ru.sutochno.base.domain.adverticement.Transfer;
 import ru.sutochno.base.domain.adverticement.View;
@@ -23,6 +24,7 @@ import ru.sutochno.base.domain.prices.Price;
 import ru.sutochno.config.Project;
 import ru.sutochno.data.CheckData;
 import ru.sutochno.data.Data;
+import ru.sutochno.data.ModelsData;
 import ru.sutochno.helpers.AllureAttachments;
 import ru.sutochno.helpers.DriverSettings;
 import ru.sutochno.helpers.DriverUtils;
@@ -30,7 +32,6 @@ import ru.sutochno.pages.MainPage;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Random;
 import java.util.stream.Stream;
 
 
@@ -38,25 +39,25 @@ import java.util.stream.Stream;
 @ExtendWith({AllureJunit5.class})
 public class TestBase {
     public Data data = new Data();
-    CheckData checkData = new CheckData();
-    MainPage mainPage = new MainPage();
-//    Requests requests = new Requests();
-//    ModelsData changeObjectData = new ModelsData();
-    Faker faker = new Faker(new Locale("RU", "RUS"));
-    GeneralInfo generalInfo = new GeneralInfo(faker, Type.APART);
-    Beds beds = new Beds(faker);
-    GuestsVolume guestsVolume = new GuestsVolume(faker, beds);
-    KitchenType kitchenType = KitchenType.SEPARATE;
-    RepairmentQuality repairmentQuality = RepairmentQuality.DISINER;
-    Sanitation sanitation = new Sanitation(faker);
+    public CheckData checkData = new CheckData();
+    public MainPage mainPage = new MainPage();
+    public Requests requests = new Requests();
+//    public ModelsData changeObjectData = new ModelsData();
+    public Faker faker = new Faker(new Locale("RU", "RUS"));
+    public GeneralInfo generalInfo = new GeneralInfo(faker, Type.APART);
+    public Beds beds = new Beds(faker);
+    public GuestsVolume guestsVolume = new GuestsVolume(faker, beds);
+    public KitchenType kitchenType = KitchenType.SEPARATE;
+    public RepairmentQuality repairmentQuality = RepairmentQuality.DISINER;
+    public Sanitation sanitation = new Sanitation(faker);
     //todo - показать, что свойство "линолеум" в коде сайта "Линолеум" и естли оно тру как есть то не работает
-    Equipment equipment = new Equipment(faker);
-    Address address = new Address(faker);
-    Description description = new Description(faker);
-    Transfer transfer = new Transfer(faker);
-    View view = View.SEA;
-    BookingTerm bookingTerm = new BookingTerm(faker);
-    Price price = new Price(faker, Currencies.RUB);
+    public Equipment equipment = new Equipment(faker);
+    public Address address = new Address(faker);
+    public Description description = new Description(faker);
+    public Transfer transfer = new Transfer(faker);
+    public View view = View.SEA;
+    public BookingTerm bookingTerm = new BookingTerm(faker);
+    public Price price = new Price(faker, Currencies.RUB);
 
     public TestBase() throws IOException {
     }

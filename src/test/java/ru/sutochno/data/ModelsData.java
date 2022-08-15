@@ -1,33 +1,55 @@
 package ru.sutochno.data;
 
 import com.github.javafaker.Faker;
-import ru.sutochno.api.models.ChangeProperties;
+import ru.sutochno.api.models.ObjectProperties;
+import ru.sutochno.api.models.Properties;
 import ru.sutochno.api.requests.Requests;
-import ru.sutochno.base.domain.adverticement.general.Beds;
-import ru.sutochno.base.domain.adverticement.general.GeneralInfo;
+import ru.sutochno.base.domain.adverticement.Description;
+import ru.sutochno.base.domain.adverticement.Transfer;
+import ru.sutochno.base.domain.adverticement.View;
+import ru.sutochno.base.domain.adverticement.address.Address;
+import ru.sutochno.base.domain.adverticement.equipment.Equipment;
+import ru.sutochno.base.domain.adverticement.general.*;
+import ru.sutochno.base.domain.booking.BookingTerm;
+import ru.sutochno.base.domain.prices.Currencies;
+import ru.sutochno.base.domain.prices.Price;
 import ru.sutochno.pages.MainPage;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Random;
 
 public class ModelsData {
 
-    public ChangeProperties changeProperties = new ChangeProperties();
-    private Data data = new Data();
-    CheckData checkData = new CheckData();
-    MainPage mainPage = new MainPage();
-    Requests requests = new Requests();
-    ModelsData changeObjectData = new ModelsData();
-    Faker faker = new Faker(new Locale("RU", "RUS"));
-    Beds beds = new Beds(faker);
-
-    public ModelsData() throws IOException {
-    }
+//    public ObjectProperties objectProperties = new ObjectProperties();
+//    public Data data = new Data();
+//    CheckData checkData = new CheckData();
+//    MainPage mainPage = new MainPage();
+//    Requests requests = new Requests();
+//    ModelsData changeObjectData = new ModelsData();
+//    Faker faker = new Faker(new Locale("RU", "RUS"));
+//    GeneralInfo generalInfo = new GeneralInfo(faker, Type.APART);
+//    Beds beds = new Beds(faker);
+//    GuestsVolume guestsVolume = new GuestsVolume(faker, beds);
+//    KitchenType kitchenType = KitchenType.SEPARATE;
+//    RepairmentQuality repairmentQuality = RepairmentQuality.DISINER;
+//    Sanitation sanitation = new Sanitation(faker);
+//    //todo - показать, что свойство "линолеум" в коде сайта "Линолеум" и естли оно тру как есть то не работает
+//    Equipment equipment = new Equipment(faker);
+//    Address address = new Address(faker);
+//    Description description = new Description(faker);
+//    Transfer transfer = new Transfer(faker);
+//    View view = View.SEA;
+//    BookingTerm bookingTerm = new BookingTerm(faker);
+//    Price price = new Price(faker, Currencies.RUB);
+//
+//    public ModelsData() throws IOException {
+//    }
 //    GeneralInfo generalInfo = new GeneralInfo(beds.getMaxGuests(), beds.getNumberOfBeds(), new Random());
-
-
-//    public ChangeProperties getChangeProperties(Integer id) {
-//        changeProperties.setObjectId(id);
+//
+//
+//    public ObjectProperties getChangeProperties(Integer id) {
+//        objectProperties.setObjectId(id);
 //        Properties properties = new Properties();
 //        properties.setRooms(data.numberOfRooms);
 //        properties.setAddBathroom(data.bathroomEquipments.get("дополнительная ванная"));
@@ -116,7 +138,7 @@ public class ModelsData {
 //        properties.setInternet(data.houseEquipments.get("проводной интернет"));
 //        properties.setIron(data.houseEquipments.get("утюг с гладильной доской"));
 //        properties.setIsChildren(data.isChildren);
-////todo        properties.setIsGuestNegative(random.nextBoolean());
+//////todo        properties.setIsGuestNegative(random.nextBoolean());
 //        properties.setIsolation(data.homeFacilities.get("самоизоляция разрешена"));
 //        properties.setJacuzzi(data.houseEquipments.get("джакузи (гидромассажная ванна)"));
 //        properties.setKettle(data.kitchen.get("электрический чайник"));
@@ -201,7 +223,7 @@ public class ModelsData {
 //        properties.setWifi(data.houseEquipments.get("беспроводной интернет wi-fi"));
 //        properties.setWoodenParquetFloor(data.houseEquipments.get("деревянный/паркетный пол"));
 //        properties.setYarusBed(1);
-//        changeProperties.setProperties(properties);
-//        return changeProperties;
+//        objectProperties.setProperties(properties);
+//        return objectProperties;
 //    }
 }

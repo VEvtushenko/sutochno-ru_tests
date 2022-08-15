@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ChangeProperties {
+public class ObjectProperties {
 	private Integer objectId;
 	private Properties properties;
 }

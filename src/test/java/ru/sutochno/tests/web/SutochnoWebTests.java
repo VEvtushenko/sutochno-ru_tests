@@ -7,10 +7,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.Cookie;
+import ru.sutochno.api.models.AdvertisementChangeResponse;
+import ru.sutochno.api.models.NewAdvertisement;
+import ru.sutochno.api.requests.Requests;
 import ru.sutochno.base.domain.adverticement.equipment.*;
 import ru.sutochno.config.Project;
 import ru.sutochno.pages.AddNewAdvertisement;
 
+import java.io.File;
 import java.io.IOException;
 
 import static io.qameta.allure.Allure.step;
@@ -52,22 +56,22 @@ public class SutochnoWebTests extends TestBase {
 
 
     @Test
-    void newAdverticementApi() throws InterruptedException {
-//        NewAdvertisement newAdvertisement = requests.addAdvertisement(AUTH_COOKIE);
-//        String objectId = newAdvertisement.getData().getObject_id();
-//        AdvertisementChangeResponse advertisementChangeResponse =
-//                requests.setProperties(AUTH_COOKIE, changeObjectData.getChangeProperties(Integer.parseInt(objectId)));
-//
-//        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo1));
-//        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo2));
-//        requests.uploadPhotos(AUTH_COOKIE, objectId, new File(data.photo3));
-//
-//        requests.setPrices(AUTH_COOKIE, objectId, data.prices);
-//
-//        requests.setAddress(AUTH_COOKIE, "1235961", data.streetType, data.streetName, data.houseNumber.toString(), data.houseExNumber, "55.95685305638317", "36.97412763887026");
+    void newAdverticementApi() throws InterruptedException, IOException {
+        NewAdvertisement newAdvertisement = requests.addAdvertisement(data.AUTH_COOKIE);
+        String objectId = newAdvertisement.getData().getObject_id();
+        AdvertisementChangeResponse advertisementChangeResponse =
+                requests.setProperties(data.AUTH_COOKIE, new TestData().getChangeProperties(Integer.parseInt(objectId)));
 
-//        mainPage
-//                .authorization(new Cookie("_me_", AUTH_COOKIE), Project.config.userName());
+        requests.uploadPhotos(data.AUTH_COOKIE, objectId, new File(data.photo1));
+        requests.uploadPhotos(data.AUTH_COOKIE, objectId, new File(data.photo2));
+        requests.uploadPhotos(data.AUTH_COOKIE, objectId, new File(data.photo3));
+
+        requests.setPrices(data.AUTH_COOKIE, objectId, price.getPrice().toString());
+
+//        requests.setAddress(data.AUTH_COOKIE, "1235961", address.getStreetType(), address.getStreetName(), data.houseNumber.toString(), data.houseExNumber, "55.95685305638317", "36.97412763887026");
+
+        mainPage
+                .authorization(new Cookie("_me_", data.AUTH_COOKIE), Project.config.userName());
 
     }
 

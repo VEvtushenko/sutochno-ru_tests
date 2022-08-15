@@ -2,7 +2,7 @@ package ru.sutochno.api.requests;
 
 
 import ru.sutochno.api.models.AdvertisementChangeResponse;
-import ru.sutochno.api.models.ChangeProperties;
+import ru.sutochno.api.models.ObjectProperties;
 import ru.sutochno.api.models.NewAdvertisement;
 
 import java.io.File;
@@ -60,7 +60,7 @@ public class Requests {
                     .extract().as(NewAdvertisement.class);
     }
 
-    public AdvertisementChangeResponse setProperties(String authCookie, ChangeProperties requestBody)  {
+    public AdvertisementChangeResponse setProperties(String authCookie, ObjectProperties requestBody)  {
         AdvertisementChangeResponse advertisementChangeResponse;
         return advertisementChangeResponse =
                 given()

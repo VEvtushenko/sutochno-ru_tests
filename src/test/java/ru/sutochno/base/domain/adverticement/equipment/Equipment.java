@@ -4,7 +4,6 @@ import com.github.javafaker.Faker;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Equipment {
     private final Map<String, Boolean> childrenEquipment;
@@ -13,6 +12,7 @@ public class Equipment {
     private final Map<String, Boolean> restEquipment;
     private final Map<String, Boolean> yardEquipment;
     private final Map<String, Boolean> homeFacilities;
+    private final Map<String, Boolean> bathroomEquipment;
 
     public Equipment(Faker faker) {
         Map<String, Boolean> childrenEquipment = new HashMap<>();
@@ -51,6 +51,11 @@ public class Equipment {
         }
         this.homeFacilities = homeFacilities;
 
+        Map<String, Boolean> bathroomEquipment = new HashMap<>();
+        for(BathroomEquipment equipmentUnit : BathroomEquipment.values()) {
+            bathroomEquipment.put(equipmentUnit.getName(), faker.random().nextBoolean());
+        }
+        this.bathroomEquipment = bathroomEquipment;
     }
 
     public Map<String, Boolean> getChildrenEquipment() {
@@ -76,4 +81,9 @@ public class Equipment {
     public Map<String, Boolean> getHomeFacilities() {
         return homeFacilities;
     }
+
+    public Map<String, Boolean> getBathroomEquipments() {
+        return bathroomEquipment;
+    }
+
 }

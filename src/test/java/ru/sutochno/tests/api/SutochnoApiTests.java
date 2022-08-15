@@ -1,7 +1,7 @@
 package ru.sutochno.tests.api;
 
 import org.junit.jupiter.api.Test;
-import ru.sutochno.api.models.ChangeProperties;
+import ru.sutochno.api.models.ObjectProperties;
 import ru.sutochno.config.Project;
 
 
@@ -26,8 +26,8 @@ public class SutochnoApiTests extends TestBase {
 
     @Test
     void tested() {
-        ChangeProperties changeProperties = new ChangeProperties();
-        changeProperties.setObjectId(1212637);
+        ObjectProperties objectProperties = new ObjectProperties();
+        objectProperties.setObjectId(1212637);
 //        generalInfoRequest.setProperties);
     }
 
