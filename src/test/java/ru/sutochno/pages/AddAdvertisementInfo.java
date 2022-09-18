@@ -27,12 +27,12 @@ public class AddAdvertisementInfo {
     }
 
     private SelenideElement chooseItemBathroom(int numberOfRow) {
-        return $("[data='Bathroom']").$(".container").$(".row").sibling(numberOfRow);
+        return $("[data='Bathroom']").$(".row").sibling(numberOfRow);
     }
 
     @Step("Нажать Продолжить")
     public AddAdvertisementInfo toNextStep() {
-        $(".object-creating__btn-wrap").$(byText("Продолжить")).click();
+        $(byText("Продолжить")).click();
         return this;
     }
 
@@ -47,9 +47,7 @@ public class AddAdvertisementInfo {
 
     @Step("Введите название улицы")
     public AddAdvertisementInfo chooseStreetName(String streetName) {
-        $("[class='row object-creating-form__row object-creating-form__row-cell visible']").sibling(0)
-                .$("[class='object-creating-form__form-input form-control untouched pristine required']")
-                .setValue(streetName);
+        $("[name='street']").setValue(streetName);
         return this;
     }
 
@@ -107,17 +105,12 @@ public class AddAdvertisementInfo {
             String bedsType = entry.getKey();
             Integer bedsCount = entry.getValue();
             if (bedsType.equals("Односпальных кроватей")) {
-                    chooseItem("SleepPlaces", 1).$(".col-sm-6").$(".sc-select")
-                        .selectOptionByValue(bedsType);
-                chooseItem("SleepPlaces", 1).$(".col-sm-5").$(".sc-select")
-                        .selectOptionContainingText(bedsCount.toString());
+                $("[name='single_bed_count']").selectOptionContainingText(bedsCount.toString());
             } else {
                 if (bedsCount != 0)  {
-                    chooseItem("SleepPlaces", 1).$(".object-creating-form__link").click();
-                    chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-                             .sibling(i).$(".col-sm-6").$(".sc-select").selectOptionByValue(bedsType);
-                    chooseItem("SleepPlaces", 1).$(".object-creating-form__row")
-                            .sibling(i).$(".col-sm-5").$(".sc-select").selectOptionContainingText(bedsCount.toString());
+                    $("[data='SleepPlaces']").$(".object-creating-form__link").click();
+                    $("[data='SleepPlaces']").$(".beds").sibling(i).$(".sc-select").selectOptionByValue(bedsType);
+                    $("[data='SleepPlaces']").$(".beds").sibling(i).$(".object-creating-form__form-input--count-beds").selectOptionContainingText(bedsCount.toString());
                     i++;
                 }
             }
@@ -146,7 +139,7 @@ public class AddAdvertisementInfo {
 
     @Step("Выбрать удобства в ванных")
     public AddAdvertisementInfo conveniencesInBathroom(String convenience) {
-        chooseItemBathroom(5).$(byText(convenience)).click();
+        chooseItemBathroom(4).$(byText(convenience)).click();
         return this;
     }
 

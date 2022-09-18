@@ -33,23 +33,24 @@ public class AddNewAdvertisement {
 
     @Step("Выбрать регион")
     public AddNewAdvertisement chooseRegion(String regionName) {
-        $("[class='col-12 col']").$(".row").$(".row:not(.mb-4)").$(".select-search--btn").click();
-        $("[class='col-12 col']").$(".row").$(".row:not(.mb-4)").$(".select-search--list").$(byText(regionName)).click();
+        $(".js-animate").$(".col-12").$(".row:not(.mb-4)").$(".select-search--btn").click();
+        $(".js-animate").$(".col-12").$(".row:not(.mb-4)").$(".select-search--list").$(byText(regionName)).click();
         return this;
     }
 
     @Step("Выбрать город")
     public AddNewAdvertisement chooseCity(String cityName) {
-        $("[class='col-12 col']").$(".row").$("[class='row object-create__select-row']").$(".select-search--btn").click();
-        $("[class='col-12 col']").$(".row").$("[class='row object-create__select-row']").$(".select-search--list").$(byText(cityName)).click();
+        $(".js-animate").$(".col-12").$("[class='row object-create__select-row']").$(".select-search--btn").click();
+        $(".js-animate").$(".col-12").$("[class='row object-create__select-row']").$(".select-search--list").$(byText(cityName)).click();
         return this;
     }
 
     @Step("Перейти на следующую страницу")
     public AddAdvertisementInfo toNextPage() {
-        $("[class='btn object-create__btn-submit btn btn-primary btn-secondary']").click();
+        /*$("[class='object-create__btn-submit btn btn-primary']").click();*/
+        $(byText("Продолжить")).click();
         $(".object-creating__status-text").shouldHave(text("Шаг 1/3: об объекте №"), Duration.ofSeconds(60));
-        $(".object-creating__loader").shouldHave(text("Адрес"), Duration.ofSeconds(60));
+        $("[data='Address']").shouldHave(text("Адрес"), Duration.ofSeconds(60));
         return new AddAdvertisementInfo();
     }
 
