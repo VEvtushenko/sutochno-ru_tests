@@ -2,6 +2,8 @@ package ru.sutochno.pages;
 
 import io.qameta.allure.Step;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.switchTo;
@@ -13,7 +15,7 @@ public class UsersAdvertisements {
         switchTo().window(1);
                 /*.window("Российский сервис бронирования жилья: более 100 тысяч квартир посуточно, комнаты, гостевые дома — Суточно.ру"
                 );*/
-        $("[class='object-create__heading object-create__text-center']").shouldHave(text("Сдавайте своё жильё на Суточно.ру"));
+        $("[class='object-create__heading object-create__text-center']").shouldHave(text("Сдавайте своё жильё на Суточно.ру"), Duration.ofSeconds(30));
         return new AddNewAdvertisement();
     }
 

@@ -19,7 +19,8 @@ public class AddNewAdvertisement {
 
     @Step("Выберите заголовок объявления")
     public AddNewAdvertisement chooseTitle(String title) {
-        sleep(10000);
+//        sleep(10000);
+        $(".animation-active").shouldHave(text(title), Duration.ofSeconds(30));
         $(".animation-active").$(byText(title)).click();
         return this;
     }

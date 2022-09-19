@@ -3,6 +3,7 @@ package ru.sutochno.pages;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import ru.sutochno.base.domain.adverticement.general.GeneralInfo;
 
 import java.io.File;
 import java.time.Duration;
@@ -150,23 +151,23 @@ public class AddAdvertisementInfo {
         return this;
     }
 
-    @Step("Ввести этаж квартиры и в мансарде ли она")
+    @Step("Ввести этаж квартиры")
     public AddAdvertisementInfo floorOfFlat(Integer floorOfFlat, boolean isAttic) {
         chooseItem("MainInfo", 1).$(".sc-select").selectOption(floorOfFlat + 1);
 //        todo work selector attic
-        if (isAttic & floorOfFlat > 1) {
-            chooseItem("MainInfo", 2).$(".object-creating-form__attic")
-                    .$(".sc-checkbox").click();
-        }
         return this;
     }
 
-    @Step("Ввести этажность дома и есть ли лифт")
-    public AddAdvertisementInfo numberOfFloors(Integer numberOfFloors, boolean isElevator) {
+    @Step("Ввести этажность дома, есть ли лифт и в мансарде ли квартира")
+    public AddAdvertisementInfo numberOfFloors(/*Integer numberOfFloors, boolean isElevator, Integer floorOfFlat, boolean isAttic*/ GeneralInfo generalInfo) {
         chooseItem("MainInfo", 1).$(".inline-flex-w50__cell").sibling(0)
-                .$(".object-creating-form__form-input").setValue(numberOfFloors.toString());
-        if (isElevator & numberOfFloors > 2) {
+                .$(".object-creating-form__form-input").setValue(generalInfo.getNumberOfFloors().toString());
+        if (generalInfo.isElevator() & generalInfo.getNumberOfFloors() > 2) {
             chooseItem("MainInfo", 2).$(".col-sm-12").sibling(0)
+                    .$(".sc-checkbox").click();
+        }
+        if (generalInfo.isAttic() & generalInfo.getFloorOfFlat() > 1 & generalInfo.getFloorOfFlat().equals(generalInfo.getNumberOfFloors())) {
+            chooseItem("MainInfo", 2).$(".object-creating-form__attic")
                     .$(".sc-checkbox").click();
         }
         return this;

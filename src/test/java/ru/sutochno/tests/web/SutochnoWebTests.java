@@ -79,13 +79,12 @@ public class SutochnoWebTests extends TestBase {
     @Tag("newAdvertisement")
     @DisplayName("Создание объявления о сдаче квартиры/апартаментов/студии от зарегистрированного пользователя")
     void makeAdvertisementUiTest() {
+        AddNewAdvertisement addNewAdvertisement = new AddNewAdvertisement();
+
         mainPage
                 .authorization(new Cookie("_me_", data.AUTH_COOKIE), Project.config.userName())
                 .openUsersAdvertisements()
                 .createNewAdvertisement();
-
-        AddNewAdvertisement addNewAdvertisement = new AddNewAdvertisement();
-
         step("Создаём новое объявление", () -> addNewAdvertisement
                 .chooseFlat()
                 .chooseTitle(generalInfo.getType().getName())
@@ -110,7 +109,7 @@ public class SutochnoWebTests extends TestBase {
                 .conveniencesInBathroom(BathroomEquipment.BATHROBE.getName())
                 .squareOfFlat(generalInfo.getSquare())
                 .floorOfFlat(generalInfo.getFloorOfFlat(), generalInfo.isAttic())
-                .numberOfFloors(generalInfo.getNumberOfFloors(), generalInfo.isElevator())
+                .numberOfFloors(generalInfo)
                 .typeOfKitchen(kitchenType.getValue())
                 .typeOfRepairment(repairmentQuality.getValue())
                 .toNextStep()
