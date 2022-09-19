@@ -51,7 +51,7 @@ public class TestBase {
     public RepairmentQuality repairmentQuality = RepairmentQuality.DISINER;
     public Sanitation sanitation = new Sanitation(faker);
     //todo - показать, что свойство "линолеум" в коде сайта "Линолеум" и естли оно тру как есть то не работает
-    public Equipment equipment = new Equipment(faker);
+    public Equipment equipment = new Equipment(faker, generalInfo);
     public Address address = new Address(faker);
     public Description description = new Description(faker);
     public Transfer transfer = new Transfer(faker);

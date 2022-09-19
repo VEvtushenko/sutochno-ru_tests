@@ -7,7 +7,6 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 
 public class AddNewAdvertisement {
     @Step("Выбираем тип сдаваемого помещения: квартира/апартаменты/студия")
@@ -19,7 +18,6 @@ public class AddNewAdvertisement {
 
     @Step("Выберите заголовок объявления")
     public AddNewAdvertisement chooseTitle(String title) {
-//        sleep(10000);
         $(".animation-active").shouldHave(text(title), Duration.ofSeconds(30));
         $(".animation-active").$(byText(title)).click();
         return this;

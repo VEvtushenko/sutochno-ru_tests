@@ -151,24 +151,18 @@ public class AddAdvertisementInfo {
         return this;
     }
 
-    @Step("Ввести этаж квартиры")
-    public AddAdvertisementInfo floorOfFlat(Integer floorOfFlat, boolean isAttic) {
-        chooseItem("MainInfo", 1).$(".sc-select").selectOption(floorOfFlat + 1);
 //        todo work selector attic
-        return this;
-    }
 
-    @Step("Ввести этажность дома, есть ли лифт и в мансарде ли квартира")
-    public AddAdvertisementInfo numberOfFloors(/*Integer numberOfFloors, boolean isElevator, Integer floorOfFlat, boolean isAttic*/ GeneralInfo generalInfo) {
-        chooseItem("MainInfo", 1).$(".inline-flex-w50__cell").sibling(0)
-                .$(".object-creating-form__form-input").setValue(generalInfo.getNumberOfFloors().toString());
+    @Step("Ввести этажность дома, этаж квартиры, есть ли лифт и в мансарде ли квартира")
+    public AddAdvertisementInfo floorAndElevator(GeneralInfo generalInfo) {
+        $("[data='MainInfo'").$("[name='floor']").selectOption(generalInfo.getFloorOfFlat() + 1);
+        $("[data='MainInfo'").$("[name='max_floor']").setValue(generalInfo.getNumberOfFloors().toString());
         if (generalInfo.isElevator() & generalInfo.getNumberOfFloors() > 2) {
-            chooseItem("MainInfo", 2).$(".col-sm-12").sibling(0)
-                    .$(".sc-checkbox").click();
+            $("[data='MainInfo'").$(byText("лифт")).click();
         }
         if (generalInfo.isAttic() & generalInfo.getFloorOfFlat() > 1 & generalInfo.getFloorOfFlat().equals(generalInfo.getNumberOfFloors())) {
-            chooseItem("MainInfo", 2).$(".object-creating-form__attic")
-                    .$(".sc-checkbox").click();
+            $("[data='MainInfo'").$(byText("мансарда")).click();
+
         }
         return this;
     }
@@ -197,25 +191,24 @@ public class AddAdvertisementInfo {
 
     @Step("Ввести вид из окон")
     public AddAdvertisementInfo chooseView(String view) {
-        $("[data='Facilities']").$(".object-creating-form")
-                .sibling(0).$(".row").sibling(0).$(byText(view)).click();
+        $("[data='Facilities']").$(".object-creating-form--main-info").$(byText(view)).click();
         return this;
     }
 
     @Step("Выберем удобства")
     public AddAdvertisementInfo equipments(String name, Map<String, Boolean> equipment) {
         step("Нажать развернуть список", () ->
-            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click());
+            $("[data='Facilities']").$(".toggle-block__btn:not(.active)").click());
             for (HashMap.Entry<String, Boolean> entry : equipment.entrySet()) {
                 String equipmentName = entry.getKey();
                 Boolean equipmentTrue = entry.getValue();
                 if (equipmentTrue) {
                     step("Выбрать " + equipmentName, () ->
-                            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(byText(equipmentName)).click());
+                            $("[data='Facilities']").$(byText(equipmentName)).click());
                 }
         }
         step("Нажать свернуть список", () ->
-            $("[data='Facilities']").$(byText(name)).parent().parent().parent().$(".toggle-block__btn").click());
+            $("[data='Facilities']").$("[class='toggle-block__btn active'").click());
         return this;
     }
 
