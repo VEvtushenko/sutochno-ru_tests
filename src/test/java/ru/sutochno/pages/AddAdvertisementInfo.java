@@ -3,6 +3,7 @@ package ru.sutochno.pages;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import ru.sutochno.base.domain.adverticement.general.GeneralInfo;
 
 import java.io.File;
@@ -153,13 +154,13 @@ public class AddAdvertisementInfo {
 
 //        todo work selector attic
 
-    @Step("Ввести этажность дома, этаж квартиры, есть ли лифт и в мансарде ли квартира")
+    @Step("Ввести этажность дома, этаж квартиры и в мансарде ли квартира")
     public AddAdvertisementInfo floorAndElevator(GeneralInfo generalInfo) {
         $("[data='MainInfo'").$("[name='floor']").selectOption(generalInfo.getFloorOfFlat() + 1);
         $("[data='MainInfo'").$("[name='max_floor']").setValue(generalInfo.getNumberOfFloors().toString());
-        if (generalInfo.isElevator() & generalInfo.getNumberOfFloors() > 2) {
-            $("[data='MainInfo'").$(byText("лифт")).click();
-        }
+//        if (generalInfo.isElevator() & generalInfo.getNumberOfFloors() > 2) {
+//            $("[data='MainInfo'").$(byText("лифт")).click();
+//        } Лифт укажем в удобствах
         if (generalInfo.isAttic() & generalInfo.getFloorOfFlat() > 1 & generalInfo.getFloorOfFlat().equals(generalInfo.getNumberOfFloors())) {
             $("[data='MainInfo'").$(byText("мансарда")).click();
 
@@ -198,7 +199,8 @@ public class AddAdvertisementInfo {
     @Step("Выберем удобства")
     public AddAdvertisementInfo equipments(String name, Map<String, Boolean> equipment) {
         step("Нажать развернуть список", () ->
-            $("[data='Facilities']").$(".toggle-block__btn:not(.active)").click());
+                    $(By.xpath("//span[contains(@class, 'toggle-block__btn') and text()='развернуть список']")).click()
+        );
             for (HashMap.Entry<String, Boolean> entry : equipment.entrySet()) {
                 String equipmentName = entry.getKey();
                 Boolean equipmentTrue = entry.getValue();
@@ -207,8 +209,8 @@ public class AddAdvertisementInfo {
                             $("[data='Facilities']").$(byText(equipmentName)).click());
                 }
         }
-        step("Нажать свернуть список", () ->
-            $("[data='Facilities']").$("[class='toggle-block__btn active'").click());
+// todo       step("Нажать свернуть список", () ->
+//                $(By.xpath("//span[contains(@class, 'toggle-block__btn active') and text()='свернуть список']")).click());
         return this;
     }
 
@@ -226,7 +228,7 @@ public class AddAdvertisementInfo {
 
     @Step("Заголовок объекта")
     public AddAdvertisementInfo inputAdvertisementName(String name) {
-        $(".object-creating-form__form-title").shouldHave(text("Заголовок объекта"), Duration.ofSeconds(30));
+        $(".object-creating-form__form-title").shouldHave(text("Заголовок"), Duration.ofSeconds(30));
         $("[data='NameObject']").$(".name__item").$(".sc-input--elem").setValue(name);
         return this;
     }
@@ -283,13 +285,13 @@ public class AddAdvertisementInfo {
     @Step("Время заезда")
     public AddAdvertisementInfo checkInTime(String checkInTime) {
         $(".object-creating-form__form-title").shouldHave(text("Заезд / отъезд"), Duration.ofSeconds(30));
-        chooseItem("CheckInCheckOut", 1).$(".sc-select").selectOption(checkInTime);
+        $("[name='check_in']").selectOptionByValue(checkInTime);
         return this;
     }
 
     @Step("Время отъезда")
     public AddAdvertisementInfo checkOutTime(String checkOutTime) {
-        chooseItem("CheckInCheckOut", 2).$(".sc-select").selectOption(checkOutTime);
+        $("[name='check_out']").selectOptionByValue(checkOutTime);
         return this;
     }
 
@@ -310,7 +312,7 @@ public class AddAdvertisementInfo {
 
     @Step("Выбираем промежуток от бронирования до заселения")
     public AddAdvertisementInfo bookingGap(Integer bookingGap) {
-        $(".object-creating-form__form-title").shouldHave(text("Сроки бронирования"), Duration.ofSeconds(30));
+        $(".object-creating-form__form-title").shouldHave(text("Настройки мгновенного бронирования"), Duration.ofSeconds(30));
         $("[data='BookingDate']").$(".booking-date__line").$(".sc-select").selectOption(bookingGap);
         return this;
     }
